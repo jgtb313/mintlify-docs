@@ -1,0 +1,68 @@
+---
+title: "OAuth Authorize"
+api: "POST /auth/oauth/authorize"
+description: "Initiate an OAuth authorization."
+authMethod: "none"
+---
+
+Generates an OAuth authorization URL.
+
+## Request Body
+
+<ParamField body="provider" type="string" required>
+  OAuth provider. One of: `GoogleOAuth`, `MicrosoftOAuth`.
+</ParamField>
+
+<ParamField body="redirectUri" type="string" required>
+  The URI to redirect to after OAuth completion.
+</ParamField>
+
+<ParamField body="state" type="string">
+  Optional state parameter for CSRF protection.
+</ParamField>
+
+## Response
+
+<ResponseField name="authorizationUrl" type="string">
+  The OAuth provider authorization URL.
+</ResponseField>
+
+<ResponseField name="state" type="string">
+  The state parameter (generated if not provided).
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth?...",
+  "state": "abc123"
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `500` | `internal_server_error` | An unexpected error occurred |

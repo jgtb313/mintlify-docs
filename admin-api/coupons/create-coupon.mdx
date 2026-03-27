@@ -1,0 +1,115 @@
+---
+title: "Create Coupon"
+api: "POST /coupons"
+description: "Create a coupon."
+---
+<Info>Requires `coupon:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="code" type="string" required>Unique code. Max 40 chars.</ParamField>
+<ParamField body="name" type="string" required>Display name. Max 255 chars.</ParamField>
+<ParamField body="type" type="string" required>Discount type. One of: `FIXED`, `PERCENTAGE`.</ParamField>
+<ParamField body="amount" type="integer" required>Discount amount. For FIXED: cents. For PERCENTAGE: percent value.</ParamField>
+<ParamField body="duration" type="string" required>One of: `ONCE` (single invoice), `REPEATING` (multiple cycles).</ParamField>
+<ParamField body="durationInMonths" type="integer">Required if duration is `REPEATING`.</ParamField>
+<ParamField body="maxRedemptions" type="integer">Maximum total redemptions.</ParamField>
+<ParamField body="redeemBy" type="string">ISO 8601 date after which the coupon expires.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+
+## Response
+
+<ResponseField name="couponId" type="string">Coupon UUID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="code" type="string">Coupon code.</ResponseField>
+<ResponseField name="name" type="string">Coupon name.</ResponseField>
+<ResponseField name="type" type="string">Discount type.</ResponseField>
+<ResponseField name="amount" type="integer">Discount amount.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="duration" type="string">Duration type.</ResponseField>
+<ResponseField name="durationInMonths" type="integer">Duration in months.</ResponseField>
+<ResponseField name="maxRedemptions" type="integer">Maximum redemptions.</ResponseField>
+<ResponseField name="redeemBy" type="string">Expiration date.</ResponseField>
+<ResponseField name="timesRedeemed" type="integer">Times redeemed.</ResponseField>
+<ResponseField name="amountRedeemed" type="integer">Total amount redeemed.</ResponseField>
+<ResponseField name="status" type="string">Coupon status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+<ResponseField name="deletedBy" type="string">Deleter identifier.</ResponseField>
+<ResponseField name="deletedAt" type="string">Deletion timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+  "externalRef": null,
+  "code": "SAVE20",
+  "name": "Save 20%",
+  "type": "PERCENTAGE",
+  "amount": 20,
+  "currency": "BRL",
+  "duration": "ONCE",
+  "durationInMonths": null,
+  "maxRedemptions": null,
+  "redeemBy": null,
+  "timesRedeemed": 0,
+  "amountRedeemed": 0,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z",
+  "deletedBy": null,
+  "deletedAt": null
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "coupon.code_already_exists"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `409` | `coupon.code_already_exists` | Coupon code is already in use |
+| `500` | `internal_server_error` | An unexpected error occurred |

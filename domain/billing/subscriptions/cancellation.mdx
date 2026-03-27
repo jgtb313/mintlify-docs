@@ -1,0 +1,20 @@
+---
+title: "Subscription Cancellation"
+description: "Cancellation flow with partial failure handling."
+---
+
+## Flow
+
+1. Cancel Stripe plan subscription
+2. Cancel Stripe fee subscription (if exists)
+3. Status transitions to `CANCELLED`
+
+## Partial Failures
+
+If a Stripe cancellation fails, the subscription transitions to `CANCELLATION_PENDING` and the failure is recorded in a dedicated CancellationIssue table.
+
+## Effects
+
+- Organization `subscriptionId` set to `null`
+- New costs are no longer recorded
+- Active SubscriptionCoupons transition to `ENDED`

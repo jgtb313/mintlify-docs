@@ -1,0 +1,28 @@
+---
+title: "Exchange Rates"
+description: "Multi-currency exchange rate management."
+---
+
+## Providers
+
+| Provider | Description |
+|----------|-------------|
+| `PTAX_API` | Brazilian Central Bank (PTAX) — primary for BRL rates |
+| `EXCHANGE_RATE_API` | ExchangeRateAPI — secondary/fallback |
+| `MANUAL` | Manually entered rates — final fallback |
+
+## Rate Lookup
+
+When an exchange rate is needed:
+1. Check for today's rate for the source → target currency pair
+2. If not found, fetch from PTAX API
+3. If PTAX fails, fetch from ExchangeRateAPI
+4. If both fail, use the latest MANUAL rate
+
+## Storage
+
+Rates are stored with a unique constraint on `(date, source, target)`. This ensures one rate per currency pair per day.
+
+## Usage
+
+Exchange rates are used in [Cost Recording](/domain/billing/costs/cost-recording) to convert token amounts from the token's currency to the organization's currency.

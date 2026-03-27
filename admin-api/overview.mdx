@@ -1,0 +1,34 @@
+---
+title: "Overview"
+description: "The Admin API provides administrative endpoints for managing the AWSales platform."
+---
+
+The Admin API is the internal interface for platform administrators. It provides full CRUD operations for users, organizations, plans, subscriptions, billing, and more.
+
+## Base URL
+
+```
+https://adm.api.awsales.io
+```
+
+## Authentication
+
+All endpoints require a valid JWT access token. See [Auth](/admin-api/auth/send-otp) for details on admin authentication.
+
+## Available Resources
+
+| Resource | Description |
+|----------|-------------|
+| [Users](/admin-api/users/list-users) | User management |
+| [Organizations](/admin-api/organizations/list-organizations) | Organization management (CRUD) |
+| [Invitations](/admin-api/invitations/list-invitations) | Invitation management |
+| [Roles](/admin-api/roles/list-roles) | Role management (CRUD) |
+| [Permissions](/admin-api/permissions/list-permissions) | Permission management |
+| [Plans](/admin-api/plans/list-plans) | Plan management (full lifecycle) |
+| [Subscriptions](/admin-api/subscriptions/list-subscriptions) | Subscription management |
+| [Invoices](/admin-api/invoices/list-invoices) | Invoice management with payment actions |
+| [Billing Thresholds](/admin-api/billing-thresholds/list-billing-thresholds) | Billing threshold management |
+| [Coupons](/admin-api/coupons/list-coupons) | Coupon management (CRUD) |
+| [Vouchers](/admin-api/vouchers/list-vouchers) | Voucher/credit management (CRUD) |
+| [Fees](/admin-api/fees/list-fees) | Usage fee management |
+| [Tokens](/admin-api/tokens/list-tokens) | Token type management |

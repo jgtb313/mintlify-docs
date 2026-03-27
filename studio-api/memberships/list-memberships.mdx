@@ -1,0 +1,111 @@
+---
+title: "List Memberships"
+api: "GET /organizations/{organizationId}/memberships"
+description: "List memberships."
+---
+
+Returns a list of memberships.
+
+<Info>Requires `memberships:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="previousCursor" type="string">
+  Cursor for the previous page.
+</ParamField>
+
+<ParamField query="nextCursor" type="string">
+  Cursor for the next page.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Number of results per page. Default: 20.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of membership objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "membershipId": "om_01HQZC8G2T9YX5J8VQBW3KPQR7",
+      "userId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "role": {
+        "slug": "admin"
+      },
+      "status": "ACTIVE",
+      "createdAt": "2026-01-15T10:00:00.000Z",
+      "updatedAt": "2026-01-15T10:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "hasMore": false,
+    "limit": 10
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

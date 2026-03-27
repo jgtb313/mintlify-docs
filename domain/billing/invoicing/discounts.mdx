@@ -1,0 +1,27 @@
+---
+title: "Discounts"
+description: "How coupons and vouchers apply to invoices."
+---
+
+## Coupon Discounts
+
+Coupons are applied to invoices based on their duration:
+- **ONCE**: Applied to a single invoice
+- **REPEATING**: Applied to each invoice for `durationInMonths` billing cycles
+
+Discount calculation:
+- **FIXED**: Absolute amount deducted (in cents)
+- **PERCENTAGE**: Percentage of invoice total
+
+Each application creates a `CouponUsage` record.
+
+## Voucher Discounts
+
+Vouchers (billing credits) are automatically applied to invoices by Stripe:
+- Credits deducted from the voucher balance
+- Each application creates a `VoucherUsage` record
+- Optional fee restrictions limit credits to specific fee invoices
+
+## Combined Discounts
+
+Invoices can have both coupon and voucher discounts. The total `discountAmount` is the sum of all applied discounts.

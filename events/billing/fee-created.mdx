@@ -1,0 +1,91 @@
+---
+title: "fee.created"
+description: "Published when a new usage-based fee is created."
+---
+
+## Event Details
+
+| Property | Value |
+|----------|-------|
+| **Type** | `fee.created` |
+
+## Payload Schema
+
+<ResponseField name="feeId" type="string (UUID v7)" required>
+  UUID v7 identifier.
+</ResponseField>
+
+<ResponseField name="externalProductRef" type="string" required>
+  External product reference.
+</ResponseField>
+
+<ResponseField name="externalPriceRef" type="string" required>
+  External price reference.
+</ResponseField>
+
+<ResponseField name="externalBillingMeterRef" type="string" required>
+  External billing meter reference.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Fee name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Fee description.
+</ResponseField>
+
+<ResponseField name="eventName" type="string" required>
+  Unique event name associated with the fee.
+</ResponseField>
+
+<ResponseField name="currency" type="string" required>
+  Fee currency (`USD`, `BRL`, `EUR`).
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Fee status: `PENDING`, `ACTIVE`, or `INACTIVE`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string (UUID)" required>
+  User who created the fee.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string (ISO 8601)" required>
+  Creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string (UUID)" required>
+  User who last updated the fee.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string (ISO 8601)" required>
+  Last update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "specversion": "1.0",
+  "type": "fee.created",
+  "id": "evt_0195f3a2-7b8c-7d9e-a0b1-c2d3e4f56789",
+  "time": "2026-03-25T14:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "feeId": "0195f3a2-7b8c-7d9e-a0b1-c2d3e4f56789",
+    "externalProductRef": "prod_abc123",
+    "externalPriceRef": "price_def456",
+    "externalBillingMeterRef": "mbm_ghi789",
+    "name": "API Request Fee",
+    "description": "Fee charged per API request",
+    "eventName": "api_request",
+    "currency": "BRL",
+    "status": "ACTIVE",
+    "createdBy": "0195f3a2-8c00-7d4e-b806-6f7a8b9c0d1e",
+    "createdAt": "2026-03-25T14:00:00Z",
+    "updatedBy": "0195f3a2-8c00-7d4e-b806-6f7a8b9c0d1e",
+    "updatedAt": "2026-03-25T14:00:00Z"
+  }
+}
+```
+</ResponseExample>

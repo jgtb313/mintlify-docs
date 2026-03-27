@@ -1,0 +1,69 @@
+---
+title: "Sign In Magic Auth"
+api: "POST /auth/sign-in/magic-auth"
+description: "Complete passwordless sign-in."
+authMethod: "none"
+---
+
+Completes the passwordless sign-in.
+
+## Request Body
+
+<ParamField body="otpId" type="string" required>
+  The OTP request identifier.
+</ParamField>
+
+<ParamField body="code" type="string" required>
+  The verified OTP code.
+</ParamField>
+
+## Response
+
+<ResponseField name="accessToken" type="string">
+  JWT access token.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  Refresh token.
+</ResponseField>
+
+<ResponseField name="expiresIn" type="integer">
+  Access token expiration in seconds.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4...",
+  "expiresIn": 3600
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `500` | `internal_server_error` | An unexpected error occurred |

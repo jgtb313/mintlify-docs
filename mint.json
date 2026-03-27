@@ -1,0 +1,582 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "AWSales Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#1B76F2",
+    "light": "#1B76F2",
+    "dark": "#1B76F2",
+    "anchors": {
+      "from": "#1B76F2",
+      "to": "#1B76F2"
+    }
+  },
+  "theme": "venus",
+  "tabs": [
+    { "name": "Guides", "url": "guides" },
+    { "name": "Studio API", "url": "studio-api" },
+    { "name": "Admin API", "url": "admin-api" },
+    { "name": "Events", "url": "events" },
+    { "name": "Scheduler", "url": "schedulers" },
+    { "name": "Data Modeling", "url": "data-modeling" },
+    { "name": "Domain", "url": "domain" }
+  ],
+  "navigation": [
+    {
+      "group": "Introduction",
+      "pages": [
+        "guides/overview"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "studio-api/overview",
+        "studio-api/errors"
+      ]
+    },
+    {
+      "group": "Health",
+      "pages": [
+        "studio-api/health/health-check",
+        "studio-api/health/readiness-check"
+      ]
+    },
+    {
+      "group": "Auth",
+      "pages": [
+        "studio-api/auth/sign-up",
+        "studio-api/auth/sign-in",
+        "studio-api/auth/sign-in-magic-auth",
+        "studio-api/auth/email-verification",
+        "studio-api/auth/sign-out",
+        "studio-api/auth/reset-password",
+        "studio-api/auth/oauth-authorize",
+        "studio-api/auth/oauth-callback"
+      ]
+    },
+    {
+      "group": "OTP",
+      "pages": [
+        "studio-api/otp/send-otp",
+        "studio-api/otp/verify-otp"
+      ]
+    },
+    {
+      "group": "Profile",
+      "pages": [
+        "studio-api/profile/get-profile",
+        "studio-api/profile/switch-organization"
+      ]
+    },
+    {
+      "group": "Memberships",
+      "pages": [
+        "studio-api/memberships/the-membership-object",
+        "studio-api/memberships/list-memberships",
+        "studio-api/memberships/get-membership",
+        "studio-api/memberships/create-membership",
+        "studio-api/memberships/update-membership",
+        "studio-api/memberships/deactivate-membership",
+        "studio-api/memberships/reactivate-membership"
+      ]
+    },
+    {
+      "group": "Invitations",
+      "pages": [
+        "studio-api/invitations/the-invitation-object",
+        "studio-api/invitations/list-invitations",
+        "studio-api/invitations/send-invitation",
+        "studio-api/invitations/resend-invitation",
+        "studio-api/invitations/revoke-invitation"
+      ]
+    },
+    {
+      "group": "Roles",
+      "pages": [
+        "studio-api/roles/the-role-object",
+        "studio-api/roles/list-roles",
+        "studio-api/roles/get-role",
+        "studio-api/roles/create-role",
+        "studio-api/roles/update-role",
+        "studio-api/roles/delete-role"
+      ]
+    },
+    {
+      "group": "Permissions",
+      "pages": [
+        "studio-api/permissions/the-permission-object",
+        "studio-api/permissions/list-permissions"
+      ]
+    },
+    {
+      "group": "Plans",
+      "pages": [
+        "studio-api/plans/the-plan-object",
+        "studio-api/plans/list-plans"
+      ]
+    },
+    {
+      "group": "Subscriptions",
+      "pages": [
+        "studio-api/subscriptions/the-subscription-object",
+        "studio-api/subscriptions/get-subscription",
+        "studio-api/subscriptions/create-subscription",
+        "studio-api/subscriptions/get-upcoming-invoice"
+      ]
+    },
+    {
+      "group": "Invoices",
+      "pages": [
+        "studio-api/invoices/the-invoice-object",
+        "studio-api/invoices/list-invoices",
+        "studio-api/invoices/get-invoice",
+        "studio-api/invoices/pay-invoice",
+        "studio-api/invoices/reissue-payment"
+      ]
+    },
+    {
+      "group": "Payment Methods",
+      "pages": [
+        "studio-api/payment-methods/the-payment-method-object",
+        "studio-api/payment-methods/list-payment-methods",
+        "studio-api/payment-methods/create-payment-method",
+        "studio-api/payment-methods/update-payment-method",
+        "studio-api/payment-methods/delete-payment-method",
+        "studio-api/payment-methods/set-default"
+      ]
+    },
+    {
+      "group": "Coupons",
+      "pages": [
+        "studio-api/coupons/the-coupon-object",
+        "studio-api/coupons/the-coupon-usage-object",
+        "studio-api/coupons/list-coupon-usages",
+        "studio-api/coupons/check-availability"
+      ]
+    },
+    {
+      "group": "Vouchers",
+      "pages": [
+        "studio-api/vouchers/the-voucher-object",
+        "studio-api/vouchers/the-voucher-usage-object",
+        "studio-api/vouchers/list-vouchers",
+        "studio-api/vouchers/list-voucher-usages"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "admin-api/overview",
+        "admin-api/errors"
+      ]
+    },
+    {
+      "group": "Health",
+      "pages": [
+        "admin-api/health/health-check",
+        "admin-api/health/readiness-check"
+      ]
+    },
+    {
+      "group": "Auth",
+      "pages": [
+        "admin-api/auth/sign-in"
+      ]
+    },
+    {
+      "group": "OTP",
+      "pages": [
+        "admin-api/otp/send-otp",
+        "admin-api/otp/validate-otp"
+      ]
+    },
+    {
+      "group": "Users",
+      "pages": [
+        "admin-api/users/the-user-object",
+        "admin-api/users/list-users",
+        "admin-api/users/get-user",
+        "admin-api/users/update-user",
+        "admin-api/users/delete-user"
+      ]
+    },
+    {
+      "group": "Organizations",
+      "pages": [
+        "admin-api/organizations/the-organization-object",
+        "admin-api/organizations/list-organizations",
+        "admin-api/organizations/get-organization",
+        "admin-api/organizations/create-organization",
+        "admin-api/organizations/update-organization",
+        "admin-api/organizations/delete-organization"
+      ]
+    },
+    {
+      "group": "Offboarding",
+      "pages": [
+        "admin-api/offboarding/the-offboarding-request-object",
+        "admin-api/offboarding/the-offboarding-event-object",
+        "admin-api/offboarding/create-offboarding-request",
+        "admin-api/offboarding/retain-offboarding-request",
+        "admin-api/offboarding/finalize-offboarding-cancellation",
+        "admin-api/offboarding/list-offboarding-requests",
+        "admin-api/offboarding/get-offboarding-request"
+      ]
+    },
+    {
+      "group": "Invitations",
+      "pages": [
+        "admin-api/invitations/the-invitation-object",
+        "admin-api/invitations/list-invitations",
+        "admin-api/invitations/send-invitation",
+        "admin-api/invitations/resend-invitation",
+        "admin-api/invitations/revoke-invitation"
+      ]
+    },
+    {
+      "group": "Roles",
+      "pages": [
+        "admin-api/roles/the-role-object",
+        "admin-api/roles/list-roles",
+        "admin-api/roles/get-role",
+        "admin-api/roles/create-role",
+        "admin-api/roles/update-role",
+        "admin-api/roles/delete-role"
+      ]
+    },
+    {
+      "group": "Permissions",
+      "pages": [
+        "admin-api/permissions/the-permission-object",
+        "admin-api/permissions/list-permissions",
+        "admin-api/permissions/get-permission"
+      ]
+    },
+    {
+      "group": "Plans",
+      "pages": [
+        "admin-api/plans/the-plan-object",
+        "admin-api/plans/list-plans",
+        "admin-api/plans/get-plan",
+        "admin-api/plans/create-plan",
+        "admin-api/plans/update-plan",
+        "admin-api/plans/deactivate-plan",
+        "admin-api/plans/reactivate-plan",
+        "admin-api/plans/delete-plan",
+        "admin-api/plans/create-plan-interval",
+        "admin-api/plans/deactivate-plan-interval",
+        "admin-api/plans/reactivate-plan-interval",
+        "admin-api/plans/delete-plan-interval"
+      ]
+    },
+    {
+      "group": "Subscriptions",
+      "pages": [
+        "admin-api/subscriptions/the-subscription-object",
+        "admin-api/subscriptions/get-subscription",
+        "admin-api/subscriptions/attach-coupon",
+        "admin-api/subscriptions/detach-coupon",
+        "admin-api/subscriptions/update-billing-threshold"
+      ]
+    },
+    {
+      "group": "Invoices",
+      "pages": [
+        "admin-api/invoices/the-invoice-object",
+        "admin-api/invoices/list-invoices",
+        "admin-api/invoices/get-invoice",
+        "admin-api/invoices/pay-invoice",
+        "admin-api/invoices/reissue-payment"
+      ]
+    },
+    {
+      "group": "Payment Methods",
+      "pages": [
+        "admin-api/payment-methods/the-payment-method-object",
+        "admin-api/payment-methods/list-payment-methods",
+        "admin-api/payment-methods/get-payment-method"
+      ]
+    },
+    {
+      "group": "Billing Thresholds",
+      "pages": [
+        "admin-api/billing-thresholds/the-billing-threshold-object",
+        "admin-api/billing-thresholds/list-billing-thresholds",
+        "admin-api/billing-thresholds/get-billing-threshold",
+        "admin-api/billing-thresholds/create-billing-threshold",
+        "admin-api/billing-thresholds/update-billing-threshold",
+        "admin-api/billing-thresholds/deactivate-billing-threshold",
+        "admin-api/billing-thresholds/reactivate-billing-threshold",
+        "admin-api/billing-thresholds/delete-billing-threshold"
+      ]
+    },
+    {
+      "group": "Coupons",
+      "pages": [
+        "admin-api/coupons/the-coupon-object",
+        "admin-api/coupons/the-coupon-usage-object",
+        "admin-api/coupons/list-coupons",
+        "admin-api/coupons/get-coupon",
+        "admin-api/coupons/list-coupon-usages",
+        "admin-api/coupons/create-coupon",
+        "admin-api/coupons/update-coupon",
+        "admin-api/coupons/delete-coupon",
+        "admin-api/coupons/check-availability"
+      ]
+    },
+    {
+      "group": "Vouchers",
+      "pages": [
+        "admin-api/vouchers/the-voucher-object",
+        "admin-api/vouchers/the-voucher-usage-object",
+        "admin-api/vouchers/list-vouchers",
+        "admin-api/vouchers/get-voucher",
+        "admin-api/vouchers/list-voucher-usages",
+        "admin-api/vouchers/create-voucher",
+        "admin-api/vouchers/update-voucher",
+        "admin-api/vouchers/delete-voucher"
+      ]
+    },
+    {
+      "group": "Fees",
+      "pages": [
+        "admin-api/fees/the-fee-object",
+        "admin-api/fees/list-fees",
+        "admin-api/fees/get-fee",
+        "admin-api/fees/create-fee",
+        "admin-api/fees/update-fee",
+        "admin-api/fees/deactivate-fee",
+        "admin-api/fees/reactivate-fee",
+        "admin-api/fees/delete-fee"
+      ]
+    },
+    {
+      "group": "Tokens",
+      "pages": [
+        "admin-api/tokens/the-token-object",
+        "admin-api/tokens/list-tokens",
+        "admin-api/tokens/get-token",
+        "admin-api/tokens/create-token",
+        "admin-api/tokens/update-token",
+        "admin-api/tokens/deactivate-token",
+        "admin-api/tokens/reactivate-token",
+        "admin-api/tokens/delete-token"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "events/overview"
+      ]
+    },
+    {
+      "group": "Billing — Cost",
+      "pages": [
+        "events/billing/cost-requested"
+      ]
+    },
+    {
+      "group": "Billing — Fee",
+      "pages": [
+        "events/billing/fee-created"
+      ]
+    },
+    {
+      "group": "Billing — Subscription",
+      "pages": [
+        "events/billing/subscription-past-due",
+        "events/billing/subscription-reactivated"
+      ]
+    },
+    {
+      "group": "Billing — Invoice",
+      "pages": [
+        "events/billing/invoice-paid",
+        "events/billing/invoice-failed"
+      ]
+    },
+    {
+      "group": "Billing — Webhook",
+      "pages": [
+        "events/billing/webhook-received"
+      ]
+    },
+    {
+      "group": "Offboarding",
+      "pages": [
+        "events/offboarding/offboarding-retention-expired"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "schedulers/overview"
+      ]
+    },
+    {
+      "group": "Cost",
+      "pages": [
+        "schedulers/cost-settlement-dispatcher",
+        "schedulers/cost-settlement-processor"
+      ]
+    },
+    {
+      "group": "Offboarding",
+      "pages": [
+        "schedulers/offboarding-retention-expiration"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "domain/overview"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "data-modeling/overview",
+        "data-modeling/erd"
+      ]
+    },
+    {
+      "group": "IAM",
+      "pages": [
+        "data-modeling/iam/user",
+        "data-modeling/iam/organization",
+        "data-modeling/iam/role",
+        "data-modeling/iam/permission",
+        "data-modeling/iam/membership",
+        "data-modeling/iam/invitation"
+      ]
+    },
+    {
+      "group": "Billing",
+      "pages": [
+        "data-modeling/billing/plan",
+        "data-modeling/billing/subscription",
+
+        "data-modeling/billing/invoice",
+        "data-modeling/billing/cost",
+        "data-modeling/billing/fee",
+        "data-modeling/billing/token",
+        "data-modeling/billing/coupon",
+        "data-modeling/billing/voucher",
+        "data-modeling/billing/payment-method",
+        "data-modeling/billing/billing-threshold",
+        "data-modeling/billing/webhook",
+        "data-modeling/billing/exchange-rate"
+      ]
+    },
+    {
+      "group": "IAM",
+      "pages": [
+        "domain/iam/overview",
+        "domain/iam/architecture"
+      ]
+    },
+    {
+      "group": "IAM — Authentication",
+      "pages": [
+        "domain/iam/auth/flows",
+        "domain/iam/auth/sessions",
+        "domain/iam/auth/oauth",
+        "domain/iam/auth/otp"
+      ]
+    },
+    {
+      "group": "IAM — Authorization (RBAC)",
+      "pages": [
+        "domain/iam/rbac/overview",
+        "domain/iam/rbac/roles",
+        "domain/iam/rbac/environment-vs-organization"
+      ]
+    },
+    {
+      "group": "IAM — Multi-Tenancy",
+      "pages": [
+        "domain/iam/multi-tenancy/organizations",
+        "domain/iam/multi-tenancy/memberships",
+        "domain/iam/multi-tenancy/invitations"
+      ]
+    },
+    {
+      "group": "IAM — Identity Provider",
+      "pages": [
+        "domain/iam/identity-provider/workos-integration",
+        "domain/iam/identity-provider/jwt-tokens"
+      ]
+    },
+    {
+      "group": "Billing",
+      "pages": [
+        "domain/billing/overview",
+        "domain/billing/architecture"
+      ]
+    },
+    {
+      "group": "Billing — Subscription Lifecycle",
+      "pages": [
+        "domain/billing/subscriptions/lifecycle",
+        "domain/billing/subscriptions/creation",
+        "domain/billing/subscriptions/pausing",
+        "domain/billing/subscriptions/cancellation",
+        "domain/billing/subscriptions/past-due"
+      ]
+    },
+    {
+      "group": "Billing — Pricing Model",
+      "pages": [
+        "domain/billing/pricing/plans-and-intervals",
+        "domain/billing/pricing/fees-and-tokens",
+        "domain/billing/pricing/usage-based-billing"
+      ]
+    },
+    {
+      "group": "Billing — Invoicing",
+      "pages": [
+        "domain/billing/invoicing/invoice-lifecycle",
+        "domain/billing/invoicing/payment-methods",
+        "domain/billing/invoicing/discounts"
+      ]
+    },
+    {
+      "group": "Billing — Credits & Discounts",
+      "pages": [
+        "domain/billing/credits/coupons",
+        "domain/billing/credits/vouchers",
+        "domain/billing/credits/billing-thresholds"
+      ]
+    },
+    {
+      "group": "Billing — Stripe Integration",
+      "pages": [
+        "domain/billing/stripe/overview",
+        "domain/billing/stripe/product-sync",
+        "domain/billing/stripe/webhook-processing",
+        "domain/billing/stripe/customer-management"
+      ]
+    },
+    {
+      "group": "Billing — Cost Tracking",
+      "pages": [
+        "domain/billing/costs/cost-recording",
+        "domain/billing/costs/cost-batching",
+        "domain/billing/costs/exchange-rates"
+      ]
+    }
+  ],
+  "api": {
+    "auth": {
+      "method": "bearer"
+    }
+  },
+  "footerSocials": {
+    "github": "https://github.com/mambaculture"
+  }
+}

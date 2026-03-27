@@ -1,0 +1,37 @@
+---
+title: "Organizations"
+description: "Multi-tenant organization model."
+---
+
+## Overview
+
+Organizations are the **tenant unit** in AWSales. Each organization:
+- Has its own currency (`USD`, `BRL`, `EUR`)
+- Has its own Stripe customer
+- Has its own WorkOS organization
+- Has independent subscriptions, invoices, and billing
+
+## Creation
+
+Organization creation spans three systems:
+
+<Steps>
+  <Step title="Local Database">
+    Organization record created in PostgreSQL.
+  </Step>
+  <Step title="WorkOS">
+    Organization created in WorkOS for identity management.
+  </Step>
+  <Step title="Stripe">
+    Customer created in Stripe for billing.
+  </Step>
+</Steps>
+
+If any step fails, all previous steps are rolled back.
+
+## Organization Context
+
+Users must activate an organization to perform operations. The active organization is encoded in the JWT access token and determines:
+- Which resources the user can access
+- Which role applies
+- Which billing context is used

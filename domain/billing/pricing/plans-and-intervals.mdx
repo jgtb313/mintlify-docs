@@ -1,0 +1,30 @@
+---
+title: "Plans & Intervals"
+description: "How subscription plans and billing intervals work."
+---
+
+## Plans
+
+A Plan represents a subscription tier (e.g., Starter, Professional, Enterprise). Each plan has:
+- Name and description
+- Feature list with `INCLUDE`/`NOT_INCLUDE`/`DEFAULT` types
+- Optional `highlight` flag for UI emphasis
+- Status (`ACTIVE`/`INACTIVE`)
+
+## Plan Intervals
+
+Each plan has one or more intervals defining billing frequency and price:
+
+| Interval | Description |
+|----------|-------------|
+| `MONTHLY` | Billed every month |
+| `QUARTERLY` | Billed every 3 months |
+| `SEMIANNUALLY` | Billed every 6 months |
+| `YEARLY` | Billed every 12 months |
+
+Each interval has an `amount` in **cents** and a `currency`.
+
+## Stripe Sync
+
+- Plan → Stripe **Product**
+- PlanInterval → Stripe **Price** (linked to product)

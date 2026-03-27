@@ -1,0 +1,95 @@
+---
+title: "Switch Organization"
+api: "POST /profile/switch-organization"
+description: "Switch the active organization."
+---
+
+Switches the active organization context.
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="organizationId" type="string" required>
+  The UUID of the organization to switch to.
+</ParamField>
+
+## Response
+
+<ResponseField name="accessToken" type="string">
+  JWT access token scoped to the selected organization.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  New refresh token.
+</ResponseField>
+
+<ResponseField name="expiresIn" type="integer">
+  Access token expiration in seconds.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4...",
+  "expiresIn": 3600
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

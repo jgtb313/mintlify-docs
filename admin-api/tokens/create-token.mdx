@@ -1,0 +1,95 @@
+---
+title: "Create Token"
+api: "POST /tokens"
+description: "Create a token."
+---
+<Info>Requires `token:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>Token name. Max 255 chars.</ParamField>
+<ParamField body="description" type="string" required>Description.</ParamField>
+<ParamField body="type" type="string" required>
+  Token type. One of: `AUDIO_TO_TEXT`, `IMAGE_TO_TEXT`, `MEMORY`, `PLANNING`, `RESPONSE`, `RETRIEVAL`, `SUMMARY`, `TOOLS`, `TRANSCRIPTION`, `WEBSCRAPING`.
+</ParamField>
+<ParamField body="value" type="string" required>Decimal value per unit.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+
+## Response
+
+<ResponseField name="tokenId" type="string">Token UUID.</ResponseField>
+<ResponseField name="name" type="string">Token name.</ResponseField>
+<ResponseField name="description" type="string">Token description.</ResponseField>
+<ResponseField name="type" type="string">Token type.</ResponseField>
+<ResponseField name="value" type="string">Decimal value per unit.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Token status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "tokenId": "019525fd-f5cc-7dc1-c9e5-1f3a5b7d9e1b",
+  "name": "Planning Token",
+  "description": "LLM planning token",
+  "type": "PLANNING",
+  "value": "0.005",
+  "currency": "USD",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "token.name_type_currency_already_exists"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `409` | `token.name_type_currency_already_exists` | Token with same name, type, and currency already exists |
+| `500` | `internal_server_error` | An unexpected error occurred |

@@ -1,0 +1,108 @@
+---
+title: "List Permissions"
+api: "GET /permissions"
+description: "List permissions."
+---
+
+Returns a list of permissions.
+
+<Info>Requires `permissions:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="limit" type="integer">
+  Number of results per page.
+</ParamField>
+
+<ParamField query="previousCursor" type="string">
+  Cursor pointing to the previous page.
+</ParamField>
+
+<ParamField query="nextCursor" type="string">
+  Cursor pointing to the next page.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of permission objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "permissionId": "1",
+      "slug": "users:read",
+      "resource": "users",
+      "action": "read",
+      "name": "Read Users",
+      "description": "View user profiles and listings",
+      "system": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "permissionId": "2",
+      "slug": "users:write",
+      "resource": "users",
+      "action": "write",
+      "name": "Write Users",
+      "description": "Create, update, and delete users",
+      "system": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "hasMore": false,
+    "limit": 10
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

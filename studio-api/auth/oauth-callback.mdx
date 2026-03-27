@@ -1,0 +1,88 @@
+---
+title: "OAuth Callback"
+api: "POST /auth/oauth/callback"
+description: "Complete the OAuth flow."
+authMethod: "none"
+---
+
+Processes the OAuth callback.
+
+## Request Body
+
+<ParamField body="code" type="string" required>
+  The authorization code from the OAuth provider.
+</ParamField>
+
+<ParamField body="provider" type="string">
+  OAuth provider identifier.
+</ParamField>
+
+<ParamField body="state" type="string">
+  State parameter for verification.
+</ParamField>
+
+<ParamField body="invitationToken" type="string">
+  Optional invitation token to accept during OAuth sign-up.
+</ParamField>
+
+## Response
+
+<ResponseField name="accessToken" type="string">
+  JWT access token.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  Refresh token.
+</ResponseField>
+
+<ResponseField name="expiresIn" type="integer">
+  Access token expiration in seconds.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4...",
+  "expiresIn": 3600
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "auth.invalid_oauth_code",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `400` | `auth.invalid_oauth_code` | OAuth authorization code is invalid |
+| `500` | `internal_server_error` | An unexpected error occurred |
+
+## Special 403 Responses
+
+The OAuth callback may return `403` with specific sub-codes requiring additional action:
+
+| Code | Description | Action Required |
+|------|-------------|-----------------|
+| `auth.organization_selection_required` | User belongs to multiple organizations | Call [Switch Organization](/studio-api/profile/switch-organization) |
+| `auth.method_not_allowed` | Authentication method not allowed by organization | Use the correct auth flow |
+| `auth.invitation_required` | User must be invited before accessing the platform | Request an invitation |

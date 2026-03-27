@@ -1,0 +1,97 @@
+---
+title: "Get Plan"
+api: "GET /plans/{planId}"
+description: "Retrieve a plan by its ID."
+---
+
+<Info>Requires `plan:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="planId" type="string" required>Plan ID.</ParamField>
+
+## Response
+
+<ResponseField name="planId" type="string">Plan ID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="name" type="string">Plan name.</ResponseField>
+<ResponseField name="description" type="string">Plan description.</ResponseField>
+<ResponseField name="features" type="array">Plan features.</ResponseField>
+<ResponseField name="intervals" type="array">Billing intervals.</ResponseField>
+<ResponseField name="highlight" type="boolean">Whether the plan is highlighted.</ResponseField>
+<ResponseField name="status" type="string">Plan status.</ResponseField>
+<ResponseField name="createdBy" type="string">ID of the user who created the plan.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">ID of the user who last updated the plan.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+  "externalRef": "prod_stripe_abc",
+  "name": "Starter",
+  "description": "For small teams.",
+  "features": [
+    { "description": "Up to 5 users", "type": "INCLUDE" }
+  ],
+  "intervals": [
+    { "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a", "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f", "externalRef": "price_stripe_m1", "interval": "MONTHLY", "amount": 4900, "currency": "BRL", "status": "ACTIVE", "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "createdAt": "2026-01-01T00:00:00.000Z", "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "updatedAt": "2026-01-01T00:00:00.000Z" }
+  ],
+  "highlight": false,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-01-01T00:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "plan.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `plan.not_found` | Plan not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

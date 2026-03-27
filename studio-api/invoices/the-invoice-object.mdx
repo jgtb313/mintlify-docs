@@ -1,0 +1,154 @@
+---
+title: "The Invoice Object"
+---
+
+<ResponseField name="invoiceId" type="string">
+  The invoice unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID.
+</ResponseField>
+
+<ResponseField name="subscriptionId" type="string|null">
+  The associated subscription ID (UUIDv7). Null for standalone invoices.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the invoice.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The invoice type. One of: `PLAN`, `FEE`.
+</ResponseField>
+
+<ResponseField name="paymentMethod" type="string|null">
+  The payment method used.
+</ResponseField>
+
+<ResponseField name="card" type="object|null">
+  Card details when the payment method is a card.
+  <Expandable title="card properties">
+    <ResponseField name="brand" type="string">
+      The card brand (e.g. `visa`, `mastercard`).
+    </ResponseField>
+    <ResponseField name="last4" type="string">
+      The last four digits of the card number.
+    </ResponseField>
+    <ResponseField name="expMonth" type="integer">
+      The card expiration month.
+    </ResponseField>
+    <ResponseField name="expYear" type="integer">
+      The card expiration year.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="boleto" type="object|null">
+  Boleto details when the payment method is a boleto.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="totalAmount" type="integer">
+  The total amount in cents.
+</ResponseField>
+
+<ResponseField name="discountAmount" type="integer">
+  The discount amount in cents.
+</ResponseField>
+
+<ResponseField name="payableAmount" type="integer">
+  The payable amount in cents (total minus discounts).
+</ResponseField>
+
+<ResponseField name="discounts" type="array">
+  The discounts applied to this invoice.
+</ResponseField>
+
+<ResponseField name="lines" type="array">
+  The invoice line items.
+  <Expandable title="line item properties">
+    <ResponseField name="id" type="string">
+      The line item unique identifier.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      The line item description.
+    </ResponseField>
+    <ResponseField name="unitPrice" type="integer">
+      The unit price in cents.
+    </ResponseField>
+    <ResponseField name="quantity" type="integer">
+      The quantity.
+    </ResponseField>
+    <ResponseField name="amount" type="integer">
+      The total amount for this line item in cents.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The invoice status. One of: `DRAFT`, `OPEN`, `PAID`, `PAYMENT_FAILED`, `REFUNDED`, `PARTIALLY_REFUNDED`, `DISPUTED`, `CHARGEBACK`, `CHARGEBACK_RESOLVED`, `UNCOLLECTIBLE`, `VOID`, `EXPIRED`.
+</ResponseField>
+
+<ResponseField name="issuedAt" type="string">
+  Timestamp when the invoice was issued (ISO 8601).
+</ResponseField>
+
+<ResponseField name="dueDate" type="string">
+  The invoice due date (ISO 8601).
+</ResponseField>
+
+<ResponseField name="paidAt" type="string|null">
+  Timestamp when the invoice was paid (ISO 8601).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "invoiceId": "019525fd-c290-7a9e-f6b2-8c0d2e4a6b8e",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "externalRef": "inv_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+  "type": "PLAN",
+  "paymentMethod": "CARD",
+  "card": {
+    "brand": "visa",
+    "last4": "4242",
+    "expMonth": 12,
+    "expYear": 2027
+  },
+  "boleto": null,
+  "currency": "BRL",
+  "totalAmount": 29900,
+  "discountAmount": 5000,
+  "payableAmount": 24900,
+  "discounts": [],
+  "lines": [
+    {
+      "id": "li_01HQZC8G2T9YX5J8VQBW3KPQ",
+      "name": "Pro Plan - Monthly",
+      "unitPrice": 29900,
+      "quantity": 1,
+      "amount": 29900
+    }
+  ],
+  "status": "PAID",
+  "issuedAt": "2026-03-01T00:00:00.000Z",
+  "dueDate": "2026-03-10T00:00:00.000Z",
+  "paidAt": "2026-03-02T14:30:00.000Z",
+  "createdAt": "2026-03-01T00:00:00.000Z",
+  "updatedAt": "2026-03-02T14:30:00.000Z"
+}
+```
+</ResponseExample>

@@ -1,0 +1,23 @@
+---
+title: "Memberships"
+description: "How users belong to organizations."
+---
+
+## Overview
+
+A membership links a user to an organization with a specific role. Each user can have at most one membership per organization.
+
+## Lifecycle
+
+1. **Created** when a user accepts an invitation or is added by an admin
+2. **Active** — user can access the organization
+3. **Inactive** — access revoked but record preserved
+4. **Reactivated** — access restored
+
+## Role Assignment
+
+Each membership assigns exactly one role, which determines the user's access within the organization.
+
+## Multi-Organization Users
+
+Users can belong to multiple organizations. When signing in, they must activate a specific organization to scope their session. The [Switch Organization](/studio-api/profile/switch-organization) endpoint handles this.

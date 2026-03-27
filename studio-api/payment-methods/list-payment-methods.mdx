@@ -1,0 +1,114 @@
+---
+title: "List Payment Methods"
+api: "GET /organizations/{organizationId}/payment-methods"
+description: "List payment methods."
+---
+
+Returns a list of payment methods.
+
+<Info>Requires `payment_method:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Response
+
+The response is an array of payment method objects.
+
+<ResponseExample>
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+```json 200
+[
+  {
+    "paymentMethodId": "pm_abc123",
+    "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+    "type": "CARD",
+    "brand": "visa",
+    "last4": "4242",
+    "expMonth": 12,
+    "expYear": 2027,
+    "isDefault": true,
+    "billingDetails": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+5511999999999",
+      "address": {
+        "line1": "Av Paulista 1000",
+        "city": "Sao Paulo",
+        "state": "SP",
+        "postalCode": "01310-100",
+        "country": "BR"
+      }
+    }
+  },
+  {
+    "paymentMethodId": "pm_def456",
+    "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+    "type": "BOLETO",
+    "isDefault": false,
+    "billingDetails": {
+      "name": "Acme Inc",
+      "email": "billing@acme.com",
+      "phone": "+5511888888888",
+      "address": {
+        "line1": "Rua Augusta 500",
+        "city": "Sao Paulo",
+        "state": "SP",
+        "postalCode": "01304-000",
+        "country": "BR"
+      }
+    }
+  }
+]
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

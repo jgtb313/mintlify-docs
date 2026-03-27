@@ -1,0 +1,38 @@
+---
+title: "Webhook Processing"
+description: "How Stripe webhooks are processed."
+---
+
+## Flow
+
+<Steps>
+  <Step title="Receive">
+    Stripe sends webhook to billing service endpoint.
+  </Step>
+  <Step title="Validate">
+    HMAC signature verified. Webhook record created with status `PENDING`.
+  </Step>
+  <Step title="Deduplicate">
+    Check unique constraint (provider, externalRef) to prevent duplicate processing.
+  </Step>
+  <Step title="Process">
+    Status → `PROCESSING`. Event type dispatched to appropriate handler.
+  </Step>
+  <Step title="Complete">
+    Status → `PROCESSED` on success, `FAILED` on error (with retry).
+  </Step>
+</Steps>
+
+## Key Event Types
+
+| Stripe Event | Action |
+|-------------|--------|
+| `invoice.paid` | Update invoice status to PAID |
+| `invoice.payment_failed` | Update invoice, set subscription to PAST_DUE |
+| `invoice.finalized` | Create/update invoice record |
+| `charge.refunded` | Update invoice to REFUNDED |
+| `charge.dispute.created` | Update invoice to DISPUTED |
+
+## Retry Policy
+
+Failed webhooks increment `attempts` and can be retried. Max 3 attempts with exponential backoff.

@@ -1,0 +1,95 @@
+---
+title: "Reactivate Billing Threshold"
+api: "PATCH /billing-thresholds/{billingThresholdId}/reactivate"
+description: "Reactivate a billing threshold."
+---
+<Info>Requires `billing_threshold:reactivate` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="billingThresholdId" type="string" required>Billing threshold ID.</ParamField>
+
+## Response
+
+<ResponseField name="billingThresholdId" type="string">Billing threshold ID.</ResponseField>
+<ResponseField name="name" type="string">Threshold name.</ResponseField>
+<ResponseField name="description" type="string">Threshold description.</ResponseField>
+<ResponseField name="value" type="integer">Threshold value in cents.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Threshold status.</ResponseField>
+<ResponseField name="createdBy" type="string">ID of the user who created the threshold.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">ID of the user who last updated the threshold.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "name": "Basic",
+  "description": "Basic threshold for small orgs",
+  "value": 10000,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:30:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "billing_threshold.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 422
+{
+  "statusCode": 422,
+  "message": "billing_threshold.cannot_reactivate"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `billing_threshold.not_found` | Billing threshold not found |
+| `422` | `billing_threshold.cannot_reactivate` | Billing threshold cannot be reactivated in its current state |
+| `500` | `internal_server_error` | An unexpected error occurred |

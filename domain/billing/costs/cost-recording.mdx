@@ -1,0 +1,27 @@
+---
+title: "Cost Recording"
+description: "How usage events become cost records."
+---
+
+## Prerequisites
+
+For a cost to be recorded:
+1. Organization must have an **active subscription**
+2. Token must be **ACTIVE**
+3. Fee must be compatible with organization's currency
+
+## Recording Flow
+
+1. Usage event received with fee eventName, token ID, and quantity
+2. Token `value` × quantity = subtotal (in token's currency)
+3. Exchange rate fetched for token currency → org currency
+4. Total amount calculated in org currency
+5. `costBatchWindowRef` generated from hash(eventName, orgId, timestamp window)
+6. Cost record created
+
+## Exchange Rate Calculation
+
+If the token currency differs from the organization currency, an exchange rate is applied:
+- First, try PTAX API (Brazilian Central Bank) for BRL rates
+- Fallback to ExchangeRateAPI
+- Final fallback to MANUAL rates

@@ -1,0 +1,143 @@
+---
+title: "The Payment Method Object"
+---
+
+The payment method object is a discriminated union based on the `type` field. The shape varies depending on whether the type is `CARD` or `BOLETO`.
+
+## Card
+
+<ResponseField name="paymentMethodId" type="string">
+  The payment method unique identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The payment method type. Literal `CARD`.
+</ResponseField>
+
+<ResponseField name="brand" type="string">
+  The card brand (e.g. `visa`, `mastercard`).
+</ResponseField>
+
+<ResponseField name="last4" type="string">
+  The last four digits of the card number.
+</ResponseField>
+
+<ResponseField name="expMonth" type="integer">
+  The card expiration month.
+</ResponseField>
+
+<ResponseField name="expYear" type="integer">
+  The card expiration year.
+</ResponseField>
+
+<ResponseField name="isDefault" type="boolean">
+  Whether this is the default payment method.
+</ResponseField>
+
+<ResponseField name="billingDetails" type="object">
+  The billing details associated with this payment method.
+  <Expandable title="billing details properties">
+    <ResponseField name="name" type="string">
+      The cardholder name.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      The billing email address.
+    </ResponseField>
+    <ResponseField name="phone" type="string">
+      The billing phone number.
+    </ResponseField>
+    <ResponseField name="address" type="object">
+      The billing address.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Card Example
+{
+  "paymentMethodId": "pm_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "type": "CARD",
+  "brand": "visa",
+  "last4": "4242",
+  "expMonth": 12,
+  "expYear": 2027,
+  "isDefault": true,
+  "billingDetails": {
+    "name": "Maria Silva",
+    "email": "maria@example.com",
+    "phone": "+5511999990000",
+    "address": {
+      "line1": "Av. Paulista, 1000",
+      "city": "Sao Paulo",
+      "state": "SP",
+      "postalCode": "01310-100",
+      "country": "BR"
+    }
+  }
+}
+```
+</ResponseExample>
+
+## Boleto
+
+<ResponseField name="paymentMethodId" type="string">
+  The payment method unique identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The payment method type. Literal `BOLETO`.
+</ResponseField>
+
+<ResponseField name="isDefault" type="boolean">
+  Whether this is the default payment method.
+</ResponseField>
+
+<ResponseField name="billingDetails" type="object">
+  The billing details associated with this payment method.
+  <Expandable title="billing details properties">
+    <ResponseField name="name" type="string">
+      The payer name.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      The billing email address.
+    </ResponseField>
+    <ResponseField name="phone" type="string">
+      The billing phone number.
+    </ResponseField>
+    <ResponseField name="address" type="object">
+      The billing address.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Boleto Example
+{
+  "paymentMethodId": "pm_2Bz3qM3fAwLZmp3D1wJrNA9z",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "type": "BOLETO",
+  "isDefault": false,
+  "billingDetails": {
+    "name": "Maria Silva",
+    "email": "maria@example.com",
+    "phone": "+5511999990000",
+    "address": {
+      "line1": "Av. Paulista, 1000",
+      "city": "Sao Paulo",
+      "state": "SP",
+      "postalCode": "01310-100",
+      "country": "BR"
+    }
+  }
+}
+```
+</ResponseExample>

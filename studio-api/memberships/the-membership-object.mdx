@@ -1,0 +1,52 @@
+---
+title: "The Membership Object"
+---
+
+<ResponseField name="membershipId" type="string">
+  The membership unique identifier.
+</ResponseField>
+
+<ResponseField name="userId" type="string">
+  The user ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="role" type="object">
+  The role assigned to the member.
+  <Expandable title="role properties">
+    <ResponseField name="slug" type="string">
+      The role slug.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The membership status. One of: `ACTIVE`, `INACTIVE`, `PENDING`.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "membershipId": "om_01HQZC8G2T9YX5J8VQBW3KPQR7",
+  "userId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "role": {
+    "slug": "admin"
+  },
+  "status": "ACTIVE",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

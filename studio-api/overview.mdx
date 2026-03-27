@@ -1,0 +1,55 @@
+---
+title: "Overview"
+description: "The Studio API provides user-facing endpoints for authentication, organization management, subscriptions, and billing."
+---
+
+The Studio API is the primary interface for end-users of the AWSales platform.
+
+## Base URL
+
+```
+https://studio.api.awsales.io
+```
+
+## Authentication
+
+The Studio API uses **JWT (JSON Web Tokens)** for authentication. After signing in, the client receives an `accessToken` and a `refreshToken`.
+
+### Bearer Token
+
+Include the access token in the `Authorization` header for all authenticated requests:
+
+```
+Authorization: Bearer <accessToken>
+```
+
+### Token Lifecycle
+
+| Token | Purpose | Expiration |
+|-------|---------|------------|
+| `accessToken` | Authenticates API requests | Short-lived (returned in `expiresIn` seconds) |
+| `refreshToken` | Obtains new access tokens without re-authentication | Long-lived |
+
+## Key Concepts
+
+- **Organizations** are the tenant unit. Users belong to organizations via memberships.
+- **Subscriptions** link organizations to plans with billing intervals.
+- **Roles & Permissions** control access using the `resource:action` pattern.
+
+## Available Resources
+
+| Resource | Description |
+|----------|-------------|
+| [Auth](/studio-api/auth/sign-in) | Sign up, sign in, sign out, OAuth, password reset |
+| [OTP](/studio-api/otp/send-otp) | One-time password for email verification, magic auth, and password reset |
+| [Profile](/studio-api/profile/get-profile) | Current user profile and organization switching |
+| [Memberships](/studio-api/memberships/list-memberships) | Organization membership management |
+| [Invitations](/studio-api/invitations/list-invitations) | Invite users to organizations |
+| [Roles](/studio-api/roles/list-roles) | RBAC role management |
+| [Permissions](/studio-api/permissions/list-permissions) | Permission listing |
+| [Plans](/studio-api/plans/list-plans) | View available subscription plans |
+| [Subscriptions](/studio-api/subscriptions/create-subscription) | Create subscriptions and view upcoming invoices |
+| [Invoices](/studio-api/invoices/list-invoices) | Invoice history |
+| [Payment Methods](/studio-api/payment-methods/list-payment-methods) | Card and Boleto management |
+| [Coupons](/studio-api/coupons/check-availability) | Check coupon availability |
+| [Vouchers](/studio-api/vouchers/list-vouchers) | View credit vouchers |

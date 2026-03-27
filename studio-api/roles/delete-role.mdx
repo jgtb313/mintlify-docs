@@ -1,0 +1,84 @@
+---
+title: "Delete Role"
+api: "DELETE /organizations/{organizationId}/roles/{slug}"
+description: "Delete a role."
+---
+
+Deletes a role by its slug.
+
+<Info>Requires `roles:delete` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+<ParamField path="slug" type="string" required>
+  The role slug.
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 204
+// No content - role deleted
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "role.cannot_delete_environment_role"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `403` | `role.cannot_delete_environment_role` | Cannot delete an environment-level role |
+| `403` | `role.cannot_modify_inherited` | Cannot modify an inherited role |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `role.not_found` | Role not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

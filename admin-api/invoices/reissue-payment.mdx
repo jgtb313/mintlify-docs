@@ -1,0 +1,119 @@
+---
+title: "Reissue Payment"
+api: "POST /invoices/{invoiceId}/reissue-payment"
+description: "Reissue an invoice payment."
+---
+<Info>Requires `invoice:reissue` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="invoiceId" type="string" required>Invoice UUID.</ParamField>
+
+## Response
+
+<ResponseField name="invoiceId" type="string">Invoice UUID.</ResponseField>
+<ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+<ResponseField name="subscriptionId" type="string">Subscription ID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="type" type="string">Invoice type.</ResponseField>
+<ResponseField name="paymentMethod" type="string">Payment method.</ResponseField>
+<ResponseField name="card" type="object">Card details (when payment method is CARD).</ResponseField>
+<ResponseField name="boleto" type="object">Boleto details (when payment method is BOLETO).</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="totalAmount" type="integer">Total amount in cents.</ResponseField>
+<ResponseField name="discountAmount" type="integer">Discount amount in cents.</ResponseField>
+<ResponseField name="payableAmount" type="integer">Payable amount in cents.</ResponseField>
+<ResponseField name="discounts" type="array">Applied discounts.</ResponseField>
+<ResponseField name="lines" type="array">Invoice line items.</ResponseField>
+<ResponseField name="billingThreshold" type="object">Billing threshold (nullable).</ResponseField>
+<ResponseField name="status" type="string">Invoice status.</ResponseField>
+<ResponseField name="issuedAt" type="string">Issue timestamp.</ResponseField>
+<ResponseField name="dueDate" type="string">Due date.</ResponseField>
+<ResponseField name="paidAt" type="string">Payment timestamp.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "invoiceId": "019525fd-c290-7a9e-f6b2-8c0d2e4a6b8e",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "externalRef": "inv_stripe_abc123",
+  "type": "PLAN",
+  "paymentMethod": "CARD",
+  "card": { "brand": "visa", "last4": "4242", "expMonth": 12, "expYear": 2027 },
+  "boleto": null,
+  "currency": "BRL",
+  "totalAmount": 4900,
+  "discountAmount": 0,
+  "payableAmount": 4900,
+  "discounts": [],
+  "lines": [
+    { "id": "01HX...", "name": "Starter Plan - Monthly", "unitPrice": 4900, "quantity": 1, "amount": 4900 }
+  ],
+  "billingThreshold": null,
+  "status": "OPEN",
+  "issuedAt": "2026-03-01T00:00:00.000Z",
+  "dueDate": "2026-03-15T00:00:00.000Z",
+  "paidAt": null,
+  "createdAt": "2026-03-01T00:00:00.000Z",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "invoice.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 422
+{
+  "statusCode": 422,
+  "message": "invoice.not_expired"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `invoice.not_found` | Invoice not found |
+| `422` | `invoice.not_expired` | Invoice payment has not expired |
+| `500` | `internal_server_error` | An unexpected error occurred |

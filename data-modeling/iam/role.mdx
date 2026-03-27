@@ -1,0 +1,34 @@
+---
+title: "Role"
+description: "Defines a set of permissions assignable to memberships."
+---
+
+<Info>Proxied from WorkOS — not stored in the application database.</Info>
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `roleId` | string | Unique identifier (WorkOS format: `role_*`) |
+| `organizationId` | UUIDv7? | Scoping org (null for environment roles) |
+| `slug` | string | Unique identifier |
+| `name` | string | Display name |
+| `description` | string? | Description |
+| `type` | enum | `ENVIRONMENT_ROLE`, `ORGANIZATION_ROLE` |
+| `permissions` | string[] | Array of permission slugs |
+| `inherited` | boolean | Whether inherited from environment |
+| `createdAt` | datetime | Creation timestamp |
+| `updatedAt` | datetime | Last update |
+
+## Relationships
+
+- **Has many** [Permissions](/domain/data-modeling/iam/permission) via slug array
+- **Assigned to** [Memberships](/domain/data-modeling/iam/membership)
+- **Scoped to** [Organization](/domain/data-modeling/iam/organization) (ORGANIZATION_ROLE)
+
+## Business Rules
+
+- Slug unique per scope
+- Cannot reference non-existent permissions
+- `ENVIRONMENT_ROLE` immutable at org level
+- Multi-level cache

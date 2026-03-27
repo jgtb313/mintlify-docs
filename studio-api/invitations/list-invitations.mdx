@@ -1,0 +1,120 @@
+---
+title: "List Invitations"
+api: "GET /organizations/{organizationId}/invitations"
+description: "List invitations."
+---
+
+Returns a list of invitations.
+
+<Info>Requires `invitations:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="previousCursor" type="string">
+  Cursor for the previous page.
+</ParamField>
+
+<ParamField query="nextCursor" type="string">
+  Cursor for the next page.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Number of results per page.
+</ParamField>
+
+<ParamField query="email" type="string">
+  Filter by email address.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of invitation objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "invitationId": "inv_abc123",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "inviterUserId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "acceptedUserId": null,
+      "email": "jane@example.com",
+      "token": "tok_invitation_xyz",
+      "acceptInvitationUrl": "https://app.awsales.com/invite?token=tok_invitation_xyz",
+      "roleSlug": null,
+      "state": "PENDING",
+      "expiresAt": "2026-04-25T14:00:00.000Z",
+      "acceptedAt": null,
+      "revokedAt": null,
+      "createdAt": "2026-03-25T14:00:00.000Z",
+      "updatedAt": "2026-03-25T14:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "hasMore": false,
+    "limit": 10
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

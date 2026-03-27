@@ -1,0 +1,115 @@
+---
+title: "List Plans"
+api: "GET /plans"
+description: "List plans."
+---
+
+<Info>Requires `plan:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">Page number.</ParamField>
+<ParamField query="limit" type="integer">Results per page.</ParamField>
+<ParamField query="name" type="string">Filter by name.</ParamField>
+<ParamField query="status" type="string">Filter by status.</ParamField>
+<ParamField query="sortBy" type="string">Sort field.</ParamField>
+<ParamField query="sortOrder" type="string">Sort direction.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of plans.
+  <Expandable title="plan properties">
+    <ResponseField name="planId" type="string">Plan ID.</ResponseField>
+    <ResponseField name="externalRef" type="string">External reference.</ResponseField>
+    <ResponseField name="name" type="string">Plan name.</ResponseField>
+    <ResponseField name="description" type="string">Plan description.</ResponseField>
+    <ResponseField name="features" type="array">Plan features.</ResponseField>
+    <ResponseField name="intervals" type="array">Billing intervals.</ResponseField>
+    <ResponseField name="highlight" type="boolean">Whether the plan is highlighted.</ResponseField>
+    <ResponseField name="status" type="string">Plan status.</ResponseField>
+    <ResponseField name="createdBy" type="string">ID of the user who created the plan.</ResponseField>
+    <ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+    <ResponseField name="updatedBy" type="string">ID of the user who last updated the plan.</ResponseField>
+    <ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="page" type="integer">Current page number.</ResponseField>
+    <ResponseField name="limit" type="integer">Results per page.</ResponseField>
+    <ResponseField name="totalItems" type="integer">Total number of items.</ResponseField>
+    <ResponseField name="totalPages" type="integer">Total number of pages.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+      "externalRef": "prod_stripe_abc",
+      "name": "Starter",
+      "description": "For small teams.",
+      "features": [
+        { "description": "Up to 5 users", "type": "INCLUDE" },
+        { "description": "Custom integrations", "type": "NOT_INCLUDE" }
+      ],
+      "intervals": [
+        { "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a", "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f", "externalRef": "price_stripe_m1", "interval": "MONTHLY", "amount": 4900, "currency": "BRL", "status": "ACTIVE", "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "createdAt": "2026-01-01T00:00:00.000Z", "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "updatedAt": "2026-01-01T00:00:00.000Z" },
+        { "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a", "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f", "externalRef": "price_stripe_y1", "interval": "YEARLY", "amount": 47040, "currency": "BRL", "status": "ACTIVE", "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "createdAt": "2026-01-01T00:00:00.000Z", "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c", "updatedAt": "2026-01-01T00:00:00.000Z" }
+      ],
+      "highlight": false,
+      "status": "ACTIVE",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "meta": { "page": 1, "limit": 20, "totalItems": 3, "totalPages": 1 }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

@@ -1,0 +1,102 @@
+---
+title: "List Coupon Usages"
+api: "GET /coupons/{couponId}/usages"
+description: "List coupon usages."
+---
+<Info>Requires `coupon:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="couponId" type="string" required>Coupon UUID.</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">Page number.</ParamField>
+<ParamField query="limit" type="integer">Results per page.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of coupon usages.
+  <Expandable title="usage properties">
+    <ResponseField name="couponUsageId" type="string">Usage UUID.</ResponseField>
+    <ResponseField name="couponId" type="string">Coupon UUID.</ResponseField>
+    <ResponseField name="invoiceId" type="string">Invoice UUID.</ResponseField>
+    <ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+    <ResponseField name="externalRef" type="string">External reference.</ResponseField>
+    <ResponseField name="amount" type="integer">Discount amount in cents.</ResponseField>
+    <ResponseField name="status" type="string">Usage status.</ResponseField>
+    <ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+    <ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="page" type="integer">Current page number.</ResponseField>
+    <ResponseField name="limit" type="integer">Results per page.</ResponseField>
+    <ResponseField name="totalItems" type="integer">Total number of items.</ResponseField>
+    <ResponseField name="totalPages" type="integer">Total number of pages.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "couponUsageId": "019525fe-6d58-7ed8-d0fc-8a0b2c4e6f8c",
+      "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "invoiceId": "019525fd-c290-7a9e-f6b2-8c0d2e4a6b8e",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "externalRef": "ext_ref_abc123",
+      "amount": 500,
+      "status": "APPLIED",
+      "createdAt": "2026-03-01T00:00:00.000Z",
+      "updatedAt": "2026-03-01T00:00:00.000Z"
+    }
+  ],
+  "meta": { "page": 1, "limit": 20, "totalItems": 1, "totalPages": 1 }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

@@ -1,0 +1,43 @@
+---
+title: "Sign Out"
+api: "POST /auth/sign-out"
+description: "Invalidate the current session."
+authMethod: "none"
+---
+
+Invalidates the current session.
+
+## Response
+
+<ResponseExample>
+```json 204
+// No content — tokens invalidated
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `500` | `internal_server_error` | An unexpected error occurred |

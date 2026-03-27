@@ -1,0 +1,102 @@
+---
+title: "webhook.received"
+description: "Published when a webhook event is received and validated."
+---
+
+## Event Details
+
+| Property | Value |
+|----------|-------|
+| **Type** | `webhook.received` |
+
+## Payload Schema
+
+<ResponseField name="webhookId" type="string (UUID v7)" required>
+  Webhook record identifier.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string" required>
+  Provider event ID.
+</ResponseField>
+
+<ResponseField name="provider" type="string" required>
+  Payment provider: `STRIPE`.
+</ResponseField>
+
+<ResponseField name="eventType" type="string" required>
+  Provider event type (e.g., `invoice.paid`).
+</ResponseField>
+
+<ResponseField name="headers" type="object" required>
+  Request headers.
+</ResponseField>
+
+<ResponseField name="body" type="object" required>
+  Request body.
+</ResponseField>
+
+<ResponseField name="signature" type="string" required>
+  HMAC signature.
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Processing status: `PENDING`, `PROCESSING`, `PROCESSED`, or `FAILED`.
+</ResponseField>
+
+<ResponseField name="attempts" type="integer" required>
+  Processing attempts count.
+</ResponseField>
+
+<ResponseField name="errors" type="object">
+  Error details.
+</ResponseField>
+
+<ResponseField name="receivedAt" type="string (ISO 8601)" required>
+  When the webhook was received.
+</ResponseField>
+
+<ResponseField name="processedAt" type="string (ISO 8601)">
+  When the webhook was processed.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string (ISO 8601)" required>
+  Creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string (ISO 8601)" required>
+  Last update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "specversion": "1.0",
+  "type": "webhook.received",
+  "id": "evt_0195f3a2-8c00-7d4e-b804-4d5e6f7a8b9c",
+  "time": "2026-03-25T14:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "webhookId": "0195f3a2-8c00-7d4e-b804-4d5e6f7a8b9c",
+    "externalRef": "evt_abc123",
+    "provider": "STRIPE",
+    "eventType": "invoice.paid",
+    "headers": {
+      "stripe-signature": "t=1234567890,v1=abc..."
+    },
+    "body": {
+      "id": "evt_abc123",
+      "type": "invoice.paid",
+      "data": {}
+    },
+    "signature": "t=1234567890,v1=abc...",
+    "status": "PENDING",
+    "attempts": 0,
+    "errors": null,
+    "receivedAt": "2026-03-25T14:00:00Z",
+    "processedAt": null,
+    "createdAt": "2026-03-25T14:00:00Z",
+    "updatedAt": "2026-03-25T14:00:00Z"
+  }
+}
+```
+</ResponseExample>

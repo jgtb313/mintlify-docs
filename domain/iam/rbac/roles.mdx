@@ -1,0 +1,23 @@
+---
+title: "Roles"
+description: "Role management and configuration."
+---
+
+## Role Structure
+
+Each role has:
+- **slug**: Unique identifier within its scope
+- **name**: Human-readable name
+- **type**: `ENVIRONMENT_ROLE` or `ORGANIZATION_ROLE`
+
+## Environment Roles
+
+Platform-wide roles defined at the system level. Cannot be modified or deleted at the organization level. All organizations inherit these roles.
+
+## Organization Roles
+
+Custom roles scoped to a specific organization. Created, updated, and deleted by organization admins.
+
+## Role Assignment
+
+Roles are assigned to users through [Memberships](/domain/iam/multi-tenancy/memberships). Each membership assigns exactly one role to a user within an organization.

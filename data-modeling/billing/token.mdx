@@ -1,0 +1,37 @@
+---
+title: "Token"
+description: "Represents a consumable unit type with a monetary value."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tokenId` | UUIDv7 | Unique identifier |
+| `name` | string | Token name, max 255 |
+| `description` | text | Description |
+| `type` | enum | See TokenType below |
+| `value` | decimal | Price per unit |
+| `currency` | enum | `USD`, `BRL`, `EUR` |
+| `status` | enum | `ACTIVE`, `INACTIVE` |
+| `createdBy` | UUIDv7 | Creator |
+| `createdAt` | datetime | Creation |
+| `updatedBy` | UUIDv7 | Last updater |
+| `updatedAt` | datetime | Last update |
+| `deletedBy` | UUIDv7? | Deleter |
+| `deletedAt` | datetime? | Soft delete |
+
+## TokenType Enum
+
+`AUDIO_TO_TEXT`, `IMAGE_TO_TEXT`, `MEMORY`, `PLANNING`, `RESPONSE`, `RETRIEVAL`, `SUMMARY`, `TOOLS`, `TRANSCRIPTION`, `WEBSCRAPING`
+
+## Relationships
+
+- **Has many** [Fees](/domain/data-modeling/billing/fee) via FeeToken (M2M)
+- **Has many** [Costs](/domain/data-modeling/billing/cost)
+
+## Business Rules
+
+- Unique per (name, type, currency)
+- Linked fees cannot have duplicate currencies
+- Default status ACTIVE

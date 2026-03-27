@@ -1,0 +1,154 @@
+---
+title: "List Plans"
+api: "GET /plans"
+description: "List plans."
+---
+
+Returns a list of plans.
+
+<Info>Requires `plan:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">
+  Page number for pagination.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Number of results per page.
+</ParamField>
+
+<ParamField query="sort" type="string">
+  Sort field and direction (e.g., `name:asc`).
+</ParamField>
+
+<ParamField query="name" type="string">
+  Filter plans by name.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter plans by status (e.g., `ACTIVE`).
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of plan objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+      "externalRef": "prod_stripe_abc",
+      "name": "Starter",
+      "description": "Perfect for small teams getting started.",
+      "features": [
+        { "description": "Up to 5 users", "type": "INCLUDE" },
+        { "description": "Basic analytics", "type": "INCLUDE" },
+        { "description": "Custom integrations", "type": "NOT_INCLUDE" }
+      ],
+      "intervals": [
+        {
+          "id": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a",
+          "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+          "interval": "MONTHLY",
+          "amount": 4900,
+          "currency": "BRL",
+          "status": "ACTIVE",
+          "externalRef": "price_stripe_monthly",
+          "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+          "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+          "createdAt": "2026-01-01T00:00:00.000Z",
+          "updatedAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+          "id": "019525fd-8f54-7d6b-c3e9-5f7a9b1c3d5f",
+          "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+          "interval": "YEARLY",
+          "amount": 47040,
+          "currency": "BRL",
+          "status": "ACTIVE",
+          "externalRef": "price_stripe_yearly",
+          "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+          "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+          "createdAt": "2026-01-01T00:00:00.000Z",
+          "updatedAt": "2026-01-01T00:00:00.000Z"
+        }
+      ],
+      "highlight": false,
+      "status": "ACTIVE",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "totalItems": 3,
+    "totalPages": 1,
+    "page": 1,
+    "limit": 20
+  }
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+<Note>
+  Amounts are in **cents** (e.g., `4900` = R$49.00).
+</Note>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

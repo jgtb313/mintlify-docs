@@ -1,0 +1,42 @@
+---
+title: "Organization"
+description: "Represents a tenant with billing capabilities."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `organizationId` | UUIDv7 | Unique identifier |
+| `billingThresholdId` | UUIDv7 | FK to BillingThreshold |
+| `subscriptionId` | UUIDv7? | FK to Subscription |
+| `iamExternalRef` | string | WorkOS org reference |
+| `billingExternalRef` | string | Stripe customer reference |
+| `name` | string | Name, max 255 chars |
+| `email` | string | Billing email, unique |
+| `currency` | enum | `USD`, `BRL`, `EUR` |
+| `phone` | string? | Phone number |
+| `address` | object? | Billing address |
+| `taxId` | string? | Tax ID |
+| `taxType` | enum? | `CPF` or `CNPJ` |
+| `createdBy` | UUIDv7 | Creator user ID |
+| `createdAt` | datetime | Creation timestamp |
+| `updatedBy` | UUIDv7 | Last updater |
+| `updatedAt` | datetime | Last update |
+
+## Relationships
+
+- **Has many** [Memberships](/domain/data-modeling/iam/membership)
+- **Has many** [Invitations](/domain/data-modeling/iam/invitation)
+- **Has one** [BillingThreshold](/domain/data-modeling/billing/billing-threshold)
+- **Has many** [Subscriptions](/domain/data-modeling/billing/subscription)
+- **Has many** [Invoices](/domain/data-modeling/billing/invoice)
+- **Has many** [Costs](/domain/data-modeling/billing/cost)
+- **Has many** [Vouchers](/domain/data-modeling/billing/voucher)
+
+## Business Rules
+
+- Created via **Saga pattern**: local DB → WorkOS → Stripe customer
+- Email, phone, address synced with Stripe on update
+- BillingThreshold must match org currency
+- Cached by ID

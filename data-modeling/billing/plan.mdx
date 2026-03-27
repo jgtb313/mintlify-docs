@@ -1,0 +1,53 @@
+---
+title: "Plan"
+description: "Subscription plan with intervals and features."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `planId` | UUIDv7 | Unique identifier |
+| `externalRef` | string | Stripe product ID (unique) |
+| `name` | string | Plan name, max 255 |
+| `description` | text | Plan description |
+| `features` | array | PlanFeature objects |
+| `highlight` | boolean | Highlighted plan (default false) |
+| `status` | enum | `ACTIVE`, `INACTIVE` |
+| `createdBy` | UUIDv7 | Creator |
+| `createdAt` | datetime | Creation |
+| `updatedBy` | UUIDv7 | Last updater |
+| `updatedAt` | datetime | Last update |
+| `deletedBy` | UUIDv7? | Deleter |
+| `deletedAt` | datetime? | Soft delete |
+
+### PlanFeature
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `description` | string | Feature description |
+| `type` | enum | `INCLUDE`, `NOT_INCLUDE`, `DEFAULT` |
+
+## Relationships
+
+- **Has many** PlanIntervals
+- **Has many** [Subscriptions](/domain/data-modeling/billing/subscription)
+
+## PlanInterval Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `planIntervalId` | UUIDv7 | Unique identifier |
+| `planId` | UUIDv7 | FK to Plan |
+| `externalRef` | string | Stripe price ID (unique) |
+| `interval` | enum | `MONTHLY`, `QUARTERLY`, `SEMIANNUALLY`, `YEARLY` |
+| `amount` | integer | Price in cents |
+| `currency` | enum | `USD`, `BRL`, `EUR` |
+| `status` | enum | `ACTIVE`, `INACTIVE` |
+
+## Business Rules
+
+- Plan-interval combo must be unique
+- Created with status ACTIVE, all intervals ACTIVE
+- Synced with Stripe (product + prices)
+- Intervals can be deactivated/reactivated/deleted independently

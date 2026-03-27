@@ -1,0 +1,80 @@
+---
+title: "The Invitation Object"
+---
+
+<ResponseField name="invitationId" type="string">
+  The invitation unique identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID (UUIDv7) the invitation belongs to.
+</ResponseField>
+
+<ResponseField name="inviterUserId" type="string">
+  The user ID (UUIDv7) of the member who sent the invitation.
+</ResponseField>
+
+<ResponseField name="acceptedUserId" type="string|null">
+  The user ID (UUIDv7) of the member who accepted the invitation. `null` if not yet accepted.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The email address of the invited user.
+</ResponseField>
+
+<ResponseField name="token" type="string">
+  The unique token associated with the invitation.
+</ResponseField>
+
+<ResponseField name="acceptInvitationUrl" type="string">
+  The URL the invited user can use to accept the invitation.
+</ResponseField>
+
+<ResponseField name="roleSlug" type="string|null">
+  The role slug assigned upon acceptance. `null` if not specified.
+</ResponseField>
+
+<ResponseField name="state" type="string">
+  The invitation state. One of: `PENDING`, `ACCEPTED`, `EXPIRED`, `REVOKED`.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  Expiration timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="acceptedAt" type="string|null">
+  Timestamp when the invitation was accepted (ISO 8601). `null` if not yet accepted.
+</ResponseField>
+
+<ResponseField name="revokedAt" type="string|null">
+  Timestamp when the invitation was revoked (ISO 8601). `null` if not revoked.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "invitationId": "inv_01HQZD4K7M3NX9P2RTYW6JBHF5",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "inviterUserId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "acceptedUserId": null,
+  "email": "jane.doe@example.com",
+  "token": "tok_8f14e45f-ceea-467f-a123-456789abcdef",
+  "acceptInvitationUrl": "https://app.example.com/invitations/accept?token=tok_8f14e45f-ceea-467f-a123-456789abcdef",
+  "roleSlug": null,
+  "state": "PENDING",
+  "expiresAt": "2026-02-15T10:00:00.000Z",
+  "acceptedAt": null,
+  "revokedAt": null,
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

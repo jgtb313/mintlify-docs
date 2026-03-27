@@ -1,0 +1,60 @@
+---
+title: "The Billing Threshold Object"
+---
+
+<ResponseField name="billingThresholdId" type="string">
+  The billing threshold unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The billing threshold name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The billing threshold description.
+</ResponseField>
+
+<ResponseField name="value" type="integer">
+  The threshold value in cents.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The billing threshold status. One of: `ACTIVE`, `INACTIVE`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The user ID who created the billing threshold.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The user ID who last updated the billing threshold.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "name": "Standard Threshold",
+  "description": "Default billing threshold for new organizations.",
+  "value": 100000,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-10T08:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-01-10T08:00:00.000Z"
+}
+```
+</ResponseExample>

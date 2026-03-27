@@ -1,0 +1,169 @@
+---
+title: "Create Payment Method"
+api: "POST /organizations/{organizationId}/payment-methods"
+description: "Create a payment method."
+---
+
+Creates a new payment method.
+
+<Info>Requires `payment_method:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Request Body
+
+<ParamField body="type" type="string" required>
+  Payment method type. One of: `CARD`, `BOLETO`.
+</ParamField>
+
+<ParamField body="cardToken" type="string">
+  Payment method token. Required for `CARD` type.
+</ParamField>
+
+<ParamField body="isDefault" type="boolean" required>
+  Whether to set as the default payment method.
+</ParamField>
+
+<ParamField body="billingDetails" type="object" required>
+  Billing contact information.
+  <Expandable title="billingDetails properties">
+    <ParamField body="name" type="string" required>
+      Cardholder or payer name.
+    </ParamField>
+    <ParamField body="email" type="string">
+      Billing email.
+    </ParamField>
+    <ParamField body="phone" type="string">
+      Billing phone number.
+    </ParamField>
+    <ParamField body="address" type="object">
+      Billing address.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="paymentMethodId" type="string">
+  The payment method ID.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization UUID.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The payment method type (`CARD` or `BOLETO`).
+</ResponseField>
+
+<ResponseField name="brand" type="string">
+  Card brand. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="last4" type="string">
+  Last four digits. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="expMonth" type="integer">
+  Expiration month. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="expYear" type="integer">
+  Expiration year. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="isDefault" type="boolean">
+  Whether this is the default payment method.
+</ResponseField>
+
+<ResponseField name="billingDetails" type="object">
+  Billing contact information.
+</ResponseField>
+
+<ResponseExample>
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "payment_method.max_of_3_card_payment_methods_reached"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+```json 201
+{
+  "paymentMethodId": "pm_abc123",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "type": "CARD",
+  "brand": "visa",
+  "last4": "4242",
+  "expMonth": 12,
+  "expYear": 2027,
+  "isDefault": false,
+  "billingDetails": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+5511999999999",
+    "address": {
+      "line1": "Av Paulista 1000",
+      "city": "Sao Paulo",
+      "state": "SP",
+      "postalCode": "01310-100",
+      "country": "BR"
+    }
+  }
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `409` | `payment_method.max_of_3_card_payment_methods_reached` | Maximum of 3 card payment methods reached |
+| `409` | `payment_method.max_of_1_boleto_payment_methods_reached` | Maximum of 1 boleto payment method reached |
+| `409` | `payment_method.token_already_used` | Payment method token has already been used |
+| `500` | `internal_server_error` | An unexpected error occurred |

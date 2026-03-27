@@ -1,0 +1,75 @@
+---
+title: "The Fee Object"
+---
+
+<ResponseField name="feeId" type="string">
+  The fee unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalProductRef" type="string">
+  The external product reference in the payment provider.
+</ResponseField>
+
+<ResponseField name="externalPriceRef" type="string">
+  The external price reference in the payment provider.
+</ResponseField>
+
+<ResponseField name="externalBillingMeterRef" type="string">
+  The external billing meter reference in the payment provider.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The fee name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The fee description.
+</ResponseField>
+
+<ResponseField name="eventName" type="string">
+  The event name that triggers this fee.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The fee status. One of: `ACTIVE`, `INACTIVE`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The user ID who created the fee.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The user ID who last updated the fee.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "feeId": "019525fd-8f54-7d6b-c3e9-5f7a9b1d3e5b",
+  "externalProductRef": "prod_R3xK9mN7pQ",
+  "externalPriceRef": "price_1PqR2sT4uV",
+  "externalBillingMeterRef": "meter_1AbC2dE3fG",
+  "name": "API Call Fee",
+  "description": "Per-call fee for API usage.",
+  "eventName": "api_call",
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

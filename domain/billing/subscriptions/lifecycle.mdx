@@ -1,0 +1,36 @@
+---
+title: "Subscription Lifecycle"
+description: "Complete subscription state machine."
+---
+
+## States
+
+| Status | Description |
+|--------|-------------|
+| `ACTIVE` | Subscription is active and billing |
+| `PAST_DUE` | Payment failed |
+| `PAUSED` | Temporarily paused by user |
+| `CANCELLATION_PENDING` | Cancel failed partially, pending resolution |
+| `CANCELLED` | Fully cancelled |
+
+## State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> ACTIVE : Created
+    ACTIVE --> PAST_DUE : Payment failure
+    ACTIVE --> PAUSED : User pauses
+    ACTIVE --> CANCELLED : Cancel requested
+    ACTIVE --> CANCELLATION_PENDING : Cancel partial failure
+    PAST_DUE --> ACTIVE : Payment recovered
+    PAUSED --> ACTIVE : Resumed
+    CANCELLATION_PENDING --> CANCELLED : Resolved
+```
+
+## Past Due Reasons
+
+| Reason | Description |
+|--------|-------------|
+| `PLAN` | Plan invoice payment failed |
+| `FEE` | Usage fee invoice payment failed |
+| `PLAN_FEE` | Both plan and fee payments failed |

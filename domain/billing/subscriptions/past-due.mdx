@@ -1,0 +1,27 @@
+---
+title: "Past Due Handling"
+description: "How payment failures affect subscriptions."
+---
+
+## Trigger
+
+A subscription enters `PAST_DUE` when a Stripe webhook reports a payment failure.
+
+## Past Due Reason
+
+| Reason | Meaning |
+|--------|---------|
+| `PLAN` | Plan invoice payment failed |
+| `FEE` | Usage fee invoice payment failed |
+| `PLAN_FEE` | Both failed |
+
+## Recovery
+
+When the payment is recovered (retried successfully or manually paid), the subscription automatically transitions back to `ACTIVE` via webhook processing.
+
+## Impact
+
+While past due:
+- Organization retains access
+- New costs continue to be recorded
+- The `pastDueAt` timestamp tracks when the issue started

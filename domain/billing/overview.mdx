@@ -1,0 +1,33 @@
+---
+title: "Billing Overview"
+description: "Overview of the AWSales billing system."
+---
+
+The billing system manages subscriptions, invoicing, usage-based charges, credits, and payments.
+
+## Core Concepts
+
+<CardGroup cols={2}>
+  <Card title="Subscriptions" icon="rotate" href="/domain/billing/subscriptions/lifecycle">
+    Organization-to-plan binding with lifecycle management.
+  </Card>
+  <Card title="Pricing" icon="tag" href="/domain/billing/pricing/plans-and-intervals">
+    Plans, intervals, fees, and tokens.
+  </Card>
+  <Card title="Invoicing" icon="file-invoice" href="/domain/billing/invoicing/invoice-lifecycle">
+    Invoice generation, payment, and tracking.
+  </Card>
+  <Card title="Credits & Discounts" icon="percent" href="/domain/billing/credits/coupons">
+    Coupons, vouchers, and billing thresholds.
+  </Card>
+  <Card title="Stripe" icon="credit-card" href="/domain/billing/stripe/overview">
+    Deep Stripe integration for payment processing.
+  </Card>
+  <Card title="Cost Tracking" icon="chart-line" href="/domain/billing/costs/cost-recording">
+    Usage-based cost recording with exchange rates.
+  </Card>
+</CardGroup>
+
+## Multi-Currency
+
+Supports **USD**, **BRL**, and **EUR**. Each organization has a fixed currency. All amounts in **cents**.

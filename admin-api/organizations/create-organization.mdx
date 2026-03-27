@@ -1,0 +1,120 @@
+---
+title: "Create Organization"
+api: "POST /organizations"
+description: "Create an organization."
+---
+
+<Info>Requires `organizations:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>Organization name. Max 255 chars.</ParamField>
+<ParamField body="email" type="string" required>Billing email. Must be unique.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+<ParamField body="billingThresholdId" type="string" required>Must match org currency.</ParamField>
+<ParamField body="phone" type="string">Phone number.</ParamField>
+<ParamField body="address" type="object">
+  Billing address.
+  <Expandable title="address properties">
+    <ParamField body="line1" type="string">Street address.</ParamField>
+    <ParamField body="line2" type="string">Additional info.</ParamField>
+    <ParamField body="city" type="string">City.</ParamField>
+    <ParamField body="state" type="string">State/province.</ParamField>
+    <ParamField body="postalCode" type="string">Postal code.</ParamField>
+    <ParamField body="country" type="string">Country code (ISO 3166-1 alpha-2).</ParamField>
+  </Expandable>
+</ParamField>
+<ParamField body="tax" type="object">
+  Tax information.
+  <Expandable title="tax properties">
+    <ParamField body="taxId" type="string">Tax ID.</ParamField>
+    <ParamField body="taxType" type="string">One of: `CPF`, `CNPJ`.</ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+<ResponseField name="billingThresholdId" type="string">Billing threshold ID.</ResponseField>
+<ResponseField name="subscriptionId" type="string">The active subscription ID.</ResponseField>
+<ResponseField name="iamExternalRef" type="string">Identity provider external reference.</ResponseField>
+<ResponseField name="billingExternalRef" type="string">Payment provider external reference.</ResponseField>
+<ResponseField name="name" type="string">Organization name.</ResponseField>
+<ResponseField name="email" type="string">Billing email.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="phone" type="string">Phone number.</ResponseField>
+<ResponseField name="address" type="object">Billing address.</ResponseField>
+<ResponseField name="taxId" type="string">Tax ID.</ResponseField>
+<ResponseField name="taxType" type="string">Tax type.</ResponseField>
+<ResponseField name="offboardingStatus" type="string">The organization offboarding status.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "subscriptionId": null,
+  "iamExternalRef": "org_workos_def456",
+  "billingExternalRef": "cus_stripe_def456",
+  "name": "New Corp",
+  "email": "billing@newcorp.com",
+  "currency": "BRL",
+  "phone": "+5511999999999",
+  "address": {
+    "line1": "Av Paulista 1000",
+    "line2": null,
+    "city": "Sao Paulo",
+    "state": "SP",
+    "postalCode": "01310-100",
+    "country": "BR"
+  },
+  "taxId": "12345678000100",
+  "taxType": "CNPJ",
+  "offboardingStatus": "ACTIVE",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

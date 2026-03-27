@@ -1,0 +1,65 @@
+---
+title: "The Token Object"
+---
+
+<ResponseField name="tokenId" type="string">
+  The token unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The token name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The token description.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The token type. One of: `AUDIO_TO_TEXT`, `IMAGE_TO_TEXT`, `MEMORY`, `PLANNING`, `RESPONSE`, `RETRIEVAL`, `SUMMARY`, `TOOLS`, `TRANSCRIPTION`, `WEBSCRAPING`.
+</ResponseField>
+
+<ResponseField name="value" type="number">
+  The token value.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The token status. One of: `ACTIVE`, `INACTIVE`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The user ID who created the token.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The user ID who last updated the token.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "tokenId": "019525fd-f5cc-7dc1-c9e5-1f3a5b7d9e1b",
+  "name": "Response Token",
+  "description": "Token consumed per response generation.",
+  "type": "RESPONSE",
+  "value": 0.005,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

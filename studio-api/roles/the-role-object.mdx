@@ -1,0 +1,64 @@
+---
+title: "The Role Object"
+---
+
+<ResponseField name="roleId" type="string">
+  The role unique identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID (UUIDv7). Present for `ORGANIZATION_ROLE` type.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  The role slug.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The role display name.
+</ResponseField>
+
+<ResponseField name="description" type="string|null">
+  The role description. `null` if not provided.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The role type. One of: `ENVIRONMENT_ROLE`, `ORGANIZATION_ROLE`.
+</ResponseField>
+
+<ResponseField name="permissions" type="string[]">
+  Array of permission slugs assigned to the role.
+</ResponseField>
+
+<ResponseField name="inherited" type="boolean">
+  Whether the role is inherited from a parent scope.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "roleId": "role_01HQZE7N9K4RW2X6MTJP8YCDF3",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "slug": "editor",
+  "name": "Editor",
+  "description": "Can edit and publish content",
+  "type": "ORGANIZATION_ROLE",
+  "permissions": [
+    "content:read",
+    "content:write",
+    "content:publish"
+  ],
+  "inherited": false,
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

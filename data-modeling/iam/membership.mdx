@@ -1,0 +1,31 @@
+---
+title: "Membership"
+description: "Links a user to an organization with a role."
+---
+
+<Info>Proxied from WorkOS — not stored in the application database.</Info>
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `membershipId` | string | Unique identifier (WorkOS format: `om_*`) |
+| `userId` | UUIDv7 | FK to User |
+| `organizationId` | UUIDv7 | FK to Organization |
+| `role` | object | Role with slug |
+| `status` | enum | `ACTIVE`, `INACTIVE`, `PENDING` |
+| `createdAt` | datetime | Creation timestamp |
+| `updatedAt` | datetime | Last update |
+
+## Relationships
+
+- **Belongs to** [User](/domain/data-modeling/iam/user)
+- **Belongs to** [Organization](/domain/data-modeling/iam/organization)
+- **Assigns** [Role](/domain/data-modeling/iam/role)
+
+## Business Rules
+
+- Unique per user/organization
+- Role can be changed
+- Supports INACTIVE with reactivation
+- Cursor-based pagination

@@ -1,0 +1,49 @@
+---
+title: "Authentication Flows"
+description: "Email/password, OAuth, and magic auth authentication flows."
+---
+
+## Email/Password Flow
+
+<Steps>
+  <Step title="Sign Up">
+    User provides email, firstName, lastName, password, and invitationToken.
+  </Step>
+  <Step title="Email Verification">
+    Send OTP with `EMAIL_VERIFICATION` context. Verify OTP. Call Email Verification endpoint.
+  </Step>
+  <Step title="Sign In">
+    Email + password → JWT tokens (`accessToken`, `refreshToken`, `expiresIn`).
+  </Step>
+  <Step title="Organization Selection">
+    Multi-org users get 403 `ORGANIZATION_SELECTION_REQUIRED`. Must call Switch Organization.
+  </Step>
+</Steps>
+
+## OAuth Flow
+
+<Steps>
+  <Step title="Authorize">
+    Provider (`GoogleOAuth`/`MicrosoftOAuth`) + redirectUri → authorization URL.
+  </Step>
+  <Step title="Provider Auth">
+    User authenticates with provider.
+  </Step>
+  <Step title="Callback">
+    Authorization code → JWT tokens.
+  </Step>
+</Steps>
+
+## Magic Auth Flow
+
+<Steps>
+  <Step title="Send OTP">
+    Send OTP with `MAGIC_AUTH` context → returns `otpId`.
+  </Step>
+  <Step title="Verify OTP">
+    Verify OTP with `otpId`, recipient, context, and code.
+  </Step>
+  <Step title="Sign In">
+    Call Sign In Magic Auth with `otpId` and `code` → JWT tokens.
+  </Step>
+</Steps>

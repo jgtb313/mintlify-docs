@@ -1,0 +1,55 @@
+---
+title: "The Permission Object"
+---
+
+<ResponseField name="permissionId" type="string">
+  The permission unique identifier.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  The permission slug. Format: `resource:action`.
+</ResponseField>
+
+<ResponseField name="resource" type="string">
+  The resource this permission applies to.
+</ResponseField>
+
+<ResponseField name="action" type="string">
+  The action this permission grants on the resource.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The permission display name.
+</ResponseField>
+
+<ResponseField name="description" type="string|null">
+  The permission description. `null` if not provided.
+</ResponseField>
+
+<ResponseField name="system" type="boolean">
+  Whether this is a system-defined permission.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "permissionId": "perm_01HQZF3B8J5TX7W4NRKM2YPEG9",
+  "slug": "billing:manage",
+  "resource": "billing",
+  "action": "manage",
+  "name": "Manage Billing",
+  "description": "Allows managing billing and subscriptions",
+  "system": true,
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

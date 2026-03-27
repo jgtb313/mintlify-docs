@@ -1,0 +1,90 @@
+---
+title: "The Voucher Object"
+---
+
+<ResponseField name="voucherId" type="string">
+  The voucher unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the voucher.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The voucher display name.
+</ResponseField>
+
+<ResponseField name="amount" type="integer">
+  The voucher total amount in cents.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="effectiveAt" type="string|null">
+  Timestamp when the voucher becomes effective (ISO 8601).
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string|null">
+  Timestamp when the voucher expires (ISO 8601).
+</ResponseField>
+
+<ResponseField name="amountRedeemed" type="integer">
+  The amount already redeemed in cents.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The voucher status. One of: `PENDING`, `ACTIVE`, `DEPLETED`, `EXPIRED`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The actor who created the voucher.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The actor who last updated the voucher.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="deletedBy" type="string">
+  The actor who deleted the voucher.
+</ResponseField>
+
+<ResponseField name="deletedAt" type="string">
+  Deletion timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "voucherId": "019525fd-e4b8-7cb0-b8d4-0e2f4a6c8d0a",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "externalRef": "vch_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+  "name": "Onboarding Credit",
+  "amount": 50000,
+  "currency": "BRL",
+  "effectiveAt": "2026-02-01T00:00:00.000Z",
+  "expiresAt": "2026-08-01T00:00:00.000Z",
+  "amountRedeemed": 12500,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-20T10:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-10T09:30:00.000Z",
+  "deletedBy": null,
+  "deletedAt": null
+}
+```
+</ResponseExample>

@@ -1,0 +1,43 @@
+---
+title: "Error Handling"
+description: "Standard error response format for the Admin API."
+---
+
+## Error Response Format
+
+All errors follow a consistent JSON structure:
+
+```json
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "email"
+    }
+  ]
+}
+```
+
+## Common HTTP Status Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or validation failure |
+| `401` | `unauthorized` | Missing or invalid session |
+| `403` | `forbidden` | Insufficient permissions or additional action required |
+| `404` | `{entity}.not_found` | Resource does not exist |
+| `409` | `{entity}.{conflict}` | Duplicate resource or state conflict |
+| `422` | `{entity}.{rule}` | Business rule violation |
+| `500` | `internal_server_error` | An unexpected error occurred |
+
+## 403 Sub-Codes
+
+The `403` response may include additional context requiring user action:
+
+| Code | Description | Action Required |
+|------|-------------|-----------------|
+| `auth.organization_selection_required` | User belongs to multiple organizations | Select an organization |
+| `auth.otp_verification_required` | Email verification pending | Complete OTP verification |
+| `auth.method_not_allowed` | Authentication method not allowed by organization | Use the correct auth flow |

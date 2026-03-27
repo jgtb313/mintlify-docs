@@ -1,0 +1,126 @@
+---
+title: "List Vouchers"
+api: "GET /organizations/{organizationId}/vouchers"
+description: "List vouchers."
+---
+
+Returns a list of vouchers.
+
+<Info>Requires `voucher:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">
+  Page number.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Results per page.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter by status.
+</ParamField>
+
+<ParamField query="sort" type="string">
+  Sort field and direction.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of voucher objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "voucherId": "019525fd-e4b8-7cb0-b8d4-0e2f4a6c8d0a",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "externalRef": "vo_stripe_abc",
+      "name": "Welcome Credit",
+      "amount": 10000,
+      "currency": "BRL",
+      "effectiveAt": "2026-01-01T00:00:00.000Z",
+      "expiresAt": "2026-12-31T23:59:59.000Z",
+      "amountRedeemed": 2500,
+      "status": "ACTIVE",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "totalItems": 2,
+    "totalPages": 1
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+<Note>
+  Amounts are in **cents** (e.g., `10000` = R$100.00).
+</Note>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

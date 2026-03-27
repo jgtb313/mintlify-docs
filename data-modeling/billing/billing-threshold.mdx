@@ -1,0 +1,32 @@
+---
+title: "Billing Threshold"
+description: "Spending threshold applied to organizations."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `billingThresholdId` | UUIDv7 | Unique identifier |
+| `name` | string | Name, max 255 |
+| `description` | text | Description |
+| `value` | integer | Threshold in cents (positive) |
+| `currency` | enum | `USD`, `BRL`, `EUR` |
+| `status` | enum | `ACTIVE`, `INACTIVE` |
+| `createdBy` | UUIDv7 | Creator |
+| `createdAt` | datetime | Creation |
+| `updatedBy` | UUIDv7 | Last updater |
+| `updatedAt` | datetime | Last update |
+| `deletedBy` | UUIDv7? | Deleter |
+| `deletedAt` | datetime? | Soft delete |
+
+## Relationships
+
+- **Referenced by** [Organization](/domain/data-modeling/iam/organization)
+- **Referenced by** InvoiceBillingThreshold (snapshot at invoice time)
+
+## Business Rules
+
+- Value must be positive
+- Used in upcoming invoice calculations
+- Snapshot captured at invoice creation (InvoiceBillingThreshold)

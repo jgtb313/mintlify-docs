@@ -1,0 +1,39 @@
+---
+title: "Invoice Lifecycle"
+description: "Invoice states and transitions."
+---
+
+## Invoice Types
+
+| Type | Description |
+|------|-------------|
+| `PLAN` | Subscription plan charges |
+| `FEE` | Usage-based fee charges |
+
+## Status Flow
+
+```mermaid
+stateDiagram-v2
+    [*] --> DRAFT
+    DRAFT --> OPEN : Finalized
+    OPEN --> PAID : Success
+    OPEN --> PAYMENT_FAILED : Failure
+    PAID --> REFUNDED : Full refund
+    PAID --> PARTIALLY_REFUNDED : Partial
+    PAID --> DISPUTED : Dispute
+    DISPUTED --> CHARGEBACK : Lost
+    DISPUTED --> CHARGEBACK_RESOLVED : Won
+    OPEN --> UNCOLLECTIBLE : Written off
+    OPEN --> VOID : Voided
+    OPEN --> EXPIRED : Past due
+```
+
+## Line Items
+
+Each invoice contains line items with name, description, unitPrice, quantity, and amount.
+
+## Amounts
+
+- `totalAmount`: Sum of all line items
+- `discountAmount`: Sum of coupon + voucher discounts
+- `payableAmount`: totalAmount - discountAmount

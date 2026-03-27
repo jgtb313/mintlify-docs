@@ -1,0 +1,98 @@
+---
+title: "List Permissions"
+api: "GET /permissions"
+description: "List permissions."
+---
+
+<Info>Requires `permissions:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="limit" type="integer">Results per page.</ParamField>
+<ParamField query="previousCursor" type="string">Cursor for previous page.</ParamField>
+<ParamField query="nextCursor" type="string">Cursor for next page.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of permissions.
+  <Expandable title="permission properties">
+    <ResponseField name="permissionId" type="integer">Permission ID.</ResponseField>
+    <ResponseField name="slug" type="string">Permission slug.</ResponseField>
+    <ResponseField name="resource" type="string">Resource name.</ResponseField>
+    <ResponseField name="action" type="string">Action name.</ResponseField>
+    <ResponseField name="name" type="string">Permission name.</ResponseField>
+    <ResponseField name="description" type="string">Permission description.</ResponseField>
+    <ResponseField name="system" type="boolean">Whether it is a system permission.</ResponseField>
+    <ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+    <ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="hasMore" type="boolean">Whether more results are available.</ResponseField>
+    <ResponseField name="limit" type="integer">Results per page.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "permissionId": 1,
+      "slug": "users:read",
+      "resource": "users",
+      "action": "read",
+      "name": "Read Users",
+      "description": "View user profiles",
+      "system": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "meta": { "hasMore": false, "limit": 20 }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

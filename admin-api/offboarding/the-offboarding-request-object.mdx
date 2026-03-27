@@ -1,0 +1,125 @@
+---
+title: "The Offboarding Request Object"
+---
+
+<ResponseField name="offboardingRequestId" type="string">
+  The offboarding request unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="action" type="string">
+  The offboarding action. One of: `CANCEL_NOW`, `START_RETENTION`.
+</ResponseField>
+
+<ResponseField name="reason" type="string">
+  The primary reason for offboarding.
+</ResponseField>
+
+<ResponseField name="reasonDetail" type="string|null">
+  Additional detail about the reason. Null if not provided.
+</ResponseField>
+
+<ResponseField name="notes" type="string|null">
+  Free-text notes. Null if not provided.
+</ResponseField>
+
+<ResponseField name="campaignMode" type="string|null">
+  The campaign mode applied during retention. One of: `SUSPENDED`, `INACTIVE`. Null when action is `CANCEL_NOW`.
+</ResponseField>
+
+<ResponseField name="billingMode" type="string|null">
+  The billing mode applied during retention. One of: `CHARGED`, `FREE`. Null when action is `CANCEL_NOW`.
+</ResponseField>
+
+<ResponseField name="billingBehavior" type="string|null">
+  The billing behavior applied when billing mode is `FREE`. Null when billing mode is `CHARGED` or action is `CANCEL_NOW`.
+</ResponseField>
+
+<ResponseField name="retentionDeadline" type="string|null">
+  The retention deadline (ISO 8601). After this date, the request is automatically cancelled. Null when action is `CANCEL_NOW`.
+</ResponseField>
+
+<ResponseField name="retentionResolution" type="string|null">
+  The resolution of the retention process. One of: `RETAINED`, `CHURNED`, `AUTO_EXPIRED`. Null while in retention.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The offboarding request status. One of: `IN_RETENTION`, `PENDING_CANCELLATION`, `RETAINED`, `CANCELLED`.
+</ResponseField>
+
+<ResponseField name="requestedBy" type="string">
+  The user ID (UUIDv7) who requested the offboarding.
+</ResponseField>
+
+<ResponseField name="requestedAt" type="string">
+  Timestamp when the offboarding was requested (ISO 8601).
+</ResponseField>
+
+<ResponseField name="resolvedBy" type="string|null">
+  The user ID (UUIDv7) who resolved the retention. Null if not yet resolved.
+</ResponseField>
+
+<ResponseField name="resolvedAt" type="string|null">
+  Timestamp when the retention was resolved (ISO 8601). Null if not yet resolved.
+</ResponseField>
+
+<ResponseField name="cancelledBy" type="string|null">
+  The user ID (UUIDv7) who finalized the cancellation. Null if not cancelled by a user.
+</ResponseField>
+
+<ResponseField name="cancelledBySystem" type="boolean|null">
+  Whether the cancellation was triggered automatically by the system. Null if not yet cancelled.
+</ResponseField>
+
+<ResponseField name="cancelledReason" type="string|null">
+  The reason provided when finalizing the cancellation. Null if not yet cancelled.
+</ResponseField>
+
+<ResponseField name="cancelledAt" type="string|null">
+  Timestamp when the cancellation was finalized (ISO 8601). Null if not yet cancelled.
+</ResponseField>
+
+<ResponseField name="cancellationDetails" type="object|null">
+  Additional cancellation details. Null if not provided.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "offboardingRequestId": "019525fe-4b30-7cb6-beda-6e8f0a2c4d6a",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "action": "START_RETENTION",
+  "reason": "HIGH_COST",
+  "reasonDetail": "Valor acima do orcamento trimestral",
+  "notes": null,
+  "campaignMode": "SUSPENDED",
+  "billingMode": "FREE",
+  "billingBehavior": "keep_as_draft",
+  "retentionDeadline": "2026-04-24T23:30:00.000Z",
+  "retentionResolution": null,
+  "status": "IN_RETENTION",
+  "requestedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "requestedAt": "2026-03-25T23:30:00.000Z",
+  "resolvedBy": null,
+  "resolvedAt": null,
+  "cancelledBy": null,
+  "cancelledBySystem": null,
+  "cancelledReason": null,
+  "cancelledAt": null,
+  "cancellationDetails": null,
+  "createdAt": "2026-03-25T23:30:00.000Z",
+  "updatedAt": "2026-03-25T23:30:00.000Z"
+}
+```
+</ResponseExample>

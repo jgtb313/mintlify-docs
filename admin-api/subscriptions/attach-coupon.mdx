@@ -1,0 +1,151 @@
+---
+title: "Attach Coupon"
+api: "POST /organizations/{organizationId}/subscriptions/attach-coupon"
+description: "Attach a coupon to a subscription."
+---
+
+Attaches a coupon to the organization's active subscription.
+
+<Info>Requires `coupon:attach` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Request Body
+
+<ParamField body="couponCode" type="string" required>
+  The coupon code to attach.
+</ParamField>
+
+## Response
+
+<ResponseField name="subscriptionId" type="string">
+  The subscription ID.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization UUID.
+</ResponseField>
+
+<ResponseField name="planId" type="string">
+  The plan ID.
+</ResponseField>
+
+<ResponseField name="planIntervalId" type="string">
+  The plan interval ID.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The subscription status.
+</ResponseField>
+
+<ResponseField name="coupons" type="array">
+  Attached subscription coupons.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+  "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a",
+  "externalPlanRef": "sub_stripe_abc",
+  "externalFeeRef": null,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "pastDueReason": null,
+  "pastDueAt": null,
+  "pausedBy": null,
+  "pausedAt": null,
+  "cancelledBy": null,
+  "cancelledAt": null,
+  "coupons": [
+    {
+      "id": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+      "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "status": "ACTIVE",
+      "externalRef": "di_stripe_abc",
+      "createdAt": "2026-03-25T14:00:00.000Z",
+      "updatedAt": "2026-03-25T14:00:00.000Z"
+    }
+  ],
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "coupon.not_available"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `subscription.not_found` | Subscription not found |
+| `409` | `coupon.not_available` | Coupon is invalid, expired, or depleted |
+| `500` | `internal_server_error` | An unexpected error occurred |

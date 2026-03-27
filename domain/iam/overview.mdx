@@ -1,0 +1,29 @@
+---
+title: "IAM Overview"
+description: "Identity and Access Management system overview."
+---
+
+The IAM system handles authentication, authorization, and multi-tenancy for AWSales.
+
+## Core Concepts
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="key" href="/domain/iam/auth/flows">
+    Email/password, OAuth (Google, Microsoft), magic links, OTP.
+  </Card>
+  <Card title="Authorization (RBAC)" icon="shield" href="/domain/iam/rbac/overview">
+    Role-based access control.
+  </Card>
+  <Card title="Multi-Tenancy" icon="building" href="/domain/iam/multi-tenancy/organizations">
+    Organization-based tenancy with memberships and invitations.
+  </Card>
+  <Card title="Identity Provider" icon="fingerprint" href="/domain/iam/identity-provider/workos-integration">
+    WorkOS integration for identity management.
+  </Card>
+</CardGroup>
+
+## Key Patterns
+
+- **JWT Tokens** for stateless authentication
+- **RBAC** with environment and organization-scoped roles
+- **Cache-first** reads for users, orgs, roles

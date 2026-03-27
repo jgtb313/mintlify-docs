@@ -1,0 +1,153 @@
+---
+title: "Update Payment Method"
+api: "PATCH /organizations/{organizationId}/payment-methods/{paymentMethodId}"
+description: "Update a payment method."
+---
+
+Updates a payment method by its ID.
+
+<Info>Requires `payment_method:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+<ParamField path="paymentMethodId" type="string" required>
+  The payment method ID.
+</ParamField>
+
+## Request Body
+
+<ParamField body="billingDetails" type="object">
+  Updated billing details (partial).
+  <Expandable title="billingDetails properties">
+    <ParamField body="name" type="string">
+      Cardholder or payer name.
+    </ParamField>
+    <ParamField body="email" type="string">
+      Billing email.
+    </ParamField>
+    <ParamField body="phone" type="string">
+      Billing phone number.
+    </ParamField>
+    <ParamField body="address" type="object">
+      Billing address.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="paymentMethodId" type="string">
+  The payment method ID.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization UUID.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The payment method type (`CARD` or `BOLETO`).
+</ResponseField>
+
+<ResponseField name="brand" type="string">
+  Card brand. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="last4" type="string">
+  Last four digits. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="expMonth" type="integer">
+  Expiration month. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="expYear" type="integer">
+  Expiration year. Present only for `CARD` type.
+</ResponseField>
+
+<ResponseField name="isDefault" type="boolean">
+  Whether this is the default payment method.
+</ResponseField>
+
+<ResponseField name="billingDetails" type="object">
+  Billing contact information.
+</ResponseField>
+
+<ResponseExample>
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+```json 200
+{
+  "paymentMethodId": "pm_abc123",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "type": "CARD",
+  "brand": "visa",
+  "last4": "4242",
+  "expMonth": 12,
+  "expYear": 2027,
+  "isDefault": true,
+  "billingDetails": {
+    "name": "John Doe Updated",
+    "email": "john@example.com",
+    "phone": "+5511999999999",
+    "address": {
+      "line1": "Av Paulista 1000",
+      "city": "Sao Paulo",
+      "state": "SP",
+      "postalCode": "01310-100",
+      "country": "BR"
+    }
+  }
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `payment_method.not_found` | Payment method not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

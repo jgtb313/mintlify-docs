@@ -1,0 +1,73 @@
+---
+title: "Readiness Check"
+api: "GET /health/ready"
+description: "Checks connectivity to all external services."
+authMethod: "none"
+---
+
+Verifies connectivity to each external dependency. Always returns `200` — inspect `status` and `checks` to determine readiness.
+
+## Response
+
+<ResponseField name="status" type="string">
+  Overall readiness status. `ok` if all checks pass, `error` if any fail.
+</ResponseField>
+
+<ResponseField name="checks" type="object">
+  Individual status for each external service.
+</ResponseField>
+
+<ResponseField name="checks.database" type="string">
+  Database connectivity. `ok` or `error`.
+</ResponseField>
+
+<ResponseField name="checks.redis" type="string">
+  Redis connectivity. `ok` or `error`.
+</ResponseField>
+
+<ResponseField name="checks.stripe" type="string">
+  Stripe connectivity. `ok` or `error`.
+</ResponseField>
+
+<ResponseField name="checks.workos" type="string">
+  WorkOS connectivity. `ok` or `error`.
+</ResponseField>
+
+<ResponseExample>
+```json 200 All healthy
+{
+  "status": "ok",
+  "checks": {
+    "database": "ok",
+    "redis": "ok",
+    "stripe": "ok",
+    "workos": "ok"
+  }
+}
+```
+
+```json 200 Partial failure
+{
+  "status": "error",
+  "checks": {
+    "database": "ok",
+    "redis": "ok",
+    "stripe": "error",
+    "workos": "ok"
+  }
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `500` | `internal_server_error` | An unexpected error occurred |

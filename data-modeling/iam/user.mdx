@@ -1,0 +1,34 @@
+---
+title: "User"
+description: "Represents a registered user in the platform."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `userId` | UUIDv7 | Unique identifier |
+| `externalRef` | string | WorkOS user reference |
+| `email` | string | Unique email, max 255 chars |
+| `firstName` | string | First name, max 100 chars |
+| `lastName` | string | Last name, max 100 chars |
+| `locale` | enum | `en-US`, `pt-BR`, `es-ES` |
+| `avatar` | string? | URL to profile picture |
+| `lastSignInAt` | datetime? | Last sign-in timestamp |
+| `emailVerified` | boolean | Whether email is verified |
+| `createdAt` | datetime | Creation timestamp |
+| `updatedAt` | datetime | Last update timestamp |
+
+## Relationships
+
+- **Has many** [Memberships](/domain/data-modeling/iam/membership)
+- **Has many** [Invitations](/domain/data-modeling/iam/invitation) (as inviter or acceptor)
+- **Belongs to many** [Organizations](/domain/data-modeling/iam/organization) via Membership
+
+## Business Rules
+
+- Email must be globally unique
+- Created via **Saga pattern**: local DB → WorkOS. Rolled back on failure.
+- Deletion removes from both local DB and identity provider
+- Cached by ID
+- Cannot sign up if `lastSignInAt` is already set

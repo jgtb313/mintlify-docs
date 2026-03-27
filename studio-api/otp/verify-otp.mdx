@@ -1,0 +1,83 @@
+---
+title: "Validate OTP"
+api: "POST /otps/{otpId}"
+description: "Validate a one-time password."
+authMethod: "none"
+---
+
+Validates a one-time password code.
+
+## Path Parameters
+
+<ParamField path="otpId" type="string" required>
+  The OTP request identifier returned by [Send OTP](/studio-api/otp/send-otp).
+</ParamField>
+
+## Request Body
+
+<ParamField body="recipient" type="string" required>
+  The recipient's email address or phone number. Must match the one used in Send OTP.
+</ParamField>
+
+<ParamField body="context" type="string" required>
+  Must match the context used when sending. One of: `EMAIL_VERIFICATION`, `MAGIC_AUTH`, `RESET_PASSWORD`.
+</ParamField>
+
+<ParamField body="code" type="string" required>
+  The OTP code received by the recipient.
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 204
+// No content — OTP validated successfully
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "auth.invalid_code",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Next Steps
+
+After successful validation, call the appropriate endpoint to complete the flow:
+
+| Context | Next Endpoint |
+|---------|---------------|
+| `EMAIL_VERIFICATION` | [Email Verification](/studio-api/auth/email-verification) |
+| `MAGIC_AUTH` | [Sign In Magic Auth](/studio-api/auth/sign-in-magic-auth) |
+| `RESET_PASSWORD` | [Reset Password](/studio-api/auth/reset-password) |
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `400` | `auth.invalid_code` | OTP code is invalid or expired |
+| `500` | `internal_server_error` | An unexpected error occurred |
+
+## Special 403 Responses
+
+The OTP verification may return `403` with specific sub-codes requiring additional action:
+
+| Code | Description | Action Required |
+|------|-------------|-----------------|
+| `auth.organization_selection_required` | User belongs to multiple organizations | Call [Switch Organization](/studio-api/profile/switch-organization) |
+| `auth.method_not_allowed` | Authentication method not allowed by organization | Use the correct auth flow |

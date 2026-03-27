@@ -1,0 +1,106 @@
+---
+title: "cost.requested"
+description: "Published when a usage cost is recorded for an organization."
+---
+
+## Event Details
+
+| Property | Value |
+|----------|-------|
+| **Type** | `cost.requested` |
+
+## Payload Schema
+
+<ResponseField name="costId" type="string (UUID v7)" required>
+  Unique identifier of the cost record.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string (UUID v7)" required>
+  FK to Organization.
+</ResponseField>
+
+<ResponseField name="feeId" type="string (UUID v7)" required>
+  FK to Fee.
+</ResponseField>
+
+<ResponseField name="tokenId" type="string (UUID v7)" required>
+  FK to Token.
+</ResponseField>
+
+<ResponseField name="costBatchId" type="string (UUID v7)">
+  FK to CostBatch.
+</ResponseField>
+
+<ResponseField name="costBatchWindowRef" type="string" required>
+  Unique window reference for batch grouping.
+</ResponseField>
+
+<ResponseField name="quantity" type="integer" required>
+  Units consumed.
+</ResponseField>
+
+<ResponseField name="unitAmount" type="decimal" required>
+  Price per unit.
+</ResponseField>
+
+<ResponseField name="unitAmountCurrency" type="string" required>
+  Token's currency (`USD`, `BRL`, `EUR`).
+</ResponseField>
+
+<ResponseField name="subtotalAmount" type="decimal" required>
+  quantity × unitAmount.
+</ResponseField>
+
+<ResponseField name="exchangeRate" type="decimal" required>
+  Conversion rate applied.
+</ResponseField>
+
+<ResponseField name="exchangeRateProvider" type="string" required>
+  Exchange rate provider.
+</ResponseField>
+
+<ResponseField name="totalAmount" type="decimal" required>
+  Final amount in organization currency.
+</ResponseField>
+
+<ResponseField name="totalAmountCurrency" type="string" required>
+  Organization's currency (`USD`, `BRL`, `EUR`).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string (ISO 8601)" required>
+  Creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string (ISO 8601)" required>
+  Last update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "specversion": "1.0",
+  "type": "cost.requested",
+  "id": "evt_0195f3a2-8c00-7d4e-b808-8b9c0d1e2f3a",
+  "time": "2026-03-25T14:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "costId": "0195f3a2-8c00-7d4e-b808-8b9c0d1e2f3a",
+    "organizationId": "0195f3a2-8c00-7d4e-b801-1a2b3c4d5e6f",
+    "feeId": "0195f3a2-7b8c-7d9e-a0b1-c2d3e4f56789",
+    "tokenId": "0195f3a2-8c00-7d4e-b807-7a8b9c0d1e2f",
+    "costBatchId": null,
+    "costBatchWindowRef": "a1b2c3d4e5f6",
+    "quantity": 150,
+    "unitAmount": 5.90,
+    "unitAmountCurrency": "USD",
+    "subtotalAmount": 885.00,
+    "exchangeRate": 1.0,
+    "exchangeRateProvider": "ecb",
+    "totalAmount": 885.00,
+    "totalAmountCurrency": "BRL",
+    "createdAt": "2026-03-25T14:00:00Z",
+    "updatedAt": "2026-03-25T14:00:00Z"
+  }
+}
+```
+</ResponseExample>

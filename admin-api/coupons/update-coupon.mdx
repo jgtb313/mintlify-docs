@@ -1,0 +1,112 @@
+---
+title: "Update Coupon"
+api: "PATCH /coupons/{couponId}"
+description: "Update a coupon."
+---
+<Info>Requires `coupon:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="couponId" type="string" required>Coupon UUID.</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string">Updated name.</ParamField>
+
+## Response
+
+<ResponseField name="couponId" type="string">Coupon UUID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="code" type="string">Coupon code.</ResponseField>
+<ResponseField name="name" type="string">Coupon name.</ResponseField>
+<ResponseField name="type" type="string">Discount type.</ResponseField>
+<ResponseField name="amount" type="integer">Discount amount.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="duration" type="string">Duration type.</ResponseField>
+<ResponseField name="durationInMonths" type="integer">Duration in months.</ResponseField>
+<ResponseField name="maxRedemptions" type="integer">Maximum redemptions.</ResponseField>
+<ResponseField name="redeemBy" type="string">Expiration date.</ResponseField>
+<ResponseField name="timesRedeemed" type="integer">Times redeemed.</ResponseField>
+<ResponseField name="amountRedeemed" type="integer">Total amount redeemed.</ResponseField>
+<ResponseField name="status" type="string">Coupon status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+<ResponseField name="deletedBy" type="string">Deleter identifier.</ResponseField>
+<ResponseField name="deletedAt" type="string">Deletion timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+  "externalRef": null,
+  "code": "SAVE20",
+  "name": "Save 20% Updated",
+  "type": "PERCENTAGE",
+  "amount": 20,
+  "currency": "BRL",
+  "duration": "ONCE",
+  "durationInMonths": null,
+  "maxRedemptions": null,
+  "redeemBy": null,
+  "timesRedeemed": 0,
+  "amountRedeemed": 0,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:30:00.000Z",
+  "deletedBy": null,
+  "deletedAt": null
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "coupon.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `coupon.not_found` | Coupon not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

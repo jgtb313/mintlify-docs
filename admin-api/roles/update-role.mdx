@@ -1,0 +1,104 @@
+---
+title: "Update Role"
+api: "PATCH /roles/{slug}"
+description: "Update a role."
+---
+
+<Info>Requires `roles:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="slug" type="string" required>Role slug.</ParamField>
+
+## Query Parameters
+
+<ParamField query="organizationId" type="string">
+  The organization UUID.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string">Updated name.</ParamField>
+<ParamField body="description" type="string">Updated description.</ParamField>
+<ParamField body="permissions" type="string[]">Updated permissions.</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 200
+{
+  "roleId": "10",
+  "organizationId": null,
+  "slug": "custom-editor",
+  "name": "Updated Editor",
+  "description": null,
+  "type": "ORGANIZATION_ROLE",
+  "permissions": ["users:read", "users:write"],
+  "inherited": false,
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedAt": "2026-03-25T14:30:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "role.cannot_modify_inherited"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "role.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "permission.not_found"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `403` | `role.cannot_modify_inherited` | Cannot modify an inherited role |
+| `404` | `role.not_found` | Role not found |
+| `404` | `permission.not_found` | One or more permissions do not exist |
+| `500` | `internal_server_error` | An unexpected error occurred |

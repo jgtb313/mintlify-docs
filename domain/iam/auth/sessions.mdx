@@ -1,0 +1,47 @@
+---
+title: "Sessions & JWT"
+description: "How JWT-based authentication works in AWSales."
+---
+
+## JWT Authentication
+
+AWSales uses **JSON Web Tokens (JWT)** for authentication. The system issues two tokens on successful authentication:
+
+| Token | Purpose | Lifetime |
+|-------|---------|----------|
+| `accessToken` | Authenticates API requests via `Authorization: Bearer` header | Short-lived (`expiresIn` seconds) |
+| `refreshToken` | Obtains new access tokens without re-authentication | Long-lived |
+
+## Token Lifecycle
+
+1. **Issued** on successful authentication (sign-in, OAuth callback, OTP verification)
+2. **Renewed** when activating an organization (new `accessToken` with org context)
+3. **Used** on every authenticated request via `Authorization: Bearer <accessToken>`
+4. **Refreshed** when expired using the `refreshToken`
+5. **Invalidated** on sign-out
+
+## Access Token Contents
+
+The JWT access token encodes:
+
+- User identity (user ID)
+- Active organization ID (if activated)
+- Token expiration
+- Role context
+
+## Request Authentication
+
+Every authenticated API request must include the access token:
+
+```
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+If the token is expired or invalid, the API returns `401 Unauthorized`.
+
+## Organization Context
+
+Multi-organization users must call [Switch Organization](/studio-api/profile/switch-organization) after sign-in. This returns a new `accessToken` scoped to the selected organization, determining:
+- Which resources the user can access
+- Which role applies
+- Which billing context is used

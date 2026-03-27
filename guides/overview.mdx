@@ -1,0 +1,29 @@
+---
+title: "Introduction"
+description: "Welcome to the AWSales documentation. Start here to navigate through our APIs, contracts, and domain knowledge."
+---
+
+This documentation covers everything you need to understand and integrate with AWSales — from REST APIs and async messaging contracts to domain modeling and background jobs.
+
+## Where to go
+
+<CardGroup cols={2}>
+  <Card title="Studio API" icon="code" href="/studio-api/overview">
+    Public-facing API consumed by the Studio frontend. Covers authentication, subscriptions, invoices, payment methods, and more.
+  </Card>
+  <Card title="Admin API" icon="lock" href="/admin-api/overview">
+    Internal API for back-office operations — user management, organization setup, plans, billing thresholds, and tokens.
+  </Card>
+  <Card title="Queue" icon="envelope" href="/queue-contracts/overview">
+    Async messaging contracts following the CloudEvents spec. Describes every event published across services.
+  </Card>
+  <Card title="Scheduler" icon="clock" href="/schedulers/overview">
+    Background jobs and scheduled tasks such as cost settlement dispatching and processing.
+  </Card>
+  <Card title="Data Modeling" icon="database" href="/domain/data-modeling/overview">
+    Entity schemas, relationships, and field definitions for IAM and Billing domains.
+  </Card>
+  <Card title="Domain" icon="book" href="/domain/overview">
+    Deep-dive into the domain — IAM, billing lifecycle, pricing, Stripe integration, and cost tracking.
+  </Card>
+</CardGroup>

@@ -1,0 +1,37 @@
+---
+title: "Fee"
+description: "Usage-based fee linked to tokens and Stripe billing meters."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `feeId` | UUIDv7 | Unique identifier |
+| `externalProductRef` | string | Stripe product (unique) |
+| `externalPriceRef` | string | Stripe price (unique) |
+| `externalBillingMeterRef` | string | Stripe billing meter (unique) |
+| `name` | string | Fee name, max 255 |
+| `description` | text | Description |
+| `eventName` | string | Unique event name, max 255 |
+| `currency` | enum | `USD`, `BRL`, `EUR` |
+| `status` | enum | `ACTIVE`, `INACTIVE` |
+| `createdBy` | UUIDv7 | Creator |
+| `createdAt` | datetime | Creation |
+| `updatedBy` | UUIDv7 | Last updater |
+| `updatedAt` | datetime | Last update |
+| `deletedBy` | UUIDv7? | Deleter |
+| `deletedAt` | datetime? | Soft delete |
+
+## Relationships
+
+- **Has many** [Tokens](/domain/data-modeling/billing/token) via FeeToken (M2M)
+- **Has many** [Costs](/domain/data-modeling/billing/cost)
+- **Has many** VoucherFees
+
+## Business Rules
+
+- `eventName` globally unique
+- Max 10 ACTIVE fees per currency
+- Synced with Stripe (product, price, billing meter)
+- Linked fees cannot have duplicate currencies

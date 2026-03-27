@@ -1,0 +1,138 @@
+---
+title: "The Subscription Object"
+---
+
+<ResponseField name="subscriptionId" type="string">
+  The subscription unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID.
+</ResponseField>
+
+<ResponseField name="planId" type="string">
+  The plan ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="planIntervalId" type="string">
+  The plan interval ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalPlanRef" type="string|null">
+  The external reference for the plan.
+</ResponseField>
+
+<ResponseField name="externalFeeRef" type="string|null">
+  The external reference for the fee.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The subscription status. One of: `ACTIVE`, `PAST_DUE`, `PAUSED`, `CANCELLATION_PENDING`, `CANCELLED`.
+</ResponseField>
+
+<ResponseField name="pastDueReason" type="string|null">
+  The reason the subscription is past due.
+</ResponseField>
+
+<ResponseField name="pastDueAt" type="string|null">
+  Timestamp when the subscription became past due (ISO 8601).
+</ResponseField>
+
+<ResponseField name="pausedBy" type="string|null">
+  The actor who paused the subscription.
+</ResponseField>
+
+<ResponseField name="pausedAt" type="string|null">
+  Timestamp when the subscription was paused (ISO 8601).
+</ResponseField>
+
+<ResponseField name="cancelledBy" type="string|null">
+  The actor who cancelled the subscription.
+</ResponseField>
+
+<ResponseField name="cancelledAt" type="string|null">
+  Timestamp when the subscription was cancelled (ISO 8601).
+</ResponseField>
+
+<ResponseField name="coupons" type="array">
+  The coupons applied to this subscription.
+  <Expandable title="coupon item properties">
+    <ResponseField name="id" type="string">
+      The subscription coupon unique identifier.
+    </ResponseField>
+    <ResponseField name="subscriptionId" type="string">
+      The subscription ID.
+    </ResponseField>
+    <ResponseField name="couponId" type="string">
+      The coupon ID.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      The subscription coupon status.
+    </ResponseField>
+    <ResponseField name="externalRef" type="string">
+      The external reference.
+    </ResponseField>
+    <ResponseField name="createdAt" type="string">
+      Creation timestamp (ISO 8601).
+    </ResponseField>
+    <ResponseField name="updatedAt" type="string">
+      Last update timestamp (ISO 8601).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The actor who created the subscription.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The actor who last updated the subscription.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+  "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a",
+  "externalPlanRef": "sub_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+  "externalFeeRef": null,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "pastDueReason": null,
+  "pastDueAt": null,
+  "pausedBy": null,
+  "pausedAt": null,
+  "cancelledBy": null,
+  "cancelledAt": null,
+  "coupons": [
+    {
+      "id": "019525fe-a1b4-7d3e-c5f8-2a4c6e8b0d1f",
+      "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+      "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "status": "ACTIVE",
+      "externalRef": "di_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+      "createdAt": "2026-02-01T12:00:00.000Z",
+      "updatedAt": "2026-02-01T12:00:00.000Z"
+    }
+  ],
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-02-01T12:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-02-01T12:00:00.000Z"
+}
+```
+</ResponseExample>

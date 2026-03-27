@@ -1,0 +1,113 @@
+---
+title: "Update Organization"
+api: "PATCH /organizations/{organizationId}"
+description: "Update an organization."
+---
+
+<Info>Requires `organizations:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>Organization UUID.</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string">Updated name.</ParamField>
+<ParamField body="email" type="string">Updated billing email.</ParamField>
+<ParamField body="phone" type="string">Updated phone.</ParamField>
+<ParamField body="address" type="object">Updated address.</ParamField>
+
+## Response
+
+<ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+<ResponseField name="billingThresholdId" type="string">Billing threshold ID.</ResponseField>
+<ResponseField name="subscriptionId" type="string">The active subscription ID.</ResponseField>
+<ResponseField name="iamExternalRef" type="string">Identity provider external reference.</ResponseField>
+<ResponseField name="billingExternalRef" type="string">Payment provider external reference.</ResponseField>
+<ResponseField name="name" type="string">Organization name.</ResponseField>
+<ResponseField name="email" type="string">Billing email.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="phone" type="string">Phone number.</ResponseField>
+<ResponseField name="address" type="object">Billing address.</ResponseField>
+<ResponseField name="taxId" type="string">Tax ID.</ResponseField>
+<ResponseField name="taxType" type="string">Tax type.</ResponseField>
+<ResponseField name="offboardingStatus" type="string">The organization offboarding status.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "iamExternalRef": "org_workos_abc123",
+  "billingExternalRef": "cus_stripe_abc123",
+  "name": "Acme Inc Updated",
+  "email": "billing@acme.com",
+  "currency": "BRL",
+  "phone": "+5511999999999",
+  "address": {
+    "line1": "Av Paulista 1000",
+    "line2": null,
+    "city": "Sao Paulo",
+    "state": "SP",
+    "postalCode": "01310-100",
+    "country": "BR"
+  },
+  "taxId": "12345678000100",
+  "taxType": "CNPJ",
+  "offboardingStatus": "ACTIVE",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-03-25T14:30:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

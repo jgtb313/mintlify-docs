@@ -1,0 +1,29 @@
+---
+title: "Permission"
+description: "Defines a specific action on a resource."
+---
+
+<Info>Proxied from WorkOS — not stored in the application database.</Info>
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `permissionId` | string | Unique identifier (WorkOS format: `perm_*`) |
+| `slug` | string | Unique (format: `resource:action`) |
+| `resource` | string | Resource name |
+| `action` | string | Action name |
+| `name` | string | Display name |
+| `description` | string? | Description |
+| `system` | boolean | System-defined permission |
+| `createdAt` | datetime | Creation timestamp |
+| `updatedAt` | datetime | Last update |
+
+## Relationships
+
+- **Assigned to** [Roles](/domain/data-modeling/iam/role) via slug array
+
+## Business Rules
+
+- Format: `resource:action` (e.g., `users:read`)
+- System permissions are immutable

@@ -1,0 +1,37 @@
+---
+title: "Invitations"
+description: "Invitation workflow for adding users to organizations."
+---
+
+## Flow
+
+<Steps>
+  <Step title="Send Invitation">
+    Admin sends invitation with email and optional role slug.
+  </Step>
+  <Step title="Email Delivered">
+    Invitation email with acceptance URL sent to the user.
+  </Step>
+  <Step title="User Accepts">
+    User clicks the link and authenticates (sign-up or sign-in with token).
+  </Step>
+  <Step title="Membership Created">
+    A membership is automatically created in the organization.
+  </Step>
+</Steps>
+
+## States
+
+| State | Description |
+|-------|-------------|
+| `PENDING` | Invitation sent, awaiting acceptance |
+| `ACCEPTED` | User accepted the invitation |
+| `REVOKED` | Admin or inviter revoked |
+| `EXPIRED` | Past `expiresAt` date |
+
+## Rules
+
+- Email must be unique per organization
+- Only `PENDING` invitations can be revoked or resent
+- Magic link OTP flow can validate and accept invitations
+- Invitations auto-expire based on `expiresAt`

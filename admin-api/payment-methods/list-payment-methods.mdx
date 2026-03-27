@@ -1,0 +1,115 @@
+---
+title: "List Payment Methods"
+api: "GET /organizations/{organizationId}/payment-methods"
+description: "List payment methods."
+---
+<Info>Requires `payment_method:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>Organization UUID.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of payment methods.
+  <Expandable title="payment method properties">
+    <ResponseField name="paymentMethodId" type="string">Payment method ID.</ResponseField>
+    <ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+    <ResponseField name="type" type="string">Payment method type (`CARD` or `BOLETO`).</ResponseField>
+    <ResponseField name="brand" type="string">Card brand (CARD only).</ResponseField>
+    <ResponseField name="last4" type="string">Last 4 digits (CARD only).</ResponseField>
+    <ResponseField name="expMonth" type="integer">Expiration month (CARD only).</ResponseField>
+    <ResponseField name="expYear" type="integer">Expiration year (CARD only).</ResponseField>
+    <ResponseField name="isDefault" type="boolean">Whether it is the default payment method.</ResponseField>
+    <ResponseField name="billingDetails" type="object">
+      Billing details.
+      <Expandable title="billingDetails properties">
+        <ResponseField name="name" type="string">Billing name.</ResponseField>
+        <ResponseField name="email" type="string">Billing email.</ResponseField>
+        <ResponseField name="phone" type="string">Billing phone.</ResponseField>
+        <ResponseField name="address" type="object">Billing address.</ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "paymentMethodId": "pm_abc123",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "type": "CARD",
+      "brand": "visa",
+      "last4": "4242",
+      "expMonth": 12,
+      "expYear": 2027,
+      "isDefault": true,
+      "billingDetails": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "+5511999999999",
+        "address": {
+          "line1": "Av Paulista 1000",
+          "line2": null,
+          "city": "Sao Paulo",
+          "state": "SP",
+          "postalCode": "01310-100",
+          "country": "BR"
+        }
+      }
+    }
+  ]
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

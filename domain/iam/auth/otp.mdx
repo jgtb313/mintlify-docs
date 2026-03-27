@@ -1,0 +1,30 @@
+---
+title: "OTP (One-Time Password)"
+description: "OTP contexts and usage."
+---
+
+## Contexts
+
+| Context | Purpose | Next Step |
+|---------|---------|-----------|
+| `EMAIL_VERIFICATION` | Verify email after sign-up (also used for resend) | [Email Verification](/studio-api/auth/email-verification) |
+| `MAGIC_AUTH` | Passwordless login | [Sign In Magic Auth](/studio-api/auth/sign-in-magic-auth) |
+| `RESET_PASSWORD` | Reset password | [Reset Password](/studio-api/auth/reset-password) |
+
+## Flow
+
+<Steps>
+  <Step title="Send OTP">
+    Call [Send OTP](/studio-api/otp/send-otp) with `recipient` and `context`. Returns `otpId`.
+  </Step>
+  <Step title="Validate OTP">
+    Call [Validate OTP](/studio-api/otp/verify-otp) with `otpId` in path, plus `recipient`, `context`, and `code`. Returns 204.
+  </Step>
+  <Step title="Complete Action">
+    Call the context-specific endpoint with `otpId` and `code` to complete the flow.
+  </Step>
+</Steps>
+
+## Recipient
+
+The `recipient` field accepts either an email address or phone number.

@@ -1,0 +1,41 @@
+---
+title: "Cost"
+description: "Usage-based cost record with exchange rate conversion."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `costId` | UUIDv7 | Unique identifier |
+| `organizationId` | UUIDv7 | FK to Organization |
+| `feeId` | UUIDv7 | FK to Fee |
+| `tokenId` | UUIDv7 | FK to Token |
+| `costBatchId` | UUIDv7? | FK to CostBatch |
+| `costBatchWindowRef` | string | Unique window reference |
+| `quantity` | integer | Units consumed |
+| `unitAmount` | decimal | Price per unit |
+| `unitAmountCurrency` | enum | Token's currency |
+| `subtotalAmount` | decimal | quantity * unitAmount |
+| `exchangeRate` | decimal | Conversion rate |
+| `exchangeRateProvider` | string | Rate provider |
+| `totalAmount` | decimal | Final amount in org currency |
+| `totalAmountCurrency` | enum | Organization's currency |
+| `createdAt` | datetime | Creation |
+| `updatedAt` | datetime | Last update |
+
+## Relationships
+
+- **Belongs to** [Organization](/domain/data-modeling/iam/organization)
+- **Belongs to** [Fee](/domain/data-modeling/billing/fee)
+- **Belongs to** [Token](/domain/data-modeling/billing/token)
+- **Belongs to** CostBatch (optional)
+
+## Business Rules
+
+- Only created if org has active subscription
+- Token must be ACTIVE
+- Fee must be compatible with org currency
+- Exchange rate: token currency → org currency
+- `costBatchWindowRef` from hash(eventName, orgId, timestamp window)
+- Grouped for batch settlement

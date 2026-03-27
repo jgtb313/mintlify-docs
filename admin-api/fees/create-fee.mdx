@@ -1,0 +1,109 @@
+---
+title: "Create Fee"
+api: "POST /fees"
+description: "Create a fee."
+---
+<Info>Requires `fee:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>Fee name. Max 255 chars.</ParamField>
+<ParamField body="description" type="string" required>Description.</ParamField>
+<ParamField body="eventName" type="string" required>Unique event name. Max 255 chars.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+<ParamField body="tokens" type="array">
+  Token associations.
+  <Expandable title="token properties">
+    <ParamField body="tokenId" type="string" required>Token UUID.</ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="feeId" type="string">Fee ID.</ResponseField>
+<ResponseField name="externalProductRef" type="string">External product reference.</ResponseField>
+<ResponseField name="externalPriceRef" type="string">External price reference.</ResponseField>
+<ResponseField name="externalBillingMeterRef" type="string">External billing meter reference.</ResponseField>
+<ResponseField name="name" type="string">Fee name.</ResponseField>
+<ResponseField name="description" type="string">Fee description.</ResponseField>
+<ResponseField name="eventName" type="string">Event name.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Fee status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "feeId": "019525fd-8f54-7d6b-c3e9-5f7a9b1d3e5b",
+  "externalProductRef": "prod_stripe_abc",
+  "externalPriceRef": "price_stripe_abc",
+  "externalBillingMeterRef": "meter_stripe_abc",
+  "name": "Transcription",
+  "description": "Transcription usage fee",
+  "eventName": "transcription.complete",
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "fee.event_name_already_exists"
+}
+```
+```json 422
+{
+  "statusCode": 422,
+  "message": "fee.max_of_20_fees_active_reached"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `409` | `fee.event_name_already_exists` | Fee event name is already in use |
+| `422` | `fee.max_of_20_fees_active_reached` | Maximum of 20 active fees reached |
+| `500` | `internal_server_error` | An unexpected error occurred |

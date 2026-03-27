@@ -1,0 +1,29 @@
+---
+title: "Environment vs Organization Roles"
+description: "Understanding the two role scopes."
+---
+
+## Environment Roles
+
+- Defined at the **platform level**
+- Inherited by **all organizations**
+- **Immutable** at the organization level
+- Managed by platform administrators only
+- Marked with `inherited: true` and `type: ENVIRONMENT_ROLE`
+
+## Organization Roles
+
+- Defined at the **organization level**
+- Scoped to a **single organization**
+- **Fully mutable** by organization admins
+- Marked with `inherited: false` and `type: ORGANIZATION_ROLE`
+- Reference the `organizationId` they belong to
+
+## When to Use Each
+
+| Use Case | Role Type |
+|----------|-----------|
+| Platform-wide admin access | Environment |
+| Default member role for all orgs | Environment |
+| Custom team-specific access | Organization |
+| Department-level access | Organization |

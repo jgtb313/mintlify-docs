@@ -1,0 +1,42 @@
+---
+title: "Payment Method"
+description: "Card or Boleto payment method for an organization."
+---
+
+<Info>Proxied from Stripe — not stored in the application database.</Info>
+
+## Schema (Union Type)
+
+### Card
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `paymentMethodId` | string | Payment method ID |
+| `organizationId` | UUIDv7 | FK to Organization |
+| `type` | `CARD` | Payment type |
+| `brand` | string | Card brand (visa, mastercard, etc.) |
+| `last4` | string | Last 4 digits |
+| `expMonth` | integer | Expiration month |
+| `expYear` | integer | Expiration year |
+| `isDefault` | boolean | Default payment method |
+| `billingDetails` | object | Name, email |
+
+### Boleto
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `paymentMethodId` | string | Payment method ID |
+| `organizationId` | UUIDv7 | FK to Organization |
+| `type` | `BOLETO` | Payment type |
+| `isDefault` | boolean | Default payment method |
+| `billingDetails` | object | Name, taxId |
+
+## Relationships
+
+- **Belongs to** [Organization](/domain/data-modeling/iam/organization)
+
+## Business Rules
+
+- Multiple per organization
+- One can be default
+- Used in invoices and subscriptions

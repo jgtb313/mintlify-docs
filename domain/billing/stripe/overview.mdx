@@ -1,0 +1,23 @@
+---
+title: "Stripe Integration Overview"
+description: "How AWSales integrates with Stripe."
+---
+
+## Integration Model
+
+AWSales uses Stripe as the payment processor. Data flows bidirectionally:
+
+**AWSales → Stripe**:
+- Products (Plans, Fees)
+- Prices (PlanIntervals)
+- Customers (Organizations)
+- Subscriptions
+- Coupons + Promotion Codes
+- Credit Grants (Vouchers)
+- Billing Meters (usage reporting)
+
+**Stripe → AWSales**:
+- Invoice status updates (paid, failed, refunded)
+- Payment method events
+- Dispute notifications
+

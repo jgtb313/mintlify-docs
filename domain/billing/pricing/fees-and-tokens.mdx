@@ -1,0 +1,27 @@
+---
+title: "Fees & Tokens"
+description: "Usage-based billing with fees and consumable tokens."
+---
+
+## Fees
+
+Fees represent usage-based charges. Each fee:
+- Has a unique `eventName` (e.g., `api.call`, `transcription.complete`)
+- Is linked to a Stripe Product, Price, and Billing Meter
+- Has a currency matching the organizations it serves
+- Max 10 active fees per currency
+
+## Tokens
+
+Tokens represent the smallest consumable unit with a monetary value:
+- Typed (RESPONSE, PLANNING, TRANSCRIPTION, etc.)
+- Has a `value` (decimal) per unit in a specific currency
+- Linked to fees via the FeeToken many-to-many relationship
+
+## Relationship
+
+```
+Fee ←→ FeeToken ←→ Token
+```
+
+A fee can have multiple tokens, and a token can belong to multiple fees. This allows flexible pricing where different token types contribute to the same fee.

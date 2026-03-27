@@ -1,0 +1,155 @@
+---
+title: "Update Role"
+api: "PATCH /organizations/{organizationId}/roles/{slug}"
+description: "Update a role."
+---
+
+Updates a role by its slug.
+
+<Info>Requires `roles:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+<ParamField path="slug" type="string" required>
+  The role slug.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string">
+  Updated display name.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Updated description.
+</ParamField>
+
+<ParamField body="permissions" type="string[]">
+  Updated array of permission slugs.
+</ParamField>
+
+## Response
+
+<ResponseField name="roleId" type="string">
+  The role ID.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization UUID. Present only for organization roles.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  Unique role identifier.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Display name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Role description.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  Role type (`ENVIRONMENT_ROLE` or `ORGANIZATION_ROLE`).
+</ResponseField>
+
+<ResponseField name="permissions" type="string[]">
+  Array of permission slugs.
+</ResponseField>
+
+<ResponseField name="inherited" type="boolean">
+  Whether the role is inherited from the environment.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  ISO 8601 last-update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "roleId": "role_org_custom_editor",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "slug": "custom-editor",
+  "name": "Updated Editor",
+  "description": "Updated custom role description",
+  "type": "ORGANIZATION_ROLE",
+  "permissions": ["users:read", "users:write", "roles:read"],
+  "inherited": false,
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedAt": "2026-03-25T14:30:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "role.cannot_modify_inherited"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "permission.not_found"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `403` | `role.cannot_modify_inherited` | Cannot modify an inherited role |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `role.not_found` | Role not found |
+| `404` | `permission.not_found` | One or more permissions do not exist |
+| `500` | `internal_server_error` | An unexpected error occurred |

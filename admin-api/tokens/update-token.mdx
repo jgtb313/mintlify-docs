@@ -1,0 +1,96 @@
+---
+title: "Update Token"
+api: "PATCH /tokens/{tokenId}"
+description: "Update a token."
+---
+<Info>Requires `token:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="tokenId" type="string" required>Token UUID.</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string">Updated name.</ParamField>
+<ParamField body="description" type="string">Updated description.</ParamField>
+<ParamField body="value" type="string">Updated value.</ParamField>
+
+## Response
+
+<ResponseField name="tokenId" type="string">Token UUID.</ResponseField>
+<ResponseField name="name" type="string">Token name.</ResponseField>
+<ResponseField name="description" type="string">Token description.</ResponseField>
+<ResponseField name="type" type="string">Token type.</ResponseField>
+<ResponseField name="value" type="string">Decimal value per unit.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Token status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "tokenId": "019525fd-f5cc-7dc1-c9e5-1f3a5b7d9e1b",
+  "name": "Response Token V2",
+  "description": "LLM response token",
+  "type": "RESPONSE",
+  "value": "0.015",
+  "currency": "USD",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:30:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "token.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `token.not_found` | Token not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

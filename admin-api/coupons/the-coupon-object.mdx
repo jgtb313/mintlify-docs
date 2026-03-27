@@ -1,0 +1,110 @@
+---
+title: "The Coupon Object"
+---
+
+<ResponseField name="couponId" type="string">
+  The coupon unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the coupon.
+</ResponseField>
+
+<ResponseField name="code" type="string">
+  The coupon code used for redemption.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The coupon display name.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The discount type. One of: `FIXED`, `PERCENTAGE`.
+</ResponseField>
+
+<ResponseField name="amount" type="integer">
+  The discount amount. For `FIXED` type, the value in cents. For `PERCENTAGE` type, the percentage value.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The currency code (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="duration" type="string">
+  How long the discount applies. One of: `ONCE`, `REPEATING`.
+</ResponseField>
+
+<ResponseField name="durationInMonths" type="integer|null">
+  The number of months the discount applies when duration is `REPEATING`.
+</ResponseField>
+
+<ResponseField name="maxRedemptions" type="integer|null">
+  The maximum number of times this coupon can be redeemed. Null for unlimited.
+</ResponseField>
+
+<ResponseField name="redeemBy" type="string|null">
+  The deadline for redeeming this coupon (ISO 8601). Null if no deadline.
+</ResponseField>
+
+<ResponseField name="timesRedeemed" type="integer">
+  The number of times this coupon has been redeemed.
+</ResponseField>
+
+<ResponseField name="amountRedeemed" type="integer">
+  The total amount redeemed so far.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The coupon status. One of: `ACTIVE`, `DEPLETED`, `EXPIRED`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The actor who created the coupon.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The actor who last updated the coupon.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="deletedBy" type="string">
+  The actor who deleted the coupon.
+</ResponseField>
+
+<ResponseField name="deletedAt" type="string">
+  Deletion timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+  "externalRef": null,
+  "code": "WELCOME20",
+  "name": "Welcome Discount",
+  "type": "PERCENTAGE",
+  "amount": 20,
+  "currency": "BRL",
+  "duration": "REPEATING",
+  "durationInMonths": 3,
+  "maxRedemptions": 100,
+  "redeemBy": "2026-12-31T23:59:59.000Z",
+  "timesRedeemed": 42,
+  "amountRedeemed": 0,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-10T08:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-15T16:45:00.000Z",
+  "deletedBy": null,
+  "deletedAt": null
+}
+```
+</ResponseExample>

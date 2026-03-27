@@ -1,0 +1,90 @@
+---
+title: "Create Billing Threshold"
+api: "POST /billing-thresholds"
+description: "Create a billing threshold."
+---
+<Info>Requires `billing_threshold:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>Name. Max 255 chars.</ParamField>
+<ParamField body="description" type="string" required>Description.</ParamField>
+<ParamField body="value" type="integer" required>Threshold value in cents. Must be positive.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+
+## Response
+
+<ResponseField name="billingThresholdId" type="string">Billing threshold ID.</ResponseField>
+<ResponseField name="name" type="string">Threshold name.</ResponseField>
+<ResponseField name="description" type="string">Threshold description.</ResponseField>
+<ResponseField name="value" type="integer">Threshold value in cents.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Threshold status.</ResponseField>
+<ResponseField name="createdBy" type="string">ID of the user who created the threshold.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">ID of the user who last updated the threshold.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "name": "Premium",
+  "description": "Premium threshold",
+  "value": 50000,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 422
+{
+  "statusCode": 422,
+  "message": "billing_threshold.currency_not_compatible"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `422` | `billing_threshold.currency_not_compatible` | Billing threshold currency is not compatible |
+| `500` | `internal_server_error` | An unexpected error occurred |

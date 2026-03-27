@@ -1,0 +1,18 @@
+---
+title: "Overview"
+description: "Scheduled tasks and cron jobs across AWSales services."
+---
+
+AWSales uses scheduled tasks (cron jobs) for background processing that runs on a recurring basis.
+
+## Available Schedulers
+
+| Scheduler | Description |
+|-----------|-------------|
+| [Cost Settlement Dispatcher](/schedulers/cost-settlement-dispatcher) | Dispatches cost batches for settlement |
+| [Cost Settlement Processor](/schedulers/cost-settlement-processor) | Processes and settles cost batches |
+| [Offboarding Retention Expiration](/schedulers/offboarding-retention-expiration) | Expires offboarding requests past their retention deadline |
+
+## Execution Model
+
+Schedulers are standalone CLI commands triggered externally by a cron scheduler. Each execution runs as an independent process.

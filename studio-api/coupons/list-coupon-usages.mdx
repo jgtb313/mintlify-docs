@@ -1,0 +1,108 @@
+---
+title: "List Coupon Usages"
+api: "GET /organizations/{organizationId}/coupons"
+description: "List coupon usages."
+---
+
+Returns a list of coupon usages.
+
+<Info>Requires `coupon:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">
+  Page number.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Results per page.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of coupon usage objects.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "couponUsageId": "019525fe-6d58-7ed8-d0fc-8a0b2c4e6f8c",
+      "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "appliedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "discountAmount": 500,
+      "externalRef": "di_stripe_abc",
+      "createdAt": "2026-03-01T00:00:00.000Z",
+      "updatedAt": "2026-03-01T00:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "totalItems": 1,
+    "totalPages": 1
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

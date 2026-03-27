@@ -1,0 +1,138 @@
+---
+title: "invoice.payment_failed"
+description: "Published when an invoice payment attempt fails."
+---
+
+## Event Details
+
+| Property | Value |
+|----------|-------|
+| **Type** | `invoice.payment_failed` |
+
+## Payload Schema
+
+<ResponseField name="invoiceId" type="string (UUID v7)" required>
+  Invoice identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string (UUID v7)" required>
+  FK to Organization.
+</ResponseField>
+
+<ResponseField name="subscriptionId" type="string (UUID v7)">
+  FK to Subscription.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string" required>
+  External invoice reference.
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  Invoice type: `PLAN` or `FEE`.
+</ResponseField>
+
+<ResponseField name="paymentMethod" type="string">
+  Payment method: `CARD` or `BOLETO`.
+</ResponseField>
+
+<ResponseField name="card" type="object">
+  Card details: `{brand, last4, expMonth, expYear}`.
+</ResponseField>
+
+<ResponseField name="boleto" type="object">
+  Boleto details: `{url}`.
+</ResponseField>
+
+<ResponseField name="currency" type="string" required>
+  Currency code (`USD`, `BRL`, `EUR`).
+</ResponseField>
+
+<ResponseField name="totalAmount" type="integer" required>
+  Total in cents.
+</ResponseField>
+
+<ResponseField name="discountAmount" type="integer" required>
+  Discount in cents.
+</ResponseField>
+
+<ResponseField name="payableAmount" type="integer" required>
+  Payable in cents.
+</ResponseField>
+
+<ResponseField name="discounts" type="array" required>
+  Applied discounts.
+</ResponseField>
+
+<ResponseField name="lines" type="array" required>
+  Invoice line items.
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Invoice status.
+</ResponseField>
+
+<ResponseField name="issuedAt" type="string (ISO 8601)" required>
+  Issue date.
+</ResponseField>
+
+<ResponseField name="dueDate" type="string (ISO 8601)" required>
+  Due date.
+</ResponseField>
+
+<ResponseField name="paidAt" type="string (ISO 8601)">
+  Payment timestamp.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string (ISO 8601)" required>
+  Creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string (ISO 8601)" required>
+  Last update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "specversion": "1.0",
+  "type": "invoice.payment_failed",
+  "id": "evt_0195f3a2-8c00-7d4e-b803-4d5e6f7a8b9c",
+  "time": "2026-03-25T14:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "invoiceId": "0195f3a2-8c00-7d4e-b803-4d5e6f7a8b9c",
+    "organizationId": "0195f3a2-8c00-7d4e-b801-1a2b3c4d5e6f",
+    "subscriptionId": "0195f3a2-8c00-7d4e-b802-2b3c4d5e6f7a",
+    "externalRef": "in_abc123",
+    "type": "PLAN",
+    "paymentMethod": "CARD",
+    "card": {
+      "brand": "visa",
+      "last4": "4242",
+      "expMonth": 12,
+      "expYear": 2027
+    },
+    "boleto": null,
+    "currency": "BRL",
+    "totalAmount": 4900,
+    "discountAmount": 0,
+    "payableAmount": 4900,
+    "discounts": [],
+    "lines": [
+      {
+        "description": "Pro Plan — Monthly",
+        "quantity": 1,
+        "unitAmount": 4900,
+        "amount": 4900
+      }
+    ],
+    "status": "PAYMENT_FAILED",
+    "issuedAt": "2026-03-01T00:00:00Z",
+    "dueDate": "2026-03-10T00:00:00Z",
+    "paidAt": null,
+    "createdAt": "2026-03-01T00:00:00Z",
+    "updatedAt": "2026-03-25T14:00:00Z"
+  }
+}
+```
+</ResponseExample>

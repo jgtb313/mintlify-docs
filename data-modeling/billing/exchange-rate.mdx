@@ -1,0 +1,25 @@
+---
+title: "Exchange Rate"
+description: "Currency exchange rate reference data."
+---
+
+## Schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `exchangeRateId` | UUIDv7 | Unique identifier |
+| `provider` | enum | `EXCHANGE_RATE_API`, `PTAX_API`, `MANUAL` |
+| `date` | date | Rate date |
+| `source` | enum | Source currency |
+| `target` | enum | Target currency (default `BRL`) |
+| `value` | decimal | Exchange rate value |
+| `fetchedAt` | datetime | When rate was fetched |
+| `createdAt` | datetime | Creation |
+| `updatedAt` | datetime | Last update |
+
+## Business Rules
+
+- Unique constraint: (date, source, target)
+- Dual-provider system: PTAX API (Brazilian Central Bank) + ExchangeRateAPI
+- Manual fallback option
+- Used in [Cost](/domain/data-modeling/billing/cost) calculations for currency conversion

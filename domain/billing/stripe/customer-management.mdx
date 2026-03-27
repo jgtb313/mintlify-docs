@@ -1,0 +1,20 @@
+---
+title: "Customer Management"
+description: "Stripe customer lifecycle."
+---
+
+## Creation
+
+A Stripe customer is created automatically during organization creation. The customer is linked via `billingExternalRef`.
+
+## Sync
+
+The following fields sync from AWSales to Stripe on update:
+- `email` (billing email)
+- `phone`
+- `address` (billing address)
+- `name` (organization name)
+
+## Payment Methods
+
+Payment methods (cards, boletos) are managed through the Stripe Payment Methods API. They're attached to the Stripe customer and can be set as default.

@@ -1,0 +1,116 @@
+---
+title: "subscription.reactivated"
+description: "Published when a past due subscription is reactivated after payment recovery."
+---
+
+## Event Details
+
+| Property | Value |
+|----------|-------|
+| **Type** | `subscription.reactivated` |
+
+## Payload Schema
+
+<ResponseField name="subscriptionId" type="string (UUID v7)" required>
+  Subscription identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string (UUID v7)" required>
+  FK to Organization.
+</ResponseField>
+
+<ResponseField name="planId" type="string (UUID v7)" required>
+  FK to Plan.
+</ResponseField>
+
+<ResponseField name="planIntervalId" type="string (UUID v7)" required>
+  FK to PlanInterval.
+</ResponseField>
+
+<ResponseField name="externalPlanRef" type="string">
+  External subscription reference (plan).
+</ResponseField>
+
+<ResponseField name="externalFeeRef" type="string">
+  External subscription reference (fees).
+</ResponseField>
+
+<ResponseField name="currency" type="string" required>
+  Subscription currency (`USD`, `BRL`, `EUR`).
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Subscription status.
+</ResponseField>
+
+<ResponseField name="pastDueReason" type="string">
+  Previous past due reason (now cleared).
+</ResponseField>
+
+<ResponseField name="pastDueAt" type="string (ISO 8601)">
+  Previous past due timestamp (now cleared).
+</ResponseField>
+
+<ResponseField name="pausedBy" type="string (UUID)">
+  Who paused the subscription.
+</ResponseField>
+
+<ResponseField name="pausedAt" type="string (ISO 8601)">
+  When the subscription was paused.
+</ResponseField>
+
+<ResponseField name="cancelledBy" type="string (UUID)">
+  Who cancelled the subscription.
+</ResponseField>
+
+<ResponseField name="cancelledAt" type="string (ISO 8601)">
+  When the subscription was cancelled.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string (UUID)" required>
+  User who created the subscription.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string (ISO 8601)" required>
+  Creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string (UUID)" required>
+  User who last updated the subscription.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string (ISO 8601)" required>
+  Last update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "specversion": "1.0",
+  "type": "subscription.reactivated",
+  "id": "evt_0195f3a2-8c00-7d4e-b802-3c4d5e6f7a8b",
+  "time": "2026-03-25T14:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "subscriptionId": "0195f3a2-8c00-7d4e-b802-2b3c4d5e6f7a",
+    "organizationId": "0195f3a2-8c00-7d4e-b801-1a2b3c4d5e6f",
+    "planId": "0195f3a2-1234-7567-89ab-cdef01234567",
+    "planIntervalId": "0195f3a2-abcd-7ef0-1234-56789abcdef0",
+    "externalPlanRef": "sub_abc123",
+    "externalFeeRef": "sub_def456",
+    "currency": "BRL",
+    "status": "ACTIVE",
+    "pastDueReason": null,
+    "pastDueAt": null,
+    "pausedBy": null,
+    "pausedAt": null,
+    "cancelledBy": null,
+    "cancelledAt": null,
+    "createdBy": "0195f3a2-8c00-7d4e-b806-6f7a8b9c0d1e",
+    "createdAt": "2026-01-15T10:00:00Z",
+    "updatedBy": "0195f3a2-8c00-7d4e-b806-6f7a8b9c0d1e",
+    "updatedAt": "2026-03-25T14:00:00Z"
+  }
+}
+```
+</ResponseExample>

@@ -1,0 +1,153 @@
+---
+title: "The Plan Object"
+---
+
+<ResponseField name="planId" type="string">
+  The plan unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the plan in the payment provider.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The plan name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The plan description.
+</ResponseField>
+
+<ResponseField name="features" type="object[]">
+  The list of features included in the plan.
+  <Expandable title="feature properties">
+    <ResponseField name="description" type="string">
+      The feature description.
+    </ResponseField>
+    <ResponseField name="type" type="string">
+      The feature inclusion type. One of: `INCLUDE`, `NOT_INCLUDE`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="intervals" type="object[]">
+  The billing intervals available for the plan.
+  <Expandable title="interval properties">
+    <ResponseField name="id" type="string">
+      The interval unique identifier (UUIDv7).
+    </ResponseField>
+    <ResponseField name="planId" type="string">
+      The parent plan ID (UUIDv7).
+    </ResponseField>
+    <ResponseField name="interval" type="string">
+      The billing interval. One of: `MONTHLY`, `YEARLY`.
+    </ResponseField>
+    <ResponseField name="amount" type="number">
+      The price amount for this interval.
+    </ResponseField>
+    <ResponseField name="currency" type="string">
+      The currency code (e.g., `USD`).
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      The interval status. One of: `ACTIVE`, `INACTIVE`.
+    </ResponseField>
+    <ResponseField name="externalRef" type="string">
+      The external reference for this interval in the payment provider.
+    </ResponseField>
+    <ResponseField name="createdBy" type="string">
+      The user ID who created this interval.
+    </ResponseField>
+    <ResponseField name="updatedBy" type="string">
+      The user ID who last updated this interval.
+    </ResponseField>
+    <ResponseField name="createdAt" type="string">
+      Creation timestamp (ISO 8601).
+    </ResponseField>
+    <ResponseField name="updatedAt" type="string">
+      Last update timestamp (ISO 8601).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="highlight" type="boolean">
+  Whether the plan is highlighted in the pricing page.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The plan status. One of: `ACTIVE`, `INACTIVE`.
+</ResponseField>
+
+<ResponseField name="createdBy" type="string">
+  The user ID who created the plan.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedBy" type="string">
+  The user ID who last updated the plan.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+  "externalRef": "prod_R3xK9mN7pQ",
+  "name": "Pro",
+  "description": "Best for growing teams that need advanced features.",
+  "features": [
+    {
+      "description": "Unlimited projects",
+      "type": "INCLUDE"
+    },
+    {
+      "description": "Priority support",
+      "type": "INCLUDE"
+    },
+    {
+      "description": "Custom branding",
+      "type": "NOT_INCLUDE"
+    }
+  ],
+  "intervals": [
+    {
+      "id": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a",
+      "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+      "interval": "MONTHLY",
+      "amount": 29.99,
+      "currency": "USD",
+      "status": "ACTIVE",
+      "externalRef": "price_1PqR2sT4uV",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-15T10:00:00.000Z",
+      "updatedAt": "2026-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e5b",
+      "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+      "interval": "YEARLY",
+      "amount": 299.99,
+      "currency": "USD",
+      "status": "ACTIVE",
+      "externalRef": "price_2WxY3zA5bC",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-15T10:00:00.000Z",
+      "updatedAt": "2026-01-15T10:00:00.000Z"
+    }
+  ],
+  "highlight": true,
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-01-15T10:00:00.000Z"
+}
+```
+</ResponseExample>

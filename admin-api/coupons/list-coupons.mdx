@@ -1,0 +1,125 @@
+---
+title: "List Coupons"
+api: "GET /coupons"
+description: "List coupons."
+---
+<Info>Requires `coupon:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">Page number.</ParamField>
+<ParamField query="limit" type="integer">Results per page.</ParamField>
+<ParamField query="duration" type="string">Filter by duration.</ParamField>
+<ParamField query="status" type="string">Filter by status.</ParamField>
+<ParamField query="type" type="string">Filter by type.</ParamField>
+<ParamField query="sortBy" type="string">Sort field.</ParamField>
+<ParamField query="sortOrder" type="string">Sort direction.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of coupons.
+  <Expandable title="coupon properties">
+    <ResponseField name="couponId" type="string">Coupon UUID.</ResponseField>
+    <ResponseField name="externalRef" type="string">External reference.</ResponseField>
+    <ResponseField name="code" type="string">Coupon code.</ResponseField>
+    <ResponseField name="name" type="string">Coupon name.</ResponseField>
+    <ResponseField name="type" type="string">Discount type.</ResponseField>
+    <ResponseField name="amount" type="integer">Discount amount.</ResponseField>
+    <ResponseField name="currency" type="string">Currency code.</ResponseField>
+    <ResponseField name="duration" type="string">Duration type.</ResponseField>
+    <ResponseField name="durationInMonths" type="integer">Duration in months.</ResponseField>
+    <ResponseField name="maxRedemptions" type="integer">Maximum redemptions.</ResponseField>
+    <ResponseField name="redeemBy" type="string">Expiration date.</ResponseField>
+    <ResponseField name="timesRedeemed" type="integer">Times redeemed.</ResponseField>
+    <ResponseField name="amountRedeemed" type="integer">Total amount redeemed.</ResponseField>
+    <ResponseField name="status" type="string">Coupon status.</ResponseField>
+    <ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+    <ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+    <ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+    <ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+    <ResponseField name="deletedBy" type="string">Deleter identifier.</ResponseField>
+    <ResponseField name="deletedAt" type="string">Deletion timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="page" type="integer">Current page number.</ResponseField>
+    <ResponseField name="limit" type="integer">Results per page.</ResponseField>
+    <ResponseField name="totalItems" type="integer">Total number of items.</ResponseField>
+    <ResponseField name="totalPages" type="integer">Total number of pages.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+      "externalRef": null,
+      "code": "WELCOME10",
+      "name": "Welcome Discount",
+      "type": "PERCENTAGE",
+      "amount": 10,
+      "currency": "BRL",
+      "duration": "ONCE",
+      "durationInMonths": null,
+      "maxRedemptions": 100,
+      "redeemBy": null,
+      "timesRedeemed": 25,
+      "amountRedeemed": 12500,
+      "status": "ACTIVE",
+      "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "updatedAt": "2026-01-01T00:00:00.000Z",
+      "deletedBy": null,
+      "deletedAt": null
+    }
+  ],
+  "meta": { "page": 1, "limit": 20, "totalItems": 10, "totalPages": 1 }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

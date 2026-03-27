@@ -1,0 +1,27 @@
+---
+title: "Cost Batching"
+description: "How costs are grouped into batches for settlement."
+---
+
+## Batch Window
+
+Costs are grouped by `costBatchWindowRef`, which is a hash of:
+- Fee `eventName`
+- Organization ID
+- Timestamp window (time bucket)
+
+## Settlement
+
+During settlement:
+1. All costs for a window ref are aggregated
+2. A CostBatch record is created with total quantity and amount
+3. The batch is reported to the Stripe billing meter
+4. Stripe includes the usage in the next fee invoice
+
+## CostBatch Fields
+
+- `windowRef`: Unique identifier for the batch window
+- `identifier`: Human-readable batch identifier
+- `quantity`: Total units in the batch
+- `amount`: Total amount in cents
+- `currency`: Organization currency

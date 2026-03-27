@@ -1,0 +1,95 @@
+---
+title: "List Users"
+api: "GET /users"
+description: "List users."
+---
+
+Returns a paginated list of all users.
+
+<Info>Requires `users:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer">
+  Page number.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Results per page.
+</ParamField>
+
+<ParamField query="search" type="string">
+  Search by email, first name, or last name.
+</ParamField>
+
+<ParamField query="sort" type="string">
+  Sort field and direction (e.g., `createdAt:desc`).
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "userId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "externalRef": "auth_ext_abc123",
+      "email": "john@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "locale": "en-US",
+      "lastSignInAt": "2026-03-25T10:00:00.000Z",
+      "emailVerified": true,
+      "createdAt": "2026-01-15T10:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "totalItems": 150,
+    "totalPages": 15
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

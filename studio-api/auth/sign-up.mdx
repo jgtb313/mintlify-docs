@@ -1,0 +1,81 @@
+---
+title: "Sign Up"
+api: "POST /auth/sign-up"
+description: "Register a new user account."
+authMethod: "none"
+---
+
+Registers a new user account.
+
+## Request Body
+
+<ParamField body="email" type="string" required>
+  User email address. Must be unique. Max 255 characters.
+</ParamField>
+
+<ParamField body="firstName" type="string" required>
+  User's first name. Max 100 characters.
+</ParamField>
+
+<ParamField body="lastName" type="string" required>
+  User's last name. Max 100 characters.
+</ParamField>
+
+<ParamField body="password" type="string" required>
+  Password. Strength validated by the identity provider.
+</ParamField>
+
+<ParamField body="invitationToken" type="string" required>
+  Invitation token. The user is automatically added to the inviting organization.
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 204
+// No content — user created successfully
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 403
+{
+  "statusCode": 403,
+  "message": "auth.invalid_invitation_token"
+}
+```
+
+```json 409
+{
+  "statusCode": 409,
+  "message": "auth.email_already_exists"
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `403` | `auth.invalid_invitation_token` | Invitation token is invalid or expired |
+| `409` | `auth.email_already_exists` | Email is already registered |
+| `500` | `internal_server_error` | An unexpected error occurred |

@@ -1,0 +1,80 @@
+---
+title: "The Invitation Object"
+---
+
+<ResponseField name="invitationId" type="string">
+  The invitation unique identifier.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID the user is invited to.
+</ResponseField>
+
+<ResponseField name="inviterUserId" type="string">
+  The user ID (UUIDv7) of the person who sent the invitation.
+</ResponseField>
+
+<ResponseField name="acceptedUserId" type="string|null">
+  The user ID (UUIDv7) of the person who accepted the invitation. Null if not accepted.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The email address of the invited user.
+</ResponseField>
+
+<ResponseField name="token" type="string">
+  The invitation token.
+</ResponseField>
+
+<ResponseField name="acceptInvitationUrl" type="string">
+  The URL the invited user can use to accept the invitation.
+</ResponseField>
+
+<ResponseField name="roleSlug" type="string">
+  The role slug assigned on acceptance.
+</ResponseField>
+
+<ResponseField name="state" type="string">
+  The invitation state. One of: `PENDING`, `ACCEPTED`, `EXPIRED`, `REVOKED`.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  Timestamp when the invitation expires (ISO 8601).
+</ResponseField>
+
+<ResponseField name="acceptedAt" type="string|null">
+  Timestamp when the invitation was accepted (ISO 8601). Null if not accepted.
+</ResponseField>
+
+<ResponseField name="revokedAt" type="string|null">
+  Timestamp when the invitation was revoked (ISO 8601). Null if not revoked.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "invitationId": "inv_01HQZE7N9K4RW2X6MTJP8YCDF3",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "inviterUserId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "acceptedUserId": null,
+  "email": "joao@example.com",
+  "token": "tk_9f8e7d6c5b4a3210",
+  "acceptInvitationUrl": "https://app.example.com/invitations/accept?token=tk_9f8e7d6c5b4a3210",
+  "roleSlug": "member",
+  "state": "PENDING",
+  "expiresAt": "2026-04-01T10:00:00.000Z",
+  "acceptedAt": null,
+  "revokedAt": null,
+  "createdAt": "2026-03-18T10:00:00.000Z",
+  "updatedAt": "2026-03-18T10:00:00.000Z"
+}
+```
+</ResponseExample>

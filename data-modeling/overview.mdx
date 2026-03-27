@@ -1,0 +1,31 @@
+---
+title: "Overview"
+description: "Entity schemas, relationships, and field definitions for IAM and Billing domains."
+---
+
+This section documents the data models used across the AWSales platform.
+
+## Domains
+
+<CardGroup cols={2}>
+  <Card title="IAM" icon="shield" href="/domain/data-modeling/iam/user">
+    User, Organization, Role, Permission, Membership, Invitation
+  </Card>
+  <Card title="Billing" icon="credit-card" href="/domain/data-modeling/billing/plan">
+    Plan, Subscription, Invoice, Cost, Fee, Token, Coupon, Voucher, Payment Method, Billing Threshold, Webhook, Exchange Rate
+  </Card>
+</CardGroup>
+
+<Note>
+  In the IAM domain, **Role**, **Permission**, **Membership**, and **Invitation** are 100% proxied from WorkOS — they are not stored as tables in the application database. Their schemas here reflect the shape returned by the WorkOS API.
+</Note>
+
+## Conventions
+
+- **IDs**: UUIDv7 — time-ordered UUIDs that enable cursor-based pagination
+- **Monetary amounts**: Stored as integers in **cents** (e.g., `4900` = $49.00)
+- **Currencies**: `USD`, `BRL`, `EUR`
+- **Timestamps**: ISO 8601, stored as UTC
+- **Soft deletes**: `deletedAt` / `deletedBy` fields where applicable
+- **Audit trail**: `createdBy`, `updatedBy`, `deletedBy` for major entities
+- **External refs**: `externalRef` fields store identifiers from external providers, linking internal entities to their counterparts in third-party systems

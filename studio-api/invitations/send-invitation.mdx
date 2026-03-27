@@ -1,0 +1,167 @@
+---
+title: "Send Invitation"
+api: "POST /organizations/{organizationId}/invitations"
+description: "Send an invitation."
+---
+
+Sends an invitation.
+
+<Info>Requires `invitations:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+## Request Body
+
+<ParamField body="email" type="string" required>
+  Email address to invite.
+</ParamField>
+
+<ParamField body="roleSlug" type="string">
+  Optional role slug to assign upon acceptance.
+</ParamField>
+
+<ParamField body="expiresInDays" type="integer">
+  Number of days until the invitation expires.
+</ParamField>
+
+<ParamField body="inviterUserId" type="string">
+  The user ID of the inviter.
+</ParamField>
+
+## Response
+
+<ResponseField name="invitationId" type="string">
+  The invitation ID.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization UUID.
+</ResponseField>
+
+<ResponseField name="inviterUserId" type="string">
+  The user ID of the inviter.
+</ResponseField>
+
+<ResponseField name="acceptedUserId" type="string | null">
+  The user ID of the member who accepted the invitation.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The invited email address.
+</ResponseField>
+
+<ResponseField name="token" type="string">
+  The invitation token.
+</ResponseField>
+
+<ResponseField name="acceptInvitationUrl" type="string">
+  URL for accepting the invitation.
+</ResponseField>
+
+<ResponseField name="roleSlug" type="string | null">
+  The role slug assigned upon acceptance.
+</ResponseField>
+
+<ResponseField name="state" type="string">
+  The invitation state.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  ISO 8601 expiration timestamp.
+</ResponseField>
+
+<ResponseField name="acceptedAt" type="string | null">
+  ISO 8601 timestamp when the invitation was accepted.
+</ResponseField>
+
+<ResponseField name="revokedAt" type="string | null">
+  ISO 8601 timestamp when the invitation was revoked.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 creation timestamp.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  ISO 8601 last-update timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "invitationId": "inv_abc123",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "inviterUserId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "acceptedUserId": null,
+  "email": "jane@example.com",
+  "token": "tok_invitation_xyz",
+  "acceptInvitationUrl": "https://app.awsales.com/invite?token=tok_invitation_xyz",
+  "roleSlug": null,
+  "state": "PENDING",
+  "expiresAt": "2026-04-25T14:00:00.000Z",
+  "acceptedAt": null,
+  "revokedAt": null,
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "invitation.already_invited"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `409` | `invitation.already_invited` | User has already been invited |
+| `500` | `internal_server_error` | An unexpected error occurred |

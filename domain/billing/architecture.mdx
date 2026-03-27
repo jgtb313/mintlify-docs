@@ -1,0 +1,35 @@
+---
+title: "Architecture"
+description: "Billing system architecture."
+---
+
+## System Architecture
+
+```mermaid
+graph TD
+    A[API] --> B[Billing Module]
+    B --> C[PostgreSQL]
+    B --> D[Stripe]
+    B --> E[Redis Cache]
+    B --> F[Event Bus]
+    D -->|Webhooks| B
+    G[Exchange Rate APIs] --> B
+```
+
+## Stripe Integration
+
+| Component | Stripe Object | Direction |
+|-----------|---------------|-----------|
+| Plan | Product | AWSales → Stripe |
+| PlanInterval | Price | AWSales → Stripe |
+| Fee | Product + Price + Billing Meter | AWSales → Stripe |
+| Organization | Customer | AWSales → Stripe |
+| Subscription | Subscription | AWSales → Stripe |
+| Coupon | Coupon + Promotion Code | AWSales → Stripe |
+| Voucher | Credit Grant | AWSales → Stripe |
+| Invoice | Invoice | Stripe → AWSales |
+
+## Key Patterns
+
+- **Webhook Processing**: Stripe webhooks update invoices, trigger settlements
+- **Exchange Rates**: Dual-provider (PTAX + ExchangeRateAPI) + manual fallback

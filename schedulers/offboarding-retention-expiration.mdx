@@ -1,0 +1,34 @@
+---
+title: "Offboarding Retention Expiration"
+description: "Expires offboarding requests that have passed their retention deadline."
+---
+
+## Purpose
+
+Scans for offboarding requests still `IN_RETENTION` whose `retentionDeadline` has passed, and publishes an `offboarding.retention_expired` event for each one so downstream consumers can finalize the cancellation.
+
+## Flow
+
+```mermaid
+flowchart TD
+    A[Start] --> B["Query offboarding requests where status = IN_RETENTION and retentionDeadline < now()"]
+    B --> C{Any expired requests?}
+    C -- No --> D[End]
+    C -- Yes --> E{For each expired request}
+    E --> F["Publish offboarding.retention_expired event"]
+    F --> E
+    E -- Done --> D
+```
+
+<Steps>
+  <Step title="Query expired requests">
+    Fetch all offboarding requests where `status = IN_RETENTION` and `retentionDeadline` is in the past.
+  </Step>
+  <Step title="Publish expiration events">
+    For each expired request, publish an `offboarding.retention_expired` event containing the full offboarding request resource.
+  </Step>
+</Steps>
+
+## Recommended Schedule
+
+Once per day.

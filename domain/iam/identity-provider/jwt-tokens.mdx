@@ -1,0 +1,47 @@
+---
+title: "JWT Tokens"
+description: "JWT token implementation details."
+---
+
+## Token Structure
+
+AWSales issues standard JWT tokens with the following structure:
+
+### Access Token
+
+The access token is a signed JWT containing:
+- **sub**: User ID
+- **org**: Active organization ID (if activated)
+- **exp**: Expiration timestamp
+- **iat**: Issued at timestamp
+
+### Refresh Token
+
+An opaque token used exclusively to obtain new access tokens. Stored server-side for revocation support.
+
+## Token Flow
+
+```mermaid
+sequenceDiagram
+    Client->>Auth API: POST /auth/sign-in
+    Auth API->>WorkOS: Authenticate user
+    WorkOS->>Auth API: Authentication result
+    Auth API->>Client: {accessToken, refreshToken, expiresIn}
+    Client->>API: Request + Authorization: Bearer accessToken
+    API->>API: Validate JWT signature and expiration
+    API->>Client: Response
+    Note over Client,API: When accessToken expires...
+    Client->>Auth API: POST /auth/refresh
+    Auth API->>Client: {accessToken, expiresIn}
+```
+
+## Organization Switching
+
+When a user activates a different organization, a new `accessToken` is issued with the updated organization context. The `refreshToken` remains the same.
+
+## Security Properties
+
+- **Signed**: Tokens are cryptographically signed (RS256) and cannot be tampered with
+- **Short-lived**: Access tokens expire quickly, limiting exposure window
+- **Revocable**: Refresh tokens can be revoked on sign-out
+- **Stateless validation**: Access tokens are validated without database lookups

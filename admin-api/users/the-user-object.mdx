@@ -1,0 +1,65 @@
+---
+title: "The User Object"
+---
+
+<ResponseField name="userId" type="string">
+  The user unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the user in the identity provider.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The user email address.
+</ResponseField>
+
+<ResponseField name="firstName" type="string">
+  The user first name.
+</ResponseField>
+
+<ResponseField name="lastName" type="string">
+  The user last name.
+</ResponseField>
+
+<ResponseField name="locale" type="string|null">
+  The user preferred locale (e.g. `en`, `pt-BR`). Null if not set.
+</ResponseField>
+
+<ResponseField name="avatar" type="string|null">
+  The URL of the user profile picture. Null if not set.
+</ResponseField>
+
+<ResponseField name="lastSignInAt" type="string|null">
+  Timestamp of the user last sign-in (ISO 8601). Null if the user has never signed in.
+</ResponseField>
+
+<ResponseField name="emailVerified" type="boolean">
+  Whether the user email has been verified.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "userId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "externalRef": "auth_01HQZE7N9K4RW2X6MTJP8YCDF3",
+  "email": "maria@example.com",
+  "firstName": "Maria",
+  "lastName": "Silva",
+  "locale": "pt-BR",
+  "avatar": "https://cdn.example.com/avatars/maria.jpg",
+  "lastSignInAt": "2026-03-20T14:30:00.000Z",
+  "emailVerified": true,
+  "createdAt": "2026-01-10T08:00:00.000Z",
+  "updatedAt": "2026-03-20T14:30:00.000Z"
+}
+```
+</ResponseExample>

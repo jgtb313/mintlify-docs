@@ -1,0 +1,87 @@
+---
+title: "Get Permission"
+api: "GET /permissions/{permissionId}"
+description: "Retrieve a permission by its ID."
+---
+
+<Info>Requires `permissions:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="permissionId" type="integer" required>Permission ID.</ParamField>
+
+## Response
+
+<ResponseField name="permissionId" type="integer">Permission ID.</ResponseField>
+<ResponseField name="slug" type="string">Permission slug.</ResponseField>
+<ResponseField name="resource" type="string">Resource name.</ResponseField>
+<ResponseField name="action" type="string">Action name.</ResponseField>
+<ResponseField name="name" type="string">Permission name.</ResponseField>
+<ResponseField name="description" type="string">Permission description.</ResponseField>
+<ResponseField name="system" type="boolean">Whether it is a system permission.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "permissionId": 1,
+  "slug": "users:read",
+  "resource": "users",
+  "action": "read",
+  "name": "Read Users",
+  "description": "View user profiles",
+  "system": true,
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "permission.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `permission.not_found` | Permission not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

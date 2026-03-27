@@ -1,0 +1,55 @@
+---
+title: "The Coupon Usage Object"
+---
+
+<ResponseField name="couponUsageId" type="string">
+  The coupon usage unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="couponId" type="string">
+  The coupon ID associated with this usage.
+</ResponseField>
+
+<ResponseField name="invoiceId" type="string">
+  The invoice ID associated with this usage.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID that redeemed the coupon.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for this usage.
+</ResponseField>
+
+<ResponseField name="amount" type="integer">
+  The discount amount applied in cents.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The coupon usage status.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "couponUsageId": "019525fe-6d58-7ed8-d0fc-8a0b2c4e6f8c",
+  "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+  "invoiceId": "019525fd-c290-7a9e-f6b2-8c0d2e4a6b8e",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "externalRef": "di_stripe_abc",
+  "amount": 500,
+  "status": "APPLIED",
+  "createdAt": "2026-03-01T00:00:00.000Z",
+  "updatedAt": "2026-03-01T00:00:00.000Z"
+}
+```
+</ResponseExample>

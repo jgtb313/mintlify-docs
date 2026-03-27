@@ -1,0 +1,112 @@
+---
+title: "The Organization Object"
+---
+
+<ResponseField name="organizationId" type="string">
+  The organization unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="billingThresholdId" type="string">
+  The billing threshold ID assigned to the organization (UUIDv7).
+</ResponseField>
+
+<ResponseField name="subscriptionId" type="string|null">
+  The active subscription ID (UUIDv7). Null if no active subscription.
+</ResponseField>
+
+<ResponseField name="iamExternalRef" type="string|null">
+  The external reference in the identity provider. Null if not linked.
+</ResponseField>
+
+<ResponseField name="billingExternalRef" type="string|null">
+  The external reference in the payment provider. Null if not linked.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The organization name.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The organization contact email.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The organization billing currency (e.g. `BRL`, `USD`).
+</ResponseField>
+
+<ResponseField name="phone" type="string|null">
+  The organization phone number. Null if not provided.
+</ResponseField>
+
+<ResponseField name="address" type="object|null">
+  The organization address. Null if not provided.
+  <Expandable title="address properties">
+    <ResponseField name="line1" type="string">
+      The primary address line.
+    </ResponseField>
+    <ResponseField name="line2" type="string|null">
+      The secondary address line.
+    </ResponseField>
+    <ResponseField name="city" type="string">
+      The city.
+    </ResponseField>
+    <ResponseField name="state" type="string">
+      The state or region.
+    </ResponseField>
+    <ResponseField name="postalCode" type="string">
+      The postal code.
+    </ResponseField>
+    <ResponseField name="country" type="string">
+      The country code.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="taxId" type="string|null">
+  The organization tax identifier. Null if not provided.
+</ResponseField>
+
+<ResponseField name="taxType" type="string|null">
+  The tax identifier type (e.g. `CNPJ`, `CPF`). Null if not provided.
+</ResponseField>
+
+<ResponseField name="offboardingStatus" type="string">
+  The organization offboarding status. One of: `ACTIVE`, `IN_RETENTION`, `PENDING_CANCELLATION`, `CANCELLED`.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "billingThresholdId": "019525fd-a068-7e7c-d4f0-6a8b0c2e4f6c",
+  "subscriptionId": "019525fd-b17c-7f8d-e5a1-7b9c1d3f5a7d",
+  "iamExternalRef": "org_auth_abc123",
+  "billingExternalRef": "cus_Oy2pL2eZvKYlo2C",
+  "name": "Acme Corp",
+  "email": "billing@acme.com",
+  "currency": "BRL",
+  "phone": "+5511999990000",
+  "address": {
+    "line1": "Av. Paulista, 1000",
+    "line2": "Sala 501",
+    "city": "Sao Paulo",
+    "state": "SP",
+    "postalCode": "01310-100",
+    "country": "BR"
+  },
+  "taxId": "12345678000190",
+  "taxType": "CNPJ",
+  "offboardingStatus": "ACTIVE",
+  "createdAt": "2026-01-05T10:00:00.000Z",
+  "updatedAt": "2026-03-15T16:45:00.000Z"
+}
+```
+</ResponseExample>

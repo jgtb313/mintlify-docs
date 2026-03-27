@@ -1,0 +1,121 @@
+---
+title: "Retain Offboarding Request"
+api: "POST /organizations/{organizationId}/offboarding-requests/{offboardingRequestId}/retain"
+description: "Retain an organization, reverting the offboarding process."
+---
+
+<Info>Requires `offboarding:retain` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>Organization ID (UUIDv7).</ParamField>
+<ParamField path="offboardingRequestId" type="string" required>Offboarding request ID (UUIDv7).</ParamField>
+
+## Request Body
+
+<ParamField body="notes" type="string">Free-text notes about the retention.</ParamField>
+
+## Response
+
+<ResponseField name="offboardingRequestId" type="string">Offboarding request ID (UUIDv7).</ResponseField>
+<ResponseField name="organizationId" type="string">Organization ID (UUIDv7).</ResponseField>
+<ResponseField name="action" type="string">The offboarding action.</ResponseField>
+<ResponseField name="reason" type="string">The primary reason.</ResponseField>
+<ResponseField name="reasonDetail" type="string|null">Additional detail.</ResponseField>
+<ResponseField name="notes" type="string|null">Free-text notes.</ResponseField>
+<ResponseField name="campaignMode" type="string|null">The campaign mode.</ResponseField>
+<ResponseField name="billingMode" type="string|null">The billing mode.</ResponseField>
+<ResponseField name="billingBehavior" type="string|null">The billing behavior.</ResponseField>
+<ResponseField name="retentionDeadline" type="string|null">The retention deadline (ISO 8601).</ResponseField>
+<ResponseField name="retentionResolution" type="string|null">The retention resolution.</ResponseField>
+<ResponseField name="status" type="string">The offboarding request status.</ResponseField>
+<ResponseField name="requestedBy" type="string">User ID (UUIDv7) who requested.</ResponseField>
+<ResponseField name="requestedAt" type="string">Request timestamp (ISO 8601).</ResponseField>
+<ResponseField name="resolvedBy" type="string|null">User ID (UUIDv7) who resolved.</ResponseField>
+<ResponseField name="resolvedAt" type="string|null">Resolution timestamp (ISO 8601).</ResponseField>
+<ResponseField name="cancelledBy" type="string|null">User ID (UUIDv7) who cancelled.</ResponseField>
+<ResponseField name="cancelledBySystem" type="boolean|null">Whether cancelled by system.</ResponseField>
+<ResponseField name="cancelledReason" type="string|null">Cancellation reason.</ResponseField>
+<ResponseField name="cancelledAt" type="string|null">Cancellation timestamp (ISO 8601).</ResponseField>
+<ResponseField name="cancellationDetails" type="object|null">Additional cancellation details.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp (ISO 8601).</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp (ISO 8601).</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "offboardingRequestId": "019525fe-4b30-7cb6-beda-6e8f0a2c4d6a",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "action": "START_RETENTION",
+  "reason": "UNSATISFACTORY_RESULT",
+  "reasonDetail": "Nao atingiu as metas esperadas",
+  "notes": "cliente aceitou desconto de 20%",
+  "campaignMode": "SUSPENDED",
+  "billingMode": "FREE",
+  "billingBehavior": "keep_as_draft",
+  "retentionDeadline": "2026-04-24T23:30:00.000Z",
+  "retentionResolution": "RETAINED",
+  "status": "RETAINED",
+  "requestedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "requestedAt": "2026-03-25T23:30:00.000Z",
+  "resolvedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "resolvedAt": "2026-03-28T10:00:00.000Z",
+  "cancelledBy": null,
+  "cancelledBySystem": null,
+  "cancelledReason": null,
+  "cancelledAt": null,
+  "cancellationDetails": null,
+  "createdAt": "2026-03-25T23:30:00.000Z",
+  "updatedAt": "2026-03-28T10:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `offboarding.not_found` | Offboarding request not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

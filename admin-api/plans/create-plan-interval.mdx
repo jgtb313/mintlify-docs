@@ -1,0 +1,103 @@
+---
+title: "Create Plan Interval"
+api: "POST /plans/{planId}/intervals"
+description: "Create a plan interval."
+---
+
+<Info>Requires `plan_interval:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="planId" type="string" required>Plan ID.</ParamField>
+
+## Request Body
+
+<ParamField body="interval" type="string" required>One of: `MONTHLY`, `YEARLY`.</ParamField>
+<ParamField body="amount" type="integer" required>Price in cents.</ParamField>
+<ParamField body="currency" type="string" required>One of: `USD`, `BRL`, `EUR`.</ParamField>
+
+## Response
+
+<ResponseField name="planIntervalId" type="string">Interval ID.</ResponseField>
+<ResponseField name="planId" type="string">Plan ID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="interval" type="string">Billing interval.</ResponseField>
+<ResponseField name="amount" type="integer">Price in cents.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="status" type="string">Interval status.</ResponseField>
+<ResponseField name="createdBy" type="string">ID of the user who created the interval.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">ID of the user who last updated the interval.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "planIntervalId": "019525fd-7e40-7c5a-b2d8-4e6f8a0c2e4a",
+  "planId": "019525fd-6b2c-7a1e-9d4f-3c5e7a9b1d3f",
+  "externalRef": "price_stripe_y8",
+  "interval": "YEARLY",
+  "amount": 47040,
+  "currency": "BRL",
+  "status": "ACTIVE",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "plan_interval.interval_already_exists"
+}
+```
+```json 422
+{
+  "statusCode": 422,
+  "message": "plan_interval.currency_not_compatible"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `409` | `plan_interval.interval_already_exists` | Plan interval already exists for this frequency |
+| `422` | `plan_interval.currency_not_compatible` | Currency is not compatible with the plan |
+| `500` | `internal_server_error` | An unexpected error occurred |

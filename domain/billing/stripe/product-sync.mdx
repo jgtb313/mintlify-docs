@@ -1,0 +1,25 @@
+---
+title: "Product Sync"
+description: "How plans and fees sync as Stripe products."
+---
+
+## Plans → Products
+
+When a plan is created:
+1. A Stripe **Product** is created with the plan name and description
+2. For each interval, a Stripe **Price** is created with the amount and recurring interval
+3. `externalRef` links are stored for both
+
+## Fees → Products + Meters
+
+When a fee is created:
+1. A Stripe **Product** is created
+2. A Stripe **Price** is created (metered usage)
+3. A Stripe **Billing Meter** is created for usage tracking
+4. All three `externalRef` links are stored
+
+## Sync Rules
+
+- Product names and descriptions update on plan/fee update
+- Prices are immutable in Stripe (new price created on amount change)
+- Deletion archives the Stripe product

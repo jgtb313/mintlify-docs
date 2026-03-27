@@ -1,0 +1,109 @@
+---
+title: "Create Voucher"
+api: "POST /organizations/{organizationId}/vouchers"
+description: "Create a voucher."
+---
+<Info>Requires `voucher:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>Organization UUID.</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>Voucher name. Max 255 chars.</ParamField>
+<ParamField body="amount" type="integer" required>Credit amount in cents.</ParamField>
+<ParamField body="organizationId" type="string" required>Organization UUID.</ParamField>
+<ParamField body="effectiveAt" type="string">ISO 8601 date when voucher becomes active.</ParamField>
+<ParamField body="expiresAt" type="string">ISO 8601 expiration date.</ParamField>
+<ParamField body="feeIds" type="array">Fee IDs to restrict credit to.</ParamField>
+
+## Response
+
+<ResponseField name="voucherId" type="string">Voucher UUID.</ResponseField>
+<ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+<ResponseField name="externalRef" type="string">External reference.</ResponseField>
+<ResponseField name="name" type="string">Voucher name.</ResponseField>
+<ResponseField name="amount" type="integer">Credit amount in cents.</ResponseField>
+<ResponseField name="currency" type="string">Currency code.</ResponseField>
+<ResponseField name="effectiveAt" type="string">Effective date.</ResponseField>
+<ResponseField name="expiresAt" type="string">Expiration date.</ResponseField>
+<ResponseField name="amountRedeemed" type="integer">Amount redeemed in cents.</ResponseField>
+<ResponseField name="status" type="string">Voucher status.</ResponseField>
+<ResponseField name="createdBy" type="string">Creator identifier.</ResponseField>
+<ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+<ResponseField name="updatedBy" type="string">Last updater identifier.</ResponseField>
+<ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+<ResponseField name="deletedBy" type="string">Deleter identifier.</ResponseField>
+<ResponseField name="deletedAt" type="string">Deletion timestamp.</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "voucherId": "019525fd-e4b8-7cb0-b8d4-0e2f4a6c8d0a",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "externalRef": null,
+  "name": "Onboarding Credit",
+  "amount": 50000,
+  "currency": "BRL",
+  "effectiveAt": "2026-04-01T00:00:00.000Z",
+  "expiresAt": "2026-09-30T23:59:59.000Z",
+  "amountRedeemed": 0,
+  "status": "PENDING",
+  "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "updatedAt": "2026-03-25T14:00:00.000Z",
+  "deletedBy": null,
+  "deletedAt": null
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

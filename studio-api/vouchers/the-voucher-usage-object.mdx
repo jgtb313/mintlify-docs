@@ -1,0 +1,45 @@
+---
+title: "The Voucher Usage Object"
+---
+
+<ResponseField name="voucherUsageId" type="string">
+  The voucher usage unique identifier (UUIDv7).
+</ResponseField>
+
+<ResponseField name="voucherId" type="string">
+  The voucher ID associated with this usage.
+</ResponseField>
+
+<ResponseField name="organizationId" type="string">
+  The organization ID that used the voucher.
+</ResponseField>
+
+<ResponseField name="discountAmount" type="integer">
+  The discount amount applied in cents.
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for this usage.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseExample>
+```json Example
+{
+  "voucherUsageId": "019525fe-7e6c-7fe9-e1ad-9b1c3d5f7a9d",
+  "voucherId": "019525fd-e4b8-7cb0-b8d4-0e2f4a6c8d0a",
+  "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+  "discountAmount": 2500,
+  "externalRef": "di_stripe_abc",
+  "createdAt": "2026-03-01T00:00:00.000Z",
+  "updatedAt": "2026-03-01T00:00:00.000Z"
+}
+```
+</ResponseExample>

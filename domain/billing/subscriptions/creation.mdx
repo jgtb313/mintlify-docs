@@ -1,0 +1,29 @@
+---
+title: "Subscription Creation"
+description: "How subscriptions are created."
+---
+
+## Flow
+
+<Steps>
+  <Step title="Validate">
+    Verify plan and interval exist and are ACTIVE. Check no existing active subscription.
+  </Step>
+  <Step title="Create in Stripe">
+    Create Stripe subscription with plan price. Create separate fee subscription if usage fees exist.
+  </Step>
+  <Step title="Apply Coupon">
+    If coupon provided, validate availability and apply as SubscriptionCoupon synced with Stripe.
+  </Step>
+  <Step title="Create Locally">
+    Save subscription with status ACTIVE, link to organization, plan, and interval.
+  </Step>
+</Steps>
+
+## Coupon Application
+
+Coupons can be applied at creation time. The coupon is validated for:
+- Code existence and ACTIVE status
+- Not past `redeemBy` date
+- Not exceeding `maxRedemptions`
+- Matching currency

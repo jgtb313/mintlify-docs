@@ -1,0 +1,83 @@
+---
+title: "Delete Payment Method"
+api: "DELETE /organizations/{organizationId}/payment-methods/{paymentMethodId}"
+description: "Delete a payment method."
+---
+
+Deletes a payment method by its ID.
+
+<Info>Requires `payment_method:delete` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>
+  The organization UUID.
+</ParamField>
+
+<ParamField path="paymentMethodId" type="string" required>
+  The payment method ID.
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "payment_method.cannot_delete_default_payment_method"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+```json 204
+// No content - payment method removed
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `404` | `payment_method.not_found` | Payment method not found |
+| `409` | `payment_method.cannot_delete_default_payment_method` | Cannot delete the default payment method |
+| `500` | `internal_server_error` | An unexpected error occurred |

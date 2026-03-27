@@ -1,0 +1,24 @@
+---
+title: "Pausing Subscriptions"
+description: "How subscription pausing works."
+---
+
+## Pause Options
+
+When pausing, you must specify a `collectionBehavior`:
+
+| Behavior | Description |
+|----------|-------------|
+| `KEEP_AS_DRAFT` | Pending invoices remain as drafts, collected on resume |
+| `MARK_UNCOLLECTIBLE` | Pending invoices marked as uncollectible |
+
+## Flow
+
+1. Validate subscription is `ACTIVE`
+2. Pause Stripe subscription with collection behavior
+3. Update local status to `PAUSED`
+4. Record `pausedAt` and `pausedBy`
+
+## Resume
+
+Resuming transitions back to `ACTIVE` and resumes Stripe billing.

@@ -1,0 +1,135 @@
+---
+title: "Get Profile"
+api: "GET /profile"
+description: "Retrieve the authenticated user profile."
+---
+
+Returns the authenticated user profile.
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Response
+
+<ResponseField name="userId" type="string">
+  User ID (UUIDv7).
+</ResponseField>
+
+<ResponseField name="externalRef" type="string">
+  The external reference for the user.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  User email address.
+</ResponseField>
+
+<ResponseField name="firstName" type="string">
+  First name.
+</ResponseField>
+
+<ResponseField name="lastName" type="string">
+  Last name.
+</ResponseField>
+
+<ResponseField name="locale" type="string">
+  User locale. One of: `en-US`, `pt-BR`, `es-ES`.
+</ResponseField>
+
+<ResponseField name="avatar" type="string">
+  URL to profile picture.
+</ResponseField>
+
+<ResponseField name="lastSignInAt" type="string|null">
+  Last sign-in timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="emailVerified" type="boolean">
+  Whether the email has been verified.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Creation timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Last update timestamp (ISO 8601).
+</ResponseField>
+
+<ResponseField name="organizations" type="array">
+  List of organizations the user belongs to, with role and permissions for each.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "userId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+  "externalRef": "user_ext_abc123",
+  "email": "john@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "locale": "en-US",
+  "avatar": null,
+  "lastSignInAt": "2026-03-25T14:00:00.000Z",
+  "emailVerified": true,
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "updatedAt": "2026-03-25T14:00:00.000Z",
+  "organizations": [
+    {
+      "id": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "name": "Acme Inc",
+      "role": {
+        "slug": "admin",
+        "name": "Admin",
+        "permissions": ["users:read", "users:write", "roles:read", "roles:write"]
+      }
+    }
+  ]
+}
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `500` | `internal_server_error` | An unexpected error occurred |

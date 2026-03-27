@@ -1,0 +1,91 @@
+---
+title: "Create Role"
+api: "POST /roles"
+description: "Create a role."
+---
+
+<Info>Requires `roles:write` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Request Body
+
+<ParamField body="organizationId" type="string">
+  The organization UUID.
+</ParamField>
+
+<ParamField body="slug" type="string" required>Unique role slug.</ParamField>
+<ParamField body="name" type="string" required>Display name.</ParamField>
+<ParamField body="description" type="string">Optional description.</ParamField>
+<ParamField body="permissions" type="string[]" required>Array of permission slugs.</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 201
+{
+  "roleId": "10",
+  "organizationId": null,
+  "slug": "custom-editor",
+  "name": "Custom Editor",
+  "description": null,
+  "type": "ORGANIZATION_ROLE",
+  "permissions": ["users:read"],
+  "inherited": false,
+  "createdAt": "2026-03-25T14:00:00.000Z",
+  "updatedAt": "2026-03-25T14:00:00.000Z"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "role.slug_already_exists"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "permission.not_found"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `409` | `role.slug_already_exists` | Role slug is already in use |
+| `404` | `permission.not_found` | One or more permissions do not exist |
+| `500` | `internal_server_error` | An unexpected error occurred |

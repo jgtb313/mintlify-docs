@@ -1,0 +1,62 @@
+---
+title: "Send OTP"
+api: "POST /otps"
+description: "Send a one-time password for admin authentication."
+authMethod: "none"
+---
+
+Sends a one-time password to the recipient for passwordless admin authentication.
+
+## Request Body
+
+<ParamField body="recipient" type="string" required>
+  The admin's email address or phone number.
+</ParamField>
+
+## Response
+
+<ResponseField name="otpId" type="string">
+  Unique identifier for the OTP request.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "otpId": "019525fe-8f80-7afa-f2be-0c2d4e6a8b0e"
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "auth.method_not_allowed"
+}
+```
+```json 409
+{
+  "statusCode": 409,
+  "message": "auth.email_already_verified"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `403` | `auth.method_not_allowed` | Authentication method not allowed by organization |
+| `409` | `auth.email_already_verified` | Email has already been verified |
+| `500` | `internal_server_error` | An unexpected error occurred |

@@ -1,0 +1,25 @@
+---
+title: "WorkOS Integration"
+description: "How AWSales integrates with WorkOS for identity management."
+---
+
+## Overview
+
+AWSales uses [WorkOS](https://workos.com) as its identity provider for:
+- User authentication (email/password, OAuth)
+- Organization management
+- OTP delivery
+
+## Integration Points
+
+| Feature | WorkOS Component |
+|---------|------------------|
+| User management | User Management API |
+| Organization management | Organizations API |
+| Email/password auth | Authentication API |
+| OAuth (Google, Microsoft) | SSO API |
+| Magic links / OTP | Magic Auth API |
+
+## Consistency
+
+All user and organization mutations keep local state and WorkOS in sync. If the WorkOS operation fails, local changes are rolled back.

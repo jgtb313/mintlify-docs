@@ -1,0 +1,108 @@
+---
+title: "Check Coupon Availability"
+api: "GET /coupons/{code}/availability"
+description: "Check coupon availability."
+---
+
+Checks coupon availability.
+
+<Info>Requires `coupon:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="code" type="string" required>
+  The coupon code to check.
+</ParamField>
+
+## Response
+
+<ResponseField name="coupon" type="object">
+  The coupon object.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  Availability metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="available" type="boolean">
+      Whether the coupon can be redeemed.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "coupon": {
+    "couponId": "019525fd-d3a4-7baf-a7c3-9d1e3f5b7c9f",
+    "externalRef": "cpn_1Oy2pL2eZvKYlo2C0vIqMZ8y",
+    "code": "WELCOME10",
+    "name": "Welcome Discount",
+    "type": "PERCENTAGE",
+    "amount": 10,
+    "currency": "BRL",
+    "duration": "ONCE",
+    "durationInMonths": null,
+    "maxRedemptions": 100,
+    "redeemBy": null,
+    "timesRedeemed": 25,
+    "amountRedeemed": 5000,
+    "status": "ACTIVE",
+    "createdBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedBy": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  },
+  "meta": {
+    "available": true
+  }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "coupon.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `coupon.not_found` | Coupon not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

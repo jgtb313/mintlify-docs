@@ -1,0 +1,35 @@
+---
+title: "Health Check"
+api: "GET /health"
+description: "Returns 200 if the application is running."
+authMethod: "none"
+---
+
+Returns `ok` if the application is up and accepting requests.
+
+## Response
+
+<ResponseField name="status" type="string">
+  Application status. Always `ok` when the service is running.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "status": "ok"
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `500` | `internal_server_error` | An unexpected error occurred |

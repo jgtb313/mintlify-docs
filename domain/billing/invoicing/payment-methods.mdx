@@ -1,0 +1,22 @@
+---
+title: "Payment Methods"
+description: "Supported payment methods for invoices."
+---
+
+## Card Payments
+
+Credit and debit cards processed via Stripe. Card details stored:
+- `brand` (visa, mastercard, etc.)
+- `last4` (last 4 digits)
+- `expMonth` / `expYear`
+
+## Boleto
+
+Brazilian payment slip (boleto bancario). When a boleto is generated:
+- A `url` is provided for the payment slip
+- Payment is asynchronous (user pays at a bank or online)
+- Status updated via Stripe webhook when paid
+
+## Default Payment Method
+
+Each organization can set a default payment method. This is used automatically for recurring subscription charges.

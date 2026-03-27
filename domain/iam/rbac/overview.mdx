@@ -1,0 +1,27 @@
+---
+title: "RBAC Overview"
+description: "Role-based access control model."
+---
+
+## Model
+
+1. **Roles** define what a user can do
+2. **Memberships** assign roles to users within organizations
+
+## Role Types
+
+| Type | Scope | Mutability |
+|------|-------|------------|
+| `ENVIRONMENT_ROLE` | Platform-wide | Immutable at org level |
+| `ORGANIZATION_ROLE` | Per-organization | Fully mutable |
+
+## Access Check Flow
+
+```mermaid
+sequenceDiagram
+    Client->>API: Request with Bearer token
+    API->>JWT: Validate signature + expiration
+    JWT->>API: User + org context
+    API->>WorkOS: Verify authorization
+    WorkOS->>API: Allow / Deny (403)
+```

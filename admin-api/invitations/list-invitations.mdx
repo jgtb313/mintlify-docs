@@ -1,0 +1,120 @@
+---
+title: "List Invitations"
+api: "GET /organizations/{organizationId}/invitations"
+description: "List invitations."
+---
+
+<Info>Requires `invitations:read` permission.</Info>
+
+## Headers
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token.
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="organizationId" type="string" required>Organization UUID.</ParamField>
+
+## Query Parameters
+
+<ParamField query="cursor" type="string">Cursor for pagination.</ParamField>
+<ParamField query="limit" type="integer">Results per page.</ParamField>
+<ParamField query="email" type="string">Filter by email.</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  List of invitations.
+  <Expandable title="invitation properties">
+    <ResponseField name="invitationId" type="string">Invitation ID.</ResponseField>
+    <ResponseField name="organizationId" type="string">Organization UUID.</ResponseField>
+    <ResponseField name="inviterUserId" type="string">Inviter user ID.</ResponseField>
+    <ResponseField name="acceptedUserId" type="string">Accepted user ID.</ResponseField>
+    <ResponseField name="email" type="string">Invited email.</ResponseField>
+    <ResponseField name="token" type="string">Invitation token.</ResponseField>
+    <ResponseField name="acceptInvitationUrl" type="string">URL to accept the invitation.</ResponseField>
+    <ResponseField name="roleSlug" type="string">Role slug.</ResponseField>
+    <ResponseField name="state" type="string">Invitation state.</ResponseField>
+    <ResponseField name="expiresAt" type="string">Expiration date.</ResponseField>
+    <ResponseField name="acceptedAt" type="string">Acceptance timestamp.</ResponseField>
+    <ResponseField name="revokedAt" type="string">Revocation timestamp.</ResponseField>
+    <ResponseField name="createdAt" type="string">Creation timestamp.</ResponseField>
+    <ResponseField name="updatedAt" type="string">Last update timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata.
+  <Expandable title="meta properties">
+    <ResponseField name="hasMore" type="boolean">Whether more results are available.</ResponseField>
+    <ResponseField name="limit" type="integer">Results per page.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "invitationId": "inv_abc123",
+      "organizationId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2",
+      "inviterUserId": "019525fd-56a8-7db4-8c3e-2a1b4d6f8e0c",
+      "acceptedUserId": null,
+      "email": "jane@example.com",
+      "token": "tok_abc123",
+      "acceptInvitationUrl": "https://app.awsales.com/invite?token=tok_abc123",
+      "roleSlug": "member",
+      "state": "PENDING",
+      "expiresAt": "2026-04-25T14:00:00.000Z",
+      "acceptedAt": null,
+      "revokedAt": null,
+      "createdAt": "2026-03-25T14:00:00.000Z",
+      "updatedAt": "2026-03-25T14:00:00.000Z"
+    }
+  ],
+  "meta": { "hasMore": false, "limit": 20 }
+}
+```
+```json 400
+{
+  "statusCode": 400,
+  "message": "Bad Request Error",
+  "errors": [{"message": "required", "path": "field"}]
+}
+```
+```json 401
+{
+  "statusCode": 401,
+  "message": "Unauthorized"
+}
+```
+```json 403
+{
+  "statusCode": 403,
+  "message": "Forbidden"
+}
+```
+```json 404
+{
+  "statusCode": 404,
+  "message": "organization.not_found",
+  "resourceId": "019525fd-4c38-7e30-a5c1-b6e3f4d8a9c2"
+}
+```
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `401` | `unauthorized` | Missing or invalid authentication |
+| `403` | `forbidden` | Insufficient permissions |
+| `404` | `organization.not_found` | Organization not found |
+| `500` | `internal_server_error` | An unexpected error occurred |

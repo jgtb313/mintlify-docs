@@ -1,0 +1,54 @@
+---
+title: "Email Verification"
+api: "POST /auth/email-verification"
+description: "Complete email verification."
+authMethod: "none"
+---
+
+Completes the email verification flow.
+
+## Request Body
+
+<ParamField body="otpId" type="string" required>
+  The OTP request identifier.
+</ParamField>
+
+<ParamField body="code" type="string" required>
+  The verified OTP code.
+</ParamField>
+
+## Response
+
+<ResponseExample>
+```json 204
+// No content — email verified successfully
+```
+
+```json 400
+{
+  "statusCode": 400,
+  "message": "auth.invalid_code",
+  "errors": [
+    {
+      "message": "required",
+      "path": "field"
+    }
+  ]
+}
+```
+
+```json 500
+{
+  "statusCode": 500,
+  "message": "Internal Server Error"
+}
+```
+</ResponseExample>
+
+## Error Codes
+
+| Status | Code | Description |
+|--------|------|-------------|
+| `400` | `validation_error` | Invalid input or missing required fields |
+| `400` | `auth.invalid_code` | Verification code is invalid or expired |
+| `500` | `internal_server_error` | An unexpected error occurred |
