@@ -4,7 +4,9 @@
       "Bash(git init:*)",
       "Bash(git commit:*)",
       "Bash(gh auth:*)",
-      "Bash(git remote:*)"
+      "Bash(git remote:*)",
+      "Bash(ssh -T github-jgtb313)",
+      "Bash(ssh -T github-teste)"
     ]
   }
 }
